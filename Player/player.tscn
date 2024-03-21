@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bplhhgh7y83a8"]
+[gd_scene load_steps=12 format=3 uid="uid://bplhhgh7y83a8"]
 
 [ext_resource type="PackedScene" uid="uid://cjj1fgj45i5i2" path="res://Player/sword.tscn" id="1_ey4dq"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_ouyv8"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="3_uqja8"]
+[ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_id8cv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_124wy"]
 size = Vector3(1, 1, 0.5)
@@ -67,7 +68,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.8, 1.5, -0.25)]
+"values": [Vector3(0.8, 1.25, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ihfmh"]
@@ -92,14 +93,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.277109, 0.234109, 0)
 mesh = SubResource("BoxMesh_uwx23")
 
 [node name="Arm" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.5, -0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.25, 0)
 mesh = SubResource("BoxMesh_p4s28")
 
 [node name="Sword" parent="Arm" instance=ExtResource("1_ey4dq")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.622228, -0.84656)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.282508, 0.793894, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.8, 0)
 shape = SubResource("BoxShape3D_7bkjh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -112,3 +113,14 @@ transform = Transform3D(1, 0, 0, 0, 0.903403, 0.428793, 0, -0.428793, 0.903403, 
 
 [node name="SmoothCamera" type="Camera3D" parent="CameraPivot"]
 script = ExtResource("3_uqja8")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Control" parent="CenterContainer"]
+layout_mode = 2
+script = ExtResource("4_id8cv")

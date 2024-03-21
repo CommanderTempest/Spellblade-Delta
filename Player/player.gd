@@ -1,13 +1,16 @@
 extends CharacterBody3D
 
+class_name Player
+
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.0
 @export var max_hitpoints := 100
-@export var speed := 8.0
+@export var speed := 2.0
 
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
-
+@onready var animation_player = $AnimationPlayer
+@onready var sword = $Arm/Sword
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -15,6 +18,10 @@ var mouse_motion := Vector2.ZERO
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+func _process(delta) -> void:
+	if Input.is_action_pressed("attack"):
+		attack()
 
 func _physics_process(delta):
 	handle_camera_location()
@@ -60,3 +67,6 @@ func handle_camera_location() -> void:
 	)
 	
 	mouse_motion = Vector2.ZERO
+
+func attack() -> void:
+	animation_player.play("Attack")

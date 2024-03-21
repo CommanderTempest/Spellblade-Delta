@@ -4,3 +4,5 @@ res://Player/player.gd
 res://Levels/sandbox.tscn
 res://Player/sword.tscn
 res://Player/SmoothCamera.gd
+res://Player/Crosshair.gd
+res://Player/sword.gd

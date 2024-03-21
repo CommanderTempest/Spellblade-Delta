@@ -8,16 +8,15 @@ size = Vector3(0.2, 2.5, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_rdmq2"]
 size = Vector3(0.2, 2.5, 0.2)
 
-[node name="Area3D" type="Area3D"]
+[node name="Sword" type="Node3D"]
 script = ExtResource("1_h3x47")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
 mesh = SubResource("BoxMesh_nwtg0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_rdmq2")
 
 [node name="CooldownTimer" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
