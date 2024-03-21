@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjj1fgj45i5i2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_c745w"]
+size = Vector3(0.2, 2.5, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xm8dm"]
+size = Vector3(0.2, 2.5, 0.2)
+
+[node name="Sword" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24984, 0)
+mesh = SubResource("BoxMesh_c745w")
+
+[node name="SwordHitbox" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xm8dm")

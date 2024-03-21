@@ -1,2 +1,7 @@
-CharacterBody3D
+CSGMesh3D
+Camera3D
+Node3D
+AnimationPlayer
+CollisionShape3D
 MeshInstance3D
+CharacterBody3D

@@ -1,2 +1,6 @@
-res://Levels/sandbox.tscn
 res://Player/player.tscn
+res://Levels/Materials/grey.tres
+res://Player/player.gd
+res://Levels/sandbox.tscn
+res://Player/sword.tscn
+res://Player/SmoothCamera.gd

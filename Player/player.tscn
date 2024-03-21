@@ -1,3 +1,114 @@
-[gd_scene format=3 uid="uid://bplhhgh7y83a8"]
+[gd_scene load_steps=11 format=3 uid="uid://bplhhgh7y83a8"]
+
+[ext_resource type="PackedScene" uid="uid://cjj1fgj45i5i2" path="res://Player/sword.tscn" id="1_ey4dq"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_ouyv8"]
+[ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="3_uqja8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_124wy"]
+size = Vector3(1, 1, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwx23"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_p4s28"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7bkjh"]
+size = Vector3(1.6, 2.2, 1)
+
+[sub_resource type="Animation" id="Animation_s8mkr"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arm:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arm:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector3(0.8, 1.25, 0), Vector3(0.8, 1.5, -0.25), Vector3(0.8, 1.25, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_n4k3c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arm:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arm:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.8, 1.5, -0.25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ihfmh"]
+_data = {
+"Attack": SubResource("Animation_s8mkr"),
+"RESET": SubResource("Animation_n4k3c")
+}
 
 [node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_ouyv8")
+
+[node name="Torso" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29794, 0)
+mesh = SubResource("BoxMesh_124wy")
+
+[node name="Left-Leg" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.234109, 0)
+mesh = SubResource("BoxMesh_uwx23")
+
+[node name="Right-Leg" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.277109, 0.234109, 0)
+mesh = SubResource("BoxMesh_uwx23")
+
+[node name="Arm" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.5, -0.25)
+mesh = SubResource("BoxMesh_p4s28")
+
+[node name="Sword" parent="Arm" instance=ExtResource("1_ey4dq")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.622228, -0.84656)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.282508, 0.793894, 0)
+shape = SubResource("BoxShape3D_7bkjh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ihfmh")
+}
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.903403, 0.428793, 0, -0.428793, 0.903403, 0, 3.07797, 2.41679)
+
+[node name="SmoothCamera" type="Camera3D" parent="CameraPivot"]
+script = ExtResource("3_uqja8")
