@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://dfopbxglnfycn" path="res://Levels/Materials/grey.tres" id="1_x4fnc"]
 [ext_resource type="PackedScene" uid="uid://bplhhgh7y83a8" path="res://Player/player.tscn" id="2_npqm8"]
-[ext_resource type="PackedScene" uid="uid://bv3q2aevadb0h" path="res://Enemy/enemy.tscn" id="3_cybdg"]
+[ext_resource type="PackedScene" uid="uid://d233it8xk4epo" path="res://Enemy/swordsman.tscn" id="3_5ccaw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hnlq2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -36,8 +36,6 @@ shadow_enabled = true
 [node name="Player" parent="." instance=ExtResource("2_npqm8")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
-[node name="Enemy" parent="." instance=ExtResource("3_cybdg")]
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_oml4r")
 
@@ -52,3 +50,6 @@ material = ExtResource("1_x4fnc")
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/LevelObjects"]
 transform = Transform3D(1, 0, 0, 0, 0.4, 0, 0, 0, 0.1, 0, 0.201777, -0.721017)
 use_collision = true
+
+[node name="Swordsman" parent="." instance=ExtResource("3_5ccaw")]
+transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, 0.25, -3)

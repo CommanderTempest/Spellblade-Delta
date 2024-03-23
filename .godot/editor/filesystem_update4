@@ -8,3 +8,5 @@ res://Levels/sandbox.tscn
 res://Player/player.gd
 res://Player/WeaponHandler.gd
 res://Weapons/collider.gd
+res://Enemy/enemy.gd
+res://Enemy/swordsman.tscn

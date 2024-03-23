@@ -13,6 +13,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var enemy_damage := 20
 @export var aggro_range := 12.0
 
+@export var weapon: Node3D # this enemy's wielded weapon
+
 var player
 var provoked := false
 var hitpoints: int = max_hitpoints:
@@ -69,5 +71,5 @@ func attack() -> void:
 	#player.take_damage()
 	print("?")
 
-func take_damage() -> void:
+func enemy_take_damage() -> void:
 	print("Took som damage! ENEMY")
