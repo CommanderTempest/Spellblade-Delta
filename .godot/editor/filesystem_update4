@@ -6,3 +6,4 @@ res://Enemy/enemy.tscn
 res://Enemy/enemy.gd
 res://Player/sword.gd
 res://Player/player.gd
+res://Enemy/sword.gd

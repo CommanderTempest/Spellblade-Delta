@@ -68,3 +68,6 @@ func attack() -> void:
 	#player.hitpoints -= enemy_damage
 	#player.take_damage()
 	print("?")
+
+func take_damage() -> void:
+	print("Took som damage! ENEMY")

@@ -140,6 +140,7 @@ wait_time = 4.0
 [node name="BlockCD" type="Timer" parent="."]
 wait_time = 2.0
 
+[connection signal="body_entered" from="Arm/Sword" to="." method="_on_sword_body_entered"]
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
 [connection signal="timeout" from="ParryTimer" to="." method="_on_parry_timer_timeout"]
 [connection signal="timeout" from="DodgeCD" to="." method="_on_dodge_cd_timeout"]

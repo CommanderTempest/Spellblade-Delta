@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvrsja6ftr3d4"]
+[gd_scene load_steps=9 format=3 uid="uid://dvrsja6ftr3d4"]
 
 [ext_resource type="Material" uid="uid://dfopbxglnfycn" path="res://Levels/Materials/grey.tres" id="1_x4fnc"]
 [ext_resource type="PackedScene" uid="uid://bplhhgh7y83a8" path="res://Player/player.tscn" id="2_npqm8"]
@@ -23,8 +23,6 @@ polygons = [PackedInt32Array(5, 4, 0), PackedInt32Array(0, 4, 3), PackedInt32Arr
 
 [sub_resource type="BoxMesh" id="BoxMesh_22qak"]
 size = Vector3(20, 1, 20)
-
-[sub_resource type="BoxMesh" id="BoxMesh_he2k4"]
 
 [node name="Sandbox" type="Node3D"]
 
@@ -51,6 +49,6 @@ material = ExtResource("1_x4fnc")
 
 [node name="LevelObjects" type="Node3D" parent="NavigationRegion3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/LevelObjects"]
-transform = Transform3D(1, 0, 0, 0, 0.361891, 0, 0, 0, 0.170855, 0, 0.185, -0.7)
-mesh = SubResource("BoxMesh_he2k4")
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/LevelObjects"]
+transform = Transform3D(1, 0, 0, 0, 0.4, 0, 0, 0, 0.1, 0, 0.201777, -0.721017)
+use_collision = true

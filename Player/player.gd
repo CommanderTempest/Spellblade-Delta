@@ -39,14 +39,12 @@ var hitpoints: int = max_hitpoints:
 var isDodging := false
 var isBlocking := false
 var isParrying := false
+var isSwinging := false #if the player is swinging/attacking with sword
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _process(delta) -> void:
-	if Input.is_action_pressed("attack"):
-		if not isBlocking and not isDodging:
-			attack()
 	if Input.is_action_just_pressed("dodge") and dodge_cd.is_stopped():
 		isDodging = true
 		dodge_timer.start()
@@ -71,6 +69,9 @@ func _physics_process(delta):
 		else:
 			velocity.y -= gravity * delta * fall_multiplier
 
+	if Input.is_action_just_pressed("attack"):
+		if not isBlocking and not isDodging:
+			attack()
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = sqrt(jump_height * 2.0 * gravity)
@@ -107,6 +108,8 @@ func handle_camera_location() -> void:
 
 func attack() -> void:
 	animation_player.play("Attack")
+
+
 	
 func take_damage() -> void:
 	if isParrying:
@@ -142,4 +145,11 @@ func _on_block_cd_timeout():
 	block_cd.stop()
 	print("Block off CD")
 	
-#***********SECTION C***************
+#***********SIGNALS***************
+
+func _on_sword_body_entered(body):
+	if body != self:
+		if body.is_in_group("Enemy"):
+			print("Hit enemy!")
+		elif body.is_in_group("Player"):
+			print("Stop hitting yoself")
