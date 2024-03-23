@@ -1,11 +1,13 @@
+Timer
+MeshInstance3D
+Node3D
+NavigationRegion3D
+NavigationAgent3D
 CollisionShape3D
 CharacterBody3D
-MeshInstance3D
-Timer
 Area3D
 RigidBody3D
 CSGBox3D
-Node3D
 Control
 CenterContainer
 CSGMesh3D

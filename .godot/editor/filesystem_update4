@@ -1,8 +1,8 @@
-res://Player/player.tscn
 res://Levels/Materials/grey.tres
-res://Player/player.gd
 res://Levels/sandbox.tscn
+res://Player/player.tscn
 res://Player/sword.tscn
-res://Player/SmoothCamera.gd
-res://Player/Crosshair.gd
+res://Enemy/enemy.tscn
+res://Enemy/enemy.gd
 res://Player/sword.gd
+res://Player/player.gd

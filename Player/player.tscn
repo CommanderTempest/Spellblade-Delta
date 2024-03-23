@@ -41,7 +41,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(-2, -2, -2),
 "update": 0,
-"values": [Vector3(0.8, 1.25, 0), Vector3(0.8, 1.5, -0.25), Vector3(0.8, 1.25, 0)]
+"values": [Vector3(0.8, 0.5, 0), Vector3(0.8, 0.75, -0.25), Vector3(0.8, 0.5, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_n4k3c"]
@@ -68,7 +68,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.8, 1.25, 0)]
+"values": [Vector3(0.8, 0.5, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ihfmh"]
@@ -77,7 +77,7 @@ _data = {
 "RESET": SubResource("Animation_n4k3c")
 }
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_ouyv8")
 
 [node name="Torso" type="MeshInstance3D" parent="."]
@@ -93,7 +93,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.277109, 0.234109, 0)
 mesh = SubResource("BoxMesh_uwx23")
 
 [node name="Arm" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.5, 0)
 mesh = SubResource("BoxMesh_p4s28")
 
 [node name="Sword" parent="Arm" instance=ExtResource("1_ey4dq")]
@@ -124,3 +124,23 @@ grow_vertical = 2
 [node name="Crosshair" type="Control" parent="CenterContainer"]
 layout_mode = 2
 script = ExtResource("4_id8cv")
+
+[node name="DodgeTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ParryTimer" type="Timer" parent="."]
+wait_time = 0.4
+
+[node name="DodgeCD" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="ParryCD" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="BlockCD" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
+[connection signal="timeout" from="ParryTimer" to="." method="_on_parry_timer_timeout"]
+[connection signal="timeout" from="DodgeCD" to="." method="_on_dodge_cd_timeout"]
+[connection signal="timeout" from="BlockCD" to="." method="_on_block_cd_timeout"]

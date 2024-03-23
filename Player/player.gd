@@ -5,23 +5,60 @@ class_name Player
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.0
 @export var max_hitpoints := 100
+@export var max_posture := 100
+@export var posture_damage := 20
 @export var speed := 2.0
 
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
 @onready var animation_player = $AnimationPlayer
 @onready var sword = $Arm/Sword
+@onready var dodge_timer = $DodgeTimer
+@onready var parry_timer = $ParryTimer
+@onready var dodge_cd = $DodgeCD
+@onready var parry_cd = $ParryCD
+@onready var block_cd = $BlockCD
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion := Vector2.ZERO
+
+var posture: int = max_posture:
+	set(value):
+		#update UI
+		posture = value
+		if posture <= 0:
+			print("STUNNED")
+			posture = max_posture
+var hitpoints: int = max_hitpoints: 
+	set(value):
+		hitpoints = value
+		if hitpoints <= 0:
+			print("You're dead lol")
+
+var isDodging := false
+var isBlocking := false
+var isParrying := false
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _process(delta) -> void:
 	if Input.is_action_pressed("attack"):
-		attack()
+		if not isBlocking and not isDodging:
+			attack()
+	if Input.is_action_just_pressed("dodge") and dodge_cd.is_stopped():
+		isDodging = true
+		dodge_timer.start()
+	if Input.is_action_just_pressed("block") and block_cd.is_stopped():
+		isParrying = true
+		isBlocking = true
+		parry_timer.start()
+	if Input.is_action_just_released("block"):
+		isParrying = false
+		isBlocking = false
+		parry_timer.stop()
+		block_cd.start()
 
 func _physics_process(delta):
 	handle_camera_location()
@@ -70,3 +107,39 @@ func handle_camera_location() -> void:
 
 func attack() -> void:
 	animation_player.play("Attack")
+	
+func take_damage() -> void:
+	if isParrying:
+		print("PARRIED!")
+	elif isDodging:
+		print("DODGED!")
+	elif isBlocking:
+		print("Blocked, posture took a hit")
+		posture -= posture_damage
+	else:
+		print("YOU'VE BEEN HIT!")
+		
+
+#**********TIMERS***********
+
+func _on_dodge_timer_timeout():
+	isDodging = false
+	print("Dodge on CD")
+	dodge_timer.stop()
+	dodge_cd.start()
+	
+func _on_parry_timer_timeout():
+	isParrying = false
+	print("Parry on CD")
+	parry_timer.stop()
+	block_cd.start()
+
+func _on_dodge_cd_timeout():
+	dodge_cd.stop()
+	print("Dodge off CD")
+
+func _on_block_cd_timeout():
+	block_cd.stop()
+	print("Block off CD")
+	
+#***********SECTION C***************
