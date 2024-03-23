@@ -18,6 +18,7 @@ class_name Player
 @onready var dodge_cd = $DodgeCD
 @onready var parry_cd = $ParryCD
 @onready var block_cd = $BlockCD
+@onready var swing_timer = $Arm/WeaponHandler/SwingTimer # this is attack speed
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -39,10 +40,12 @@ var hitpoints: int = max_hitpoints:
 var isDodging := false
 var isBlocking := false
 var isParrying := false
-var isSwinging := false #if the player is swinging/attacking with sword
+var isSwinging := false # if the player is swinging/attacking with sword
+var canSwing := true    # player can currently attack
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	swing_timer.wait_time = WeaponHandler.get_cd("Sword")
 	
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("dodge") and dodge_cd.is_stopped():
@@ -70,8 +73,8 @@ func _physics_process(delta):
 			velocity.y -= gravity * delta * fall_multiplier
 
 	if Input.is_action_just_pressed("attack"):
-		if not isBlocking and not isDodging:
-			attack()
+		attack()
+
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = sqrt(jump_height * 2.0 * gravity)
@@ -107,10 +110,14 @@ func handle_camera_location() -> void:
 	mouse_motion = Vector2.ZERO
 
 func attack() -> void:
-	animation_player.play("Attack")
+	if canSwing and not isBlocking and not isDodging:
+		isSwinging = true
+		canSwing = false
+		swing_timer.start()
+		animation_player.play("Attack")
+		if isWeaponInContact and isSwinging:
+			print("Hit enemy! Contact")
 
-
-	
 func take_damage() -> void:
 	if isParrying:
 		print("PARRIED!")
@@ -135,7 +142,6 @@ func _on_parry_timer_timeout():
 	isParrying = false
 	print("Parry on CD")
 	parry_timer.stop()
-	block_cd.start()
 
 func _on_dodge_cd_timeout():
 	dodge_cd.stop()
@@ -145,11 +151,26 @@ func _on_block_cd_timeout():
 	block_cd.stop()
 	print("Block off CD")
 	
+func _on_swing_timer_timeout():
+	canSwing = true
+	swing_timer.stop()
+	
 #***********SIGNALS***************
+
+var isWeaponInContact := false # if weapon is currently inside another body
 
 func _on_sword_body_entered(body):
 	if body != self:
 		if body.is_in_group("Enemy"):
+			isWeaponInContact = true
 			print("Hit enemy!")
 		elif body.is_in_group("Player"):
 			print("Stop hitting yoself")
+
+func _on_sword_body_exited(body):
+	if body != self:
+		isWeaponInContact = false
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "Attack":
+		isSwinging = false
