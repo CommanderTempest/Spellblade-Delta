@@ -17,6 +17,7 @@ size = Vector3(1.6, 2.2, 1)
 
 [sub_resource type="Animation" id="Animation_s8mkr"]
 resource_name = "Attack"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -24,10 +25,10 @@ tracks/0/path = NodePath("Arm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
+"times": PackedFloat32Array(0, 0.5, 0.7, 1.1, 1.5),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0), Vector3(0.399073, 0.899455, 0), Vector3(1.5708, 0, 0), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -36,10 +37,10 @@ tracks/1/path = NodePath("Arm:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
+"times": PackedFloat32Array(0, 0.5, 0.7, 1.1, 1.5),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
 "update": 0,
-"values": [Vector3(0.8, 0.5, 0), Vector3(0.8, 0.75, -0.25), Vector3(0.8, 0.5, 0)]
+"values": [Vector3(0.8, 0.5, 0), Vector3(0.8, 0.75, -0.25), Vector3(0.8, 0.75, -0.25), Vector3(0.8, 0.75, -0.25), Vector3(0.8, 0.5, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_n4k3c"]
@@ -108,3 +109,7 @@ libraries = {
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="6"]
 debug_enabled = true
+
+[connection signal="body_entered" from="Arm/Sword" to="." method="_on_sword_body_entered"]
+[connection signal="body_exited" from="Arm/Sword" to="." method="_on_sword_body_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

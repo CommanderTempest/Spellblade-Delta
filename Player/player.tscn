@@ -20,6 +20,7 @@ size = Vector3(1.6, 2.2, 1)
 
 [sub_resource type="Animation" id="Animation_s8mkr"]
 resource_name = "Attack"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -27,10 +28,10 @@ tracks/0/path = NodePath("Arm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
+"times": PackedFloat32Array(0, 0.5, 0.8, 1.1, 1.4),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(1.0472, -1.5708, -1.5708), Vector3(0.236934, 0.221131, -0.629326), Vector3(1.0472, -1.5708, -1.5708), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -39,10 +40,10 @@ tracks/1/path = NodePath("Arm:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
+"times": PackedFloat32Array(0, 0.5, 0.8, 1.1, 1.4),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
 "update": 0,
-"values": [Vector3(0.8, 1.25, 0), Vector3(0.8, 1.5, -0.25), Vector3(0.8, 1.25, 0)]
+"values": [Vector3(0.8, 1.25, 0), Vector3(0.8, 1.5, -0.25), Vector3(0.65649, 1.42, -0.17), Vector3(0.8, 1.5, -0.25), Vector3(0.8, 1.25, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_n4k3c"]

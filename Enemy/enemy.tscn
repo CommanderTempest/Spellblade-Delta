@@ -5,3 +5,7 @@
 [node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.25, -3)
 script = ExtResource("1_wuem0")
+
+[node name="SwingTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="SwingTimer" to="." method="_on_swing_timer_timeout"]

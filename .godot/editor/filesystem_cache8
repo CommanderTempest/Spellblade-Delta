@@ -1,18 +1,23 @@
 ea4bc82a6ad023ab7ee23ee620429895
 ::res://::1711030799
 icon.svg::CompressedTexture2D::6007040927051865926::1711030804::1711030812::1::::<><>::
+Red.glb::PackedScene::7309046573943871889::1711290938::1711290940::1::::<><>::uid://0qmbbna5xjfr::::res://Red_Body Base Color.png<>uid://c54q0qwxpbqvw::::res://Red_clothing Base Color.png
+Red_Body Base Color.png::CompressedTexture2D::1788481597369680695::1711290938::1711290940::1::::<><>::
+Red_clothing Base Color.png::CompressedTexture2D::6939390623551210744::1711290938::1711290940::1::::<><>::
 ::res://Enemy/::1711203295
-enemy.gd::GDScript::-1::1711207666::0::1::::Enemy<>CharacterBody3D<>::
-enemy.tscn::PackedScene::3919208672658631957::1711215016::0::1::::<><>::uid://cjj1fgj45i5i2::::res://Player/BaseWeapon.tscn<>res://Enemy/enemy.gd
+enemy.gd::GDScript::-1::1711220264::0::1::::Enemy<>CharacterBody3D<>::
+enemy.tscn::PackedScene::3919208672658631957::1711220386::0::1::::<><>::res://Enemy/enemy.gd
+swordsman.tscn::PackedScene::9113878818550272964::1711220386::0::1::::<><>::uid://bv3q2aevadb0h::::res://Enemy/enemy.tscn<>uid://d0n831ywfiu6d::::res://Weapons/sword.tscn
 ::res://Levels/::1711030877
-sandbox.tscn::PackedScene::8669431215454144907::1711210434::0::1::::<><>::uid://dfopbxglnfycn::::res://Levels/Materials/grey.tres<>uid://bplhhgh7y83a8::::res://Player/player.tscn<>uid://bv3q2aevadb0h::::res://Enemy/enemy.tscn
+sandbox.tscn::PackedScene::8669431215454144907::1711220698::0::1::::<><>::uid://dfopbxglnfycn::::res://Levels/Materials/grey.tres<>uid://bplhhgh7y83a8::::res://Player/player.tscn<>uid://d233it8xk4epo::::res://Enemy/swordsman.tscn
 ::res://Levels/Materials/::1711030912
 grey.tres::StandardMaterial3D::7540021316334969993::1711214938::0::1::::<><>::
 ::res://Player/::1711033857
-BaseWeapon.tscn::PackedScene::5424708261097891491::1711214938::0::1::::<><>::
 Crosshair.gd::GDScript::-1::1711052418::0::1::::<>Control<>::
-player.gd::GDScript::-1::1711210400::0::1::::Player<>CharacterBody3D<>::
-player.tscn::PackedScene::3462399340506010713::1711215016::0::1::::<><>::uid://cjj1fgj45i5i2::::res://Player/BaseWeapon.tscn<>res://Player/player.gd<>res://Player/SmoothCamera.gd<>res://Player/Crosshair.gd
+player.gd::GDScript::-1::1711219780::0::1::::Player<>CharacterBody3D<>::
+player.tscn::PackedScene::3462399340506010713::1711220386::0::1::::<><>::res://Player/player.gd<>uid://d0n831ywfiu6d::::res://Weapons/sword.tscn<>res://Player/WeaponHandler.gd<>res://Player/SmoothCamera.gd<>res://Player/Crosshair.gd
 SmoothCamera.gd::GDScript::-1::1711054570::0::1::::<>Camera3D<>::
+WeaponHandler.gd::GDScript::-1::1711216474::0::1::::WeaponHandler<>Node3D<>::
 ::res://Weapons/::1711215002
-sword.tscn::PackedScene::8942875119512529601::1711215016::0::1::::<><>::uid://cjj1fgj45i5i2::::res://Player/BaseWeapon.tscn
+BaseWeapon.tscn::PackedScene::5424708261097891491::1711220386::0::1::::<><>::
+sword.tscn::PackedScene::8942875119512529601::1711220386::0::1::::<><>::uid://cjj1fgj45i5i2::::res://Weapons/BaseWeapon.tscn

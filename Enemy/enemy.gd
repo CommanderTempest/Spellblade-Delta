@@ -7,13 +7,20 @@ const SPEED = 1.0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var navigation_agent_3d = $NavigationAgent3D
 @onready var animation_player = $AnimationPlayer
+@onready var swing_timer = $SwingTimer
 
 @export var max_hitpoints := 100
 @export var attack_range := 1.5
 @export var enemy_damage := 20
 @export var aggro_range := 12.0
+@export var attack_speed := 0.6
 
 @export var weapon: Node3D # this enemy's wielded weapon
+
+var isSwinging := false
+var canSwing := true
+
+var contactEnemy : Node3D # the enemy the weapon is in contact with
 
 var player
 var provoked := false
@@ -26,7 +33,7 @@ var hitpoints: int = max_hitpoints:
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
-	#animation_player.play("Idle")
+	swing_timer.wait_time = attack_speed
 	
 func _process(delta) -> void:
 	if provoked:
@@ -47,8 +54,7 @@ func _physics_process(delta) ->void:
 	
 	if provoked:
 		if distance <= attack_range:
-			animation_player.play("Attack")
-			#attack()
+			attack()
 	
 	if direction:
 		look_at_target(-direction)
@@ -67,9 +73,41 @@ func look_at_target(direction: Vector3) -> void:
 	look_at(global_position + adjusted_direction, Vector3.UP, true)
 
 func attack() -> void:
-	#player.hitpoints -= enemy_damage
-	#player.take_damage()
-	print("?")
+	if canSwing:
+		animation_player.play("Attack")
+		isSwinging = true
+		canSwing = false
+		if isWeaponInContact and isSwinging:
+			print("Hit Player! Contact")
+			if contactEnemy:
+				contactEnemy.take_damage(enemy_damage)
 
-func enemy_take_damage() -> void:
+func enemy_take_damage(damage: int) -> void:
 	print("Took som damage! ENEMY")
+	hitpoints -= damage
+	
+#*************SIGNALS******************
+
+var isWeaponInContact := false # if weapon is currently inside another body
+
+func _on_sword_body_entered(body):
+	if body != self:
+		if body.is_in_group("Player"):
+			isWeaponInContact = true
+			contactEnemy = body
+			if contactEnemy:
+				contactEnemy.take_damage(enemy_damage)
+		elif body.is_in_group("Enemy"):
+			print("Stop hitting yoself")
+
+func _on_sword_body_exited(body):
+	if body != self:
+		isWeaponInContact = false
+
+func _on_swing_timer_timeout():
+	canSwing = true
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "Attack":
+		isSwinging = false
+	swing_timer.start()

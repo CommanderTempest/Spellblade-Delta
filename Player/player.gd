@@ -8,6 +8,7 @@ class_name Player
 @export var max_posture := 100
 @export var posture_damage := 20
 @export var speed := 2.0
+@export var player_damage := 20
 
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
@@ -120,9 +121,9 @@ func attack() -> void:
 		if isWeaponInContact and isSwinging:
 			print("Hit enemy! Contact")
 			if contactEnemy:
-				contactEnemy.enemy_take_damage()
+				contactEnemy.enemy_take_damage(player_damage)
 
-func take_damage() -> void:
+func take_damage(damage: int) -> void:
 	if isParrying:
 		print("PARRIED!")
 	elif isDodging:
@@ -132,6 +133,7 @@ func take_damage() -> void:
 		posture -= posture_damage
 	else:
 		print("YOU'VE BEEN HIT!")
+		hitpoints -= damage
 		
 
 #**********TIMERS***********
