@@ -1,0 +1,152 @@
+extends CharacterBody3D
+
+class_name BaseEnemy
+
+@onready var navigation_agent_3d = $NavigationAgent3D
+@onready var animation_player = $AnimationPlayer
+
+@export var max_hitpoints := 100
+@export var attack_range := 1.5
+@export var enemy_damage := 20
+@export var aggro_range := 12.0
+@export var attack_speed := 2 # How much time passes between attacks
+@export var attack_parts: Array
+@export var sightLine: Area3D
+
+const SPEED = 1.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+var isInContact := false  # is the enemy is currently in contact with a target
+var primaryTarget: Node3D # the target the enemy is tracking/following
+var contactTarget: Node3D # the target the enemy is in contact with
+var isAttacking := false  # whether the enemy is currently making an attack
+var canAttack := true     # whether the enemy can currently make an attack
+var time_between_attacks: Timer
+var provoked := false     # whether the enemy is aggroed to a target
+var hitpoints: int = max_hitpoints:
+	set(value):
+		hitpoints = value
+		if hitpoints <= 0:
+			defeat()
+		elif not provoked:
+			provoked = true
+
+#*********BUILT-IN FUNCTIONS************
+
+func _ready() -> void:
+	# connect every item in attack parts to a contact
+	for item in attack_parts:
+		if item is Area3D:
+			print(item.name)
+			item.body_entered.connect(entered_contact)
+			item.body_exited.connect(exited_contact)
+
+	time_between_attacks.wait_time = attack_speed
+	time_between_attacks.timeout.connect(attack_timeout)
+	
+	animation_player.animation_finished.connect(anim_finish)
+	
+	sightLine.body_entered.connect(detect_target)
+
+func _process(delta) -> void:
+	if provoked:
+		navigation_agent_3d.target_position = primaryTarget.global_position
+
+func _physics_process(delta) ->void:
+	var next_position = navigation_agent_3d.get_next_path_position()
+	
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+
+	var direction = global_position.direction_to(next_position)
+	
+	if primaryTarget:
+		var distance = global_position.distance_to(primaryTarget.global_position)
+	
+		if (distance < aggro_range):
+			provoked = true
+		
+		if provoked:
+			if distance <= attack_range:
+				attack()
+	
+	if direction:
+		look_at_target(-direction)
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+	move_and_slide()
+
+#**************FUNCTIONS**************
+
+# this function has the enemy face towards the target every frame
+func look_at_target(direction: Vector3) -> void:
+	var adjusted_direction = direction
+	# prevents the enemy from tilting when player is on a different elevation
+	adjusted_direction.y = 0 
+	look_at(global_position + adjusted_direction, Vector3.UP, true)
+
+# this function runs when an enemy is in range of a target
+func attack() -> void:
+	if canAttack:
+		# need to run a check for if they have multiple moves
+		# may also need a list to hold possible moves
+		# can run distance to decide which move to make
+		# MOVES SHOULD BE IN THE CHILD CLASSES?
+		if animation_player.has_animation("Attack"):
+			animation_player.play("Attack")
+		else:
+			print(self.name + " has no animation: Attack")
+		isAttacking = true
+		canAttack = false
+		if isInContact and isAttacking:
+			print("Hit Contact!")
+			if contactTarget:
+				contactTarget.take_damage(enemy_damage)
+
+func enemy_take_damage(damage: int) -> void:
+	print(self.name + " took damage!")
+	hitpoints -= damage
+
+# this function runs when an enemy's HP drops to 0
+func defeat() -> void:
+	if animation_player.has_animation("Defeat"):
+		animation_player.play("Defeat")
+	else:
+		print(self.name + " has no animation: Defeat")
+		queue_free()
+	# drop loot?
+	# drop exp? hp recovery?
+	# start a deathTimer here, when it runs out, run queue_free()
+
+#***************SIGNALS****************
+
+func entered_contact(body):
+	if body != self:
+		contactTarget = body
+		isInContact = true
+
+func exited_contact(body):
+	isInContact = false
+
+# signal fired when a body enters within the sight range of the enemy
+func detect_target(body):
+	if body != self:
+		primaryTarget = body
+
+# signal fired when attack timer runs out
+func attack_timeout():
+	canAttack = true
+	time_between_attacks.stop()
+
+# signal fired when an animation finishes
+func anim_finish(anim_name):
+	if anim_name == "Attack":
+		isAttacking = false
+		time_between_attacks.start()

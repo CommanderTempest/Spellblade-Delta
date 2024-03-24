@@ -79,8 +79,9 @@ _data = {
 "RESET": SubResource("Animation_n4k3c")
 }
 
-[node name="Player" type="CharacterBody3D" groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon") groups=["Player"]]
 script = ExtResource("1_ouyv8")
+weapon = NodePath("Arm/WeaponHandler/Sword")
 
 [node name="Torso" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29794, 0)
@@ -147,8 +148,6 @@ wait_time = 4.0
 [node name="BlockCD" type="Timer" parent="."]
 wait_time = 2.0
 
-[connection signal="body_entered" from="Arm/WeaponHandler/Sword" to="." method="_on_sword_body_entered"]
-[connection signal="body_exited" from="Arm/WeaponHandler/Sword" to="." method="_on_sword_body_exited"]
 [connection signal="timeout" from="Arm/WeaponHandler/SwingTimer" to="." method="_on_swing_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]

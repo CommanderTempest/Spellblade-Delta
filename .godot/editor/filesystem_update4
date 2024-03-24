@@ -1,9 +1,13 @@
 res://Player/player.tscn
 res://Levels/Materials/grey.tres
-res://Enemy/swordsman.tscn
-res://Enemy/enemy.tscn
-res://Enemy/enemy.gd
+res://Player/player.gd
 res://Levels/sandbox.tscn
+res://Enemy/enemy.tscn
 res://Weapons/BaseWeapon.tscn
 res://Weapons/sword.tscn
-res://Player/player.gd
+res://Enemy/swordsman.tscn
+res://Items/items.json
+res://Base_Enemy.gd
+res://BaseEnemy.gd
+res://Enemy/enemy.gd
+res://HumanoidEnemy.gd

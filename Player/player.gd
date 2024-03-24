@@ -9,11 +9,11 @@ class_name Player
 @export var posture_damage := 20
 @export var speed := 2.0
 @export var player_damage := 20
+@export var weapon: Area3D
 
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
 @onready var animation_player = $AnimationPlayer
-@onready var sword = $Arm/Sword
 @onready var dodge_timer = $DodgeTimer
 @onready var parry_timer = $ParryTimer
 @onready var dodge_cd = $DodgeCD
@@ -49,6 +49,8 @@ var contactEnemy : Node3D # the enemy the weapon is in contact with
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	swing_timer.wait_time = WeaponHandler.get_cd("Sword")
+	weapon.body_entered.connect(_on_weapon_body_entered)
+	weapon.body_exited.connect(_on_weapon_body_exited)
 	
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("dodge") and dodge_cd.is_stopped() and not isBlocking:
@@ -56,13 +58,14 @@ func _process(delta) -> void:
 		dodge_timer.start()
 	if Input.is_action_just_pressed("block") and block_cd.is_stopped() and not isDodging:
 		isParrying = true
-		isBlocking = true
 		parry_timer.start()
 	if Input.is_action_just_released("block"):
 		isParrying = false
 		isBlocking = false
 		parry_timer.stop()
 		block_cd.start()
+	if Input.is_action_pressed("block") and block_cd.is_stopped() and not isDodging:
+		isBlocking = true
 
 func _physics_process(delta):
 	handle_camera_location()
@@ -165,7 +168,7 @@ func _on_swing_timer_timeout():
 
 var isWeaponInContact := false # if weapon is currently inside another body
 
-func _on_sword_body_entered(body):
+func _on_weapon_body_entered(body):
 	if body != self:
 		if body.is_in_group("Enemy"):
 			isWeaponInContact = true
@@ -174,7 +177,7 @@ func _on_sword_body_entered(body):
 		elif body.is_in_group("Player"):
 			print("Stop hitting yoself")
 
-func _on_sword_body_exited(body):
+func _on_weapon_body_exited(body):
 	if body != self:
 		isWeaponInContact = false
 

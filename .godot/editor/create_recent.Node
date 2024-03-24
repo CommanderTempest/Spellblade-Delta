@@ -1,8 +1,9 @@
+ShapeCast3D
+RayCast3D
 Timer
 Node3D
 CollisionShape3D
 MeshInstance3D
-ShapeCast3D
 CSGBox3D
 NavigationRegion3D
 NavigationAgent3D
