@@ -1,3 +1,6 @@
+Timer
+Node
+Node3D
 CollisionShape3D
 AnimationPlayer
 CharacterBody3D
@@ -6,8 +9,6 @@ Area3D
 NavigationAgent3D
 ShapeCast3D
 RayCast3D
-Timer
-Node3D
 CSGBox3D
 NavigationRegion3D
 RigidBody3D

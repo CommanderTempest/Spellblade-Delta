@@ -10,3 +10,4 @@ res://Enemy/swordsman.tscn
 res://humanoid.tscn
 res://Player/player.gd
 res://Weapons/BaseWeapon.gd
+res://HumanoidEnemy.gd

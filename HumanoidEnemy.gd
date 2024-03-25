@@ -30,6 +30,14 @@ func _ready():
 	stun_duration.timeout.connect(stun_end)
 	stun_duration.wait_time = 3 # in seconds
 
+func _process(delta):
+	super._process(delta)
+	
+	if super.getPrimaryTarget().getIsSwinging():
+		# basically, if we're here, the target is swinging, so we want to block/parry
+		# block/parry is randomized
+		pass
+
 func enemy_take_damage(damage: int):
 	if isParrying:
 		print(self.name + " parried!")

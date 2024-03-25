@@ -155,6 +155,9 @@ func randomize_move() -> String:
 	else:
 		return "Attack"
 
+func getPrimaryTarget() -> Node3D:
+	return primaryTarget
+
 #***************SIGNALS****************
 
 func entered_contact(body):

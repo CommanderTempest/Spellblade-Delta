@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dvrsja6ftr3d4"]
 
 [ext_resource type="Material" uid="uid://dfopbxglnfycn" path="res://Levels/Materials/grey.tres" id="1_x4fnc"]
-[ext_resource type="PackedScene" uid="uid://bplhhgh7y83a8" path="res://Player/player.tscn" id="2_npqm8"]
+[ext_resource type="PackedScene" uid="uid://vnqpcdri4l71" path="res://Player/player.tscn" id="2_npqm8"]
 [ext_resource type="PackedScene" uid="uid://sgo8dp2bqts8" path="res://Enemy/butcher.tscn" id="3_pyaxc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hnlq2"]
@@ -33,9 +33,6 @@ environment = SubResource("Environment_sfrbh")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("2_npqm8")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_oml4r")
 
@@ -53,3 +50,6 @@ use_collision = true
 
 [node name="Butcher" parent="." instance=ExtResource("3_pyaxc")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.124386, -1.09754)
+
+[node name="Player" parent="." instance=ExtResource("2_npqm8")]
+transform = Transform3D(-0.15, 0, -1.31134e-08, 0, 0.15, 0, 1.31134e-08, 0, -0.15, 0, 0, 0)
