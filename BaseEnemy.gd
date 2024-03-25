@@ -9,8 +9,8 @@ class_name BaseEnemy
 @export var attack_range := 1.5
 @export var enemy_damage := 20
 @export var aggro_range := 12.0
-@export var attack_speed := 2 # How much time passes between attacks
-@export var attack_parts: Array
+@export var attack_speed := 2.0 # How much time passes between attacks
+@export var attack_parts: Array[Area3D]
 @export var sightLine: Area3D
 
 const SPEED = 1.0
@@ -23,7 +23,8 @@ var primaryTarget: Node3D # the target the enemy is tracking/following
 var contactTarget: Node3D # the target the enemy is in contact with
 var isAttacking := false  # whether the enemy is currently making an attack
 var canAttack := true     # whether the enemy can currently make an attack
-var time_between_attacks: Timer
+var time_between_attacks: Timer = Timer.new()
+var moves : Array[String] # holds possible moves for the enemy to attack with
 var provoked := false     # whether the enemy is aggroed to a target
 var hitpoints: int = max_hitpoints:
 	set(value):
@@ -33,26 +34,35 @@ var hitpoints: int = max_hitpoints:
 		elif not provoked:
 			provoked = true
 
+#add_child(time_between_attacks)
 #*********BUILT-IN FUNCTIONS************
 
 func _ready() -> void:
 	# connect every item in attack parts to a contact
 	for item in attack_parts:
-		if item is Area3D:
-			print(item.name)
-			item.body_entered.connect(entered_contact)
-			item.body_exited.connect(exited_contact)
+		print(item.name)
+		item.body_entered.connect(entered_contact)
+		item.body_exited.connect(exited_contact)
 
+	add_child(time_between_attacks)
 	time_between_attacks.wait_time = attack_speed
 	time_between_attacks.timeout.connect(attack_timeout)
 	
 	animation_player.animation_finished.connect(anim_finish)
 	
 	sightLine.body_entered.connect(detect_target)
+	
+	get_moves()
 
 func _process(delta) -> void:
 	if provoked:
 		navigation_agent_3d.target_position = primaryTarget.global_position
+	
+	if isInContact and isAttacking:
+			isAttacking = false # prevent multiple hits registering
+			print("Hit Contact!")
+			if contactTarget:
+				contactTarget.take_damage(enemy_damage)
 
 func _physics_process(delta) ->void:
 	var next_position = navigation_agent_3d.get_next_path_position()
@@ -95,20 +105,19 @@ func look_at_target(direction: Vector3) -> void:
 # this function runs when an enemy is in range of a target
 func attack() -> void:
 	if canAttack:
-		# need to run a check for if they have multiple moves
-		# may also need a list to hold possible moves
+		if moves.size() > 0:
+			var selected_move: String = randomize_move()
+			if animation_player.has_animation(selected_move):
+				animation_player.play(selected_move)
+			else:
+				print(self.name + " has no animation: " + selected_move)
+		else:
+			print(self.name + " no moves found?")
+
 		# can run distance to decide which move to make
 		# MOVES SHOULD BE IN THE CHILD CLASSES?
-		if animation_player.has_animation("Attack"):
-			animation_player.play("Attack")
-		else:
-			print(self.name + " has no animation: Attack")
 		isAttacking = true
 		canAttack = false
-		if isInContact and isAttacking:
-			print("Hit Contact!")
-			if contactTarget:
-				contactTarget.take_damage(enemy_damage)
 
 func enemy_take_damage(damage: int) -> void:
 	print(self.name + " took damage!")
@@ -116,6 +125,10 @@ func enemy_take_damage(damage: int) -> void:
 
 # this function runs when an enemy's HP drops to 0
 func defeat() -> void:
+	# stop processing attacks
+	canAttack = false
+	isAttacking = false 
+	
 	if animation_player.has_animation("Defeat"):
 		animation_player.play("Defeat")
 	else:
@@ -124,6 +137,23 @@ func defeat() -> void:
 	# drop loot?
 	# drop exp? hp recovery?
 	# start a deathTimer here, when it runs out, run queue_free()
+
+# Based on what's in the animation list, adds possible attacks
+func get_moves() -> void:
+	if animation_player.has_animation("Attack"):
+		moves.append("Attack")
+	if animation_player.has_animation("Attack2"):
+		moves.append("Attack2")
+	if animation_player.has_animation("Attack3"):
+		moves.append("Attack3")
+	if animation_player.has_animation("Attack4"):
+		moves.append("Attack4")
+
+func randomize_move() -> String:
+	if moves.size() > 1:
+		return moves.pick_random()
+	else:
+		return "Attack"
 
 #***************SIGNALS****************
 
@@ -138,15 +168,21 @@ func exited_contact(body):
 # signal fired when a body enters within the sight range of the enemy
 func detect_target(body):
 	if body != self:
-		primaryTarget = body
+		if body.is_in_group("Player"):
+			primaryTarget = body
+			provoked = true
 
 # signal fired when attack timer runs out
 func attack_timeout():
 	canAttack = true
+	print("Stopped attack timeout")
 	time_between_attacks.stop()
 
 # signal fired when an animation finishes
 func anim_finish(anim_name):
-	if anim_name == "Attack":
+	if (anim_name == "Attack" or anim_name == "Attack2" 
+		or anim_name == "Attack3" or anim_name == "Attack4"):
 		isAttacking = false
 		time_between_attacks.start()
+	elif anim_name == "Defeat":
+		queue_free()

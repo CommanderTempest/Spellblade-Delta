@@ -184,3 +184,12 @@ func _on_weapon_body_exited(body):
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Attack":
 		isSwinging = false
+
+#*************Animation Calls**********
+
+#starts a timer
+func start_combo_timer():
+	# start a timer, if player attacks again before timer finishes,
+	# they use Attack2 animation
+	# attach this to animation, see if you can do it on the child of Humanoid
+	pass

@@ -1,0 +1,233 @@
+[gd_scene load_steps=14 format=3 uid="uid://sgo8dp2bqts8"]
+
+[ext_resource type="Script" path="res://BaseEnemy.gd" id="1_tiuv0"]
+
+[sub_resource type="Animation" id="Animation_s1o0c"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftShoulder/ArmLeft/Arm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.920636, 0.117129, -0.680103)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftShoulder/ArmLeft/Arm:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.610865, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftShoulder:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 1),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftShoulder:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 1),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(0, -0.900572, 0), Vector3(0.135638, -0.848263, -0.421799), Vector3(-0.510339, -1.68176, 0.0970628), Vector3(0, -0.900572, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lku8h"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_ykcoq"]
+resource_name = "Defeat"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpperTorso:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.570804, 0), Vector3(1.00268, 0.037262, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UpperTorso:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.188164, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftShoulder:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.900567, 0.562118, -0.14893)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftShoulder:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.900572, 0), Vector3(0.0404658, -0.899923, 0.032097)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LeftShoulder/ArmLeft/Arm:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.920636, 0.117129, -0.680103), Vector3(-1.1938, -0.814109, -0.0201585)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LeftShoulder/ArmLeft/Arm:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.610865, 0), Vector3(0.149669, 0.589081, -0.113634)]
+}
+
+[sub_resource type="Animation" id="Animation_nmm5e"]
+resource_name = "Attack2"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftShoulder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1, 1.2, 1.5),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftShoulder:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1, 1.2, 1.5),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(0, -0.900572, 0), Vector3(-0.392273, -0.28624, -1.84931), Vector3(-1.29945, -1.80199, -0.150911), Vector3(-1.29945, -0.414649, -0.150911), Vector3(-0.108805, -2.02628, 0.286529), Vector3(0, -0.900572, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pyw3d"]
+_data = {
+"Attack": SubResource("Animation_s1o0c"),
+"Attack2": SubResource("Animation_nmm5e"),
+"Defeat": SubResource("Animation_ykcoq"),
+"RESET": SubResource("Animation_lku8h")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a3i4k"]
+size = Vector3(6, 2, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_283qk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1m3dr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vq2ha"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7of4i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_edtoq"]
+size = Vector3(0.7, 0.8, 2.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_78i5g"]
+size = Vector3(1.6, 1.2, 1)
+
+[node name="Butcher" type="CharacterBody3D" node_paths=PackedStringArray("attack_parts", "sightLine") groups=["Enemy"]]
+script = ExtResource("1_tiuv0")
+attack_parts = [NodePath("LeftShoulder/ArmLeft")]
+sightLine = NodePath("Sight")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pyw3d")
+}
+
+[node name="Sight" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.934751, -5.29128)
+shape = SubResource("BoxShape3D_a3i4k")
+
+[node name="LowerTorso" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.99561, 0, 0, 0, 0.615641, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_283qk")
+
+[node name="UpperTorso" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.671198, 0, 0, 0, 0.536433, 0, 0, 0, 1, 0, 0.570804, 0)
+mesh = SubResource("BoxMesh_1m3dr")
+
+[node name="LeftShoulder" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.594739, 0, -0.391841, 0, 0.5, 0, 0.750347, 0, 0.310581, -0.541955, 0.562118, -0.14893)
+mesh = SubResource("BoxMesh_vq2ha")
+
+[node name="ArmLeft" type="Area3D" parent="LeftShoulder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
+
+[node name="Arm" type="MeshInstance3D" parent="LeftShoulder/ArmLeft"]
+transform = Transform3D(0.249522, 0, 1.52862, 0, 0.399999, 0, -0.174718, 0, 2.18309, -0.920636, 0.117129, -0.680103)
+mesh = SubResource("BoxMesh_7of4i")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftShoulder/ArmLeft"]
+transform = Transform3D(0.825768, 0, 0.56401, 0, 1, 0, -0.56401, 0, 0.825768, -0.929418, 0.11713, -0.693433)
+shape = SubResource("BoxShape3D_edtoq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.306613, 0.289428, 0)
+shape = SubResource("BoxShape3D_78i5g")

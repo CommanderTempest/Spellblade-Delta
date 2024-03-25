@@ -3,7 +3,7 @@ extends BaseEnemy
 @export var parry_cooldown := 3.5
 @export var posture := 100:
 	set(value):
-		posture -= value
+		posture = value
 		if posture <= 0:
 			print(self.name + " is stunned")
 			stun()
