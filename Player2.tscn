@@ -1,10 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://dml0ymhe6ymnl"]
+[gd_scene load_steps=14 format=3 uid="uid://dml0ymhe6ymnl"]
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
 [ext_resource type="PackedScene" uid="uid://d0n831ywfiu6d" path="res://Weapons/sword.tscn" id="2_0do1w"]
 [ext_resource type="Script" path="res://Player.gd" id="2_be028"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_hhhn7"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_j8u8f"]
+[ext_resource type="Script" path="res://HealthBar.gd" id="6_17x8j"]
+[ext_resource type="Texture2D" uid="uid://qegu7ub3dioi" path="res://Textures/healthbarUnder.png" id="6_iuslj"]
+[ext_resource type="Texture2D" uid="uid://bpfmsuf6ovw33" path="res://Textures/healthbarProgress.png" id="7_q332o"]
+[ext_resource type="Script" path="res://PostureBar.gd" id="9_tvds4"]
+
+[sub_resource type="Gradient" id="Gradient_uqrya"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2af0d"]
+gradient = SubResource("Gradient_uqrya")
+width = 300
+height = 20
+
+[sub_resource type="Gradient" id="Gradient_t7sib"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.761506, 0.630395, 0.083204, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4pik8"]
+gradient = SubResource("Gradient_t7sib")
+width = 300
+height = 20
 
 [node name="Player" node_paths=PackedStringArray("weapon") instance=ExtResource("1_4y1s6")]
 script = ExtResource("2_be028")
@@ -37,17 +59,47 @@ grow_vertical = 2
 layout_mode = 2
 script = ExtResource("4_j8u8f")
 
-[node name="Timers" type="Node" parent="." index="10"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="12"]
 
-[node name="Dodge_CD" type="Timer" parent="Timers" index="0"]
-wait_time = 5.0
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" index="0" node_paths=PackedStringArray("player")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -148.0
+offset_right = 150.0
+offset_bottom = -108.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Health"
+value = 50.0
+texture_under = ExtResource("6_iuslj")
+texture_progress = ExtResource("7_q332o")
+script = ExtResource("6_17x8j")
+player = NodePath("../..")
 
-[node name="Block_CD" type="Timer" parent="Timers" index="1"]
-
-[node name="Swing_CD" type="Timer" parent="Timers" index="2"]
+[node name="PostureBar" type="TextureProgressBar" parent="CanvasLayer" index="1" node_paths=PackedStringArray("player")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -198.0
+offset_right = 150.0
+offset_bottom = -178.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 50.0
+texture_under = SubResource("GradientTexture2D_2af0d")
+texture_progress = SubResource("GradientTexture2D_4pik8")
+script = ExtResource("9_tvds4")
+player = NodePath("../..")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="timeout" from="Timers/Dodge_CD" to="." method="_on_dodge_cd_timeout"]
 [connection signal="timeout" from="Timers/Block_CD" to="." method="_on_block_cd_timeout"]
 [connection signal="timeout" from="Timers/Swing_CD" to="." method="_on_swing_cd_timeout"]
-[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]

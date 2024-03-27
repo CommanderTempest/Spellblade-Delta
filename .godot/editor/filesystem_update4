@@ -6,3 +6,6 @@ res://Enemy/enemy.tscn
 res://humanoid.tscn
 res://Weapons/sword.tscn
 res://BaseEnemy.gd
+res://HealthBar.gd
+res://HumanoidEnemy.gd
+res://PostureBar.gd

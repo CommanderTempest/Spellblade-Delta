@@ -2,6 +2,9 @@ extends CharacterBody3D
 
 class_name Player
 
+signal healthChanged
+signal postureChanged
+
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.0
 @export var max_hitpoints := 100
@@ -37,15 +40,15 @@ var contactEnemy : Node3D # the enemy the weapon is in contact with
 
 var posture: int = max_posture:
 	set(value):
-		#update UI
 		posture = value
+		postureChanged.emit()
 		if posture <= 0:
 			print("STUNNED")
 			posture = max_posture
 var hitpoints: int = max_hitpoints: 
 	set(value):
-		#update UI
 		hitpoints = value
+		healthChanged.emit()
 		if hitpoints <= 0:
 			print("You're dead lol")
 
@@ -54,8 +57,6 @@ func _ready() -> void:
 	
 	weapon.body_entered.connect(_on_weapon_body_entered)
 	weapon.body_exited.connect(_on_weapon_body_exited)
-	
-	
 
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("dodge") and canDodge and not isBlocking:
@@ -64,15 +65,18 @@ func _process(delta) -> void:
 		if animation_player.has_animation("Dodge"):
 			playback.travel("Dodge")
 		dodge_cd.start()
-	if Input.is_action_just_pressed("block") and canBlock and not isDodging:
-		isParrying = true
-		#probably need a timer to determine how long a parry lasts
+	elif Input.is_action_pressed("block") and canBlock and not isDodging:
+		#isParrying = true
+		isBlocking = true
+		if animation_player.has_animation("Block"):
+			playback.travel("Block")
+	elif Input.is_action_just_pressed("attack"):
+		attack()
 	if Input.is_action_just_released("block"):
 		isParrying = false
 		isBlocking = false
 		block_cd.start()
-	if Input.is_action_pressed("block") and block_cd.is_stopped() and not isDodging:
-		isBlocking = true
+	
 
 func _physics_process(delta):
 	handle_camera_location()
@@ -93,6 +97,9 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	if input_dir.is_zero_approx():
+		playback.travel("Idle")
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
@@ -124,13 +131,14 @@ func attack() -> void:
 	if canSwing and not isBlocking and not isDodging:
 		canSwing = false
 		isSwinging = true 
+		swing_cd.start()
 		if animation_player.has_animation("Attack1"):
-			animation_player.play("Attack1")
+			playback.travel("Attack1")
 		if isWeaponInContact:
 			print("Hit enemy! Contact")
 			if contactEnemy:
 				contactEnemy.enemy_take_damage(player_damage)
-
+	
 func take_damage(damage: int) -> void:
 	if isParrying:
 		print("PARRIED!")
@@ -196,3 +204,5 @@ func _on_animation_tree_animation_finished(anim_name):
 	elif anim_name == "Block":
 		isBlocking = false
 		isParrying = false
+	elif anim_name == "Attack1":
+		isSwinging = false

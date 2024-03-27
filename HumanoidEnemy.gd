@@ -34,9 +34,12 @@ func _process(delta):
 	super._process(delta)
 	
 	if super.getPrimaryTarget().getIsSwinging():
-		# basically, if we're here, the target is swinging, so we want to block/parry
-		# block/parry is randomized
-		pass
+		defend()
+
+func defend():
+	# basically, if we're here, the target is swinging, so we want to block/parry
+	# block/parry is randomized
+	pass
 
 func enemy_take_damage(damage: int):
 	if isParrying:
