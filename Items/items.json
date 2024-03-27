@@ -1,3 +1,10 @@
 {
-	"Sword": 3
+	"equipped":
+		{
+			"Sword": 5
+		},
+	"inventory":
+		{
+			"Sword": 3
+		}
 }

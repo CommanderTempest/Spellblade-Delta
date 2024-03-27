@@ -162,8 +162,9 @@ func getPrimaryTarget() -> Node3D:
 
 func entered_contact(body):
 	if body != self:
-		contactTarget = body
-		isInContact = true
+		if body.is_in_group("Player") and body is CharacterBody3D:
+			contactTarget = body
+			isInContact = true
 
 func exited_contact(body):
 	isInContact = false

@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://dml0ymhe6ymnl"]
+
+[ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
+[ext_resource type="PackedScene" uid="uid://d0n831ywfiu6d" path="res://Weapons/sword.tscn" id="2_0do1w"]
+[ext_resource type="Script" path="res://Player.gd" id="2_be028"]
+[ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_hhhn7"]
+[ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_j8u8f"]
+
+[node name="Player" node_paths=PackedStringArray("weapon") instance=ExtResource("1_4y1s6")]
+script = ExtResource("2_be028")
+weapon = NodePath("Right-Arm/Sword")
+
+[node name="Left-Leg" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, 0)
+
+[node name="Right-Leg" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0)
+
+[node name="Sword" parent="Right-Arm" index="0" instance=ExtResource("2_0do1w")]
+transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, -0.673706, -1.03969)
+
+[node name="CameraPivot" type="Node3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 4, 4)
+
+[node name="SmoothCamera" type="Camera3D" parent="CameraPivot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
+script = ExtResource("2_hhhn7")
+
+[node name="CenterContainer" type="CenterContainer" parent="." index="9"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Control" parent="CenterContainer" index="0"]
+layout_mode = 2
+script = ExtResource("4_j8u8f")
+
+[node name="Timers" type="Node" parent="." index="10"]
+
+[node name="Dodge_CD" type="Timer" parent="Timers" index="0"]
+wait_time = 5.0
+
+[node name="Block_CD" type="Timer" parent="Timers" index="1"]
+
+[node name="Swing_CD" type="Timer" parent="Timers" index="2"]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timers/Dodge_CD" to="." method="_on_dodge_cd_timeout"]
+[connection signal="timeout" from="Timers/Block_CD" to="." method="_on_block_cd_timeout"]
+[connection signal="timeout" from="Timers/Swing_CD" to="." method="_on_swing_cd_timeout"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]

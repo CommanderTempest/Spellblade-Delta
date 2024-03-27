@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-class_name player
+class_name Player
 
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.0
@@ -14,19 +14,26 @@ class_name player
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
 @onready var animation_player = $AnimationPlayer
-@onready var dodge_timer = $Timers/Dodge_Timer # how long you're dodging for (negating damage)
-@onready var parry_timer = $Timers/Parry_Timer # how long you're parrying for (negating damage)
-@onready var dodge_cd = $Timers/Dodge_CD # time until you can dodge again
-@onready var parry_cd = $Timers/Parry_CD # time until you can parry again
-@onready var block_cd = $Timers/Block_CD # time until you can block again
-@onready var swing_timer = $Timers/Swing_Timer # this is attack speed
-# if player attacks again before this runs out, does a combo attack
-@onready var combo_timer = $Timers/Combo_Timer 
-
+@onready var animation_tree = $AnimationTree
+@onready var dodge_cd = $Timers/Dodge_CD
+@onready var block_cd = $Timers/Block_CD
+@onready var swing_cd = $Timers/Swing_CD
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion := Vector2.ZERO
+
+var isBlocking := false
+var isParrying := false
+var isDodging := false
+var isSwinging := false
+
+var canBlock := true 
+var canDodge := true
+var canSwing := true
+
+var contactEnemy : Node3D # the enemy the weapon is in contact with
 
 var posture: int = max_posture:
 	set(value):
@@ -42,31 +49,27 @@ var hitpoints: int = max_hitpoints:
 		if hitpoints <= 0:
 			print("You're dead lol")
 
-var isDodging := false
-var isBlocking := false
-var isParrying := false
-var isSwinging := false # if the player is swinging/attacking with sword
-var canSwing := true    # player can currently attack
-
-var contactEnemy : Node3D # the enemy the weapon is in contact with
-
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#swing_timer.wait_time = WeaponHandler.get_cd("Sword")
+	
 	weapon.body_entered.connect(_on_weapon_body_entered)
 	weapon.body_exited.connect(_on_weapon_body_exited)
 	
+	
+
 func _process(delta) -> void:
-	if Input.is_action_just_pressed("dodge") and dodge_cd.is_stopped() and not isBlocking:
+	if Input.is_action_just_pressed("dodge") and canDodge and not isBlocking:
 		isDodging = true
-		dodge_timer.start()
-	if Input.is_action_just_pressed("block") and block_cd.is_stopped() and not isDodging:
+		canDodge = false
+		if animation_player.has_animation("Dodge"):
+			playback.travel("Dodge")
+		dodge_cd.start()
+	if Input.is_action_just_pressed("block") and canBlock and not isDodging:
 		isParrying = true
-		parry_timer.start()
+		#probably need a timer to determine how long a parry lasts
 	if Input.is_action_just_released("block"):
 		isParrying = false
 		isBlocking = false
-		parry_timer.stop()
 		block_cd.start()
 	if Input.is_action_pressed("block") and block_cd.is_stopped() and not isDodging:
 		isBlocking = true
@@ -82,29 +85,27 @@ func _physics_process(delta):
 		else:
 			velocity.y -= gravity * delta * fall_multiplier
 
-	if Input.is_action_just_pressed("attack"):
-		attack()
-
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = sqrt(jump_height * 2.0 * gravity)
-
+		velocity.y = sqrt(jump_height * 2.0 * gravity) 
+		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	var direction = -(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
+		playback.travel("Walk")
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
-
+		#playback.stop()
 	move_and_slide()
-	
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: 
-		mouse_motion = event.relative * 0.001
+		mouse_motion = -event.relative * 0.001
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -121,17 +122,14 @@ func handle_camera_location() -> void:
 
 func attack() -> void:
 	if canSwing and not isBlocking and not isDodging:
-		isSwinging = true
 		canSwing = false
-		swing_timer.start()
-		animation_player.play("Attack")
-		if isWeaponInContact and isSwinging:
+		isSwinging = true 
+		if animation_player.has_animation("Attack1"):
+			animation_player.play("Attack1")
+		if isWeaponInContact:
 			print("Hit enemy! Contact")
 			if contactEnemy:
 				contactEnemy.enemy_take_damage(player_damage)
-
-func getIsSwinging() -> bool:
-	return isSwinging
 
 func take_damage(damage: int) -> void:
 	if isParrying:
@@ -149,70 +147,52 @@ func take_damage(damage: int) -> void:
 		print("YOU'VE BEEN HIT!")
 		hitpoints -= damage
 		#particles for damage (red)
-		
 
-#**********TIMERS***********
+func getIsSwinging() -> bool:
+	return self.isSwinging
 
-func _on_dodge_timer_timeout():
-	isDodging = false
-	print("Dodge on CD")
-	dodge_timer.stop()
-	dodge_cd.start()
-	
-func _on_parry_timer_timeout():
-	isParrying = false
-	print("Parry on CD")
-	parry_timer.stop()
-	parry_cd.start()
-
-func _on_parry_cd_timeout():
-	print("Parry off CD")
-	parry_cd.stop()
-
-func _on_dodge_cd_timeout():
-	dodge_cd.stop()
-	print("Dodge off CD")
-
-func _on_block_cd_timeout():
-	block_cd.stop()
-	print("Block off CD")
-	
-func _on_swing_timer_timeout():
-	canSwing = true
-	swing_timer.stop()
-	
-#***********SIGNALS***************
-
+#******************SIGNALS*****************
 var isWeaponInContact := false # if weapon is currently inside another body
 
 func _on_weapon_body_entered(body):
-	if body != self:
-		if body.is_in_group("Enemy"):
-			isWeaponInContact = true
-			contactEnemy = body
-			print("Hit enemy!")
-		elif body.is_in_group("Player"):
-			print("Stop hitting yoself")
+	if body != self and body is CharacterBody3D:
+		isWeaponInContact = true
+		contactEnemy = body
 
 func _on_weapon_body_exited(body):
 	if body != self:
 		isWeaponInContact = false
 
+#***************TIMER SIGNALS****************
+
+func _on_dodge_cd_timeout():
+	canDodge = true
+	dodge_cd.stop()
+
+func _on_block_cd_timeout():
+	canBlock = true
+	block_cd.stop()
+
+func _on_swing_cd_timeout():
+	canSwing = true
+	swing_cd.stop()
+	# maybe refactor this to: if left clicked again, wait for anim to finish
+	# then combo into second move
+
+# @deprecated
+# ceases operations on the animation player
 func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "Attack":
-		isSwinging = false
+	# player is no longer dodging
+	if anim_name == "Dodge":
+		isDodging = false
+		print("Dodging finished?")
+	elif anim_name == "Block":
+		isBlocking = false
+		isParrying = false
 
-#*************Animation Calls**********
-
-#starts a timer
-func start_combo_timer():
-	if combo_timer.is_stopped():
-		combo_timer.start()
-		print("Combo Timer active")
-	else:
-		combo_timer.stop()
-		print("Second chain in combo on-going")
-		combo_timer.start()
-	# start a timer, if player attacks again before timer finishes,
-	# they use Attack2 animation
-	# attach this to animation, see if you can do it on the child of Humanoid
+func _on_animation_tree_animation_finished(anim_name):
+	if anim_name == "Dodge":
+		isDodging = false
+	elif anim_name == "Block":
+		isBlocking = false
+		isParrying = false
