@@ -1,12 +1,13 @@
+AnimationPlayer
+Timer
+GPUParticles3D
 TextureProgressBar
 ProgressBar
 CanvasLayer
 AnimationTree
-Timer
 Node
 Node3D
 CollisionShape3D
-AnimationPlayer
 CharacterBody3D
 MeshInstance3D
 Area3D

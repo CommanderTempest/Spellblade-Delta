@@ -1,0 +1,287 @@
+[gd_scene load_steps=19 format=3 uid="uid://dml0ymhe6ymnl"]
+
+[ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
+[ext_resource type="PackedScene" uid="uid://d0n831ywfiu6d" path="res://Weapons/sword.tscn" id="2_0do1w"]
+[ext_resource type="Script" path="res://Player/Player.gd" id="2_23d2a"]
+[ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_hhhn7"]
+[ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="3_6gn16"]
+[ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_j8u8f"]
+[ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="4_jng7e"]
+[ext_resource type="Texture2D" uid="uid://qegu7ub3dioi" path="res://Textures/healthbarUnder.png" id="6_iuslj"]
+[ext_resource type="Texture2D" uid="uid://bpfmsuf6ovw33" path="res://Textures/healthbarProgress.png" id="7_q332o"]
+[ext_resource type="Script" path="res://Textures/HealthBar.gd" id="10_5fkyu"]
+[ext_resource type="Script" path="res://Textures/PostureBar.gd" id="11_0ys1s"]
+
+[sub_resource type="Gradient" id="Gradient_uqrya"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2af0d"]
+gradient = SubResource("Gradient_uqrya")
+width = 300
+height = 20
+
+[sub_resource type="Gradient" id="Gradient_t7sib"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.761506, 0.630395, 0.083204, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4pik8"]
+gradient = SubResource("Gradient_t7sib")
+width = 300
+height = 20
+
+[sub_resource type="Animation" id="Animation_5tvud"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Right-Leg:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.25, 0.5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Right-Leg:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Right-Leg:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Left-Leg:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.25, 0.5, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Left-Leg:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Left-Leg:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6ltkw"]
+resource_name = "Walk"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Right-Leg:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.277109, 0.507947, 0), Vector3(0.25, 0.5, -0.4), Vector3(0.277109, 0.507947, 0), Vector3(0.277, 0.5, 0.4), Vector3(0.277109, 0.507947, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Right-Leg:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.785398, 0, 0), Vector3(0, 0, 0), Vector3(-0.785398, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Right-Leg:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1, 1), Vector3(1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Left-Leg:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.25, 0.507947, 0), Vector3(-0.25, 0.5, 0.43), Vector3(-0.25, 0.507947, 0), Vector3(-0.25, 0.5, -0.4), Vector3(-0.25, 0.507947, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Left-Leg:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.785398, 0, 0), Vector3(0, 0, 0), Vector3(0.785398, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Left-Leg:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1, 1), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3cdf7"]
+_data = {
+"Idle": SubResource("Animation_5tvud"),
+"Walk": SubResource("Animation_6ltkw")
+}
+
+[node name="Player" node_paths=PackedStringArray("weapon") groups=["Player"] instance=ExtResource("1_4y1s6")]
+script = ExtResource("2_23d2a")
+weapon = NodePath("Right-Arm/Sword")
+sparks = ExtResource("3_6gn16")
+blood = ExtResource("4_jng7e")
+
+[node name="Torso" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Head" parent="." index="1"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 2.25, 0)
+
+[node name="Left-Leg" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, 0)
+
+[node name="Right-Leg" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0)
+
+[node name="Right-Arm" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, 0.8, 1.8, -0.25)
+
+[node name="Sword" parent="Right-Arm" index="0" instance=ExtResource("2_0do1w")]
+transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, -0.673706, -1.03969)
+
+[node name="Left-Arm" parent="." index="5"]
+transform = Transform3D(0.379556, -1.15709, 3.3491e-06, 0, -4.52745e-06, -1, 0.925169, 0.474703, -1.37399e-06, -0.0398173, 1.8, -0.611676)
+
+[node name="CameraPivot" type="Node3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 4, 4)
+
+[node name="SmoothCamera" type="Camera3D" parent="CameraPivot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
+script = ExtResource("2_hhhn7")
+
+[node name="CenterContainer" type="CenterContainer" parent="." index="9"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Control" parent="CenterContainer" index="0"]
+layout_mode = 2
+script = ExtResource("4_j8u8f")
+
+[node name="Swing_CD" parent="Timers" index="2"]
+wait_time = 0.5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="12"]
+
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" index="0" node_paths=PackedStringArray("player")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -148.0
+offset_right = 150.0
+offset_bottom = -108.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Health"
+value = 50.0
+texture_under = ExtResource("6_iuslj")
+texture_progress = ExtResource("7_q332o")
+script = ExtResource("10_5fkyu")
+player = NodePath("../..")
+
+[node name="PostureBar" type="TextureProgressBar" parent="CanvasLayer" index="1" node_paths=PackedStringArray("player")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -198.0
+offset_right = 150.0
+offset_bottom = -178.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 50.0
+texture_under = SubResource("GradientTexture2D_2af0d")
+texture_progress = SubResource("GradientTexture2D_4pik8")
+script = ExtResource("11_0ys1s")
+player = NodePath("../..")
+
+[node name="WalkPlayer" type="AnimationPlayer" parent="." index="13"]
+libraries = {
+"": SubResource("AnimationLibrary_3cdf7")
+}
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="timeout" from="Timers/Dodge_CD" to="." method="_on_dodge_cd_timeout"]
+[connection signal="timeout" from="Timers/Block_CD" to="." method="_on_block_cd_timeout"]
+[connection signal="timeout" from="Timers/Swing_CD" to="." method="_on_swing_cd_timeout"]
+[connection signal="timeout" from="Timers/ComboTimer" to="." method="_on_combo_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://sgo8dp2bqts8"]
 
-[ext_resource type="Script" path="res://BaseEnemy.gd" id="1_tiuv0"]
+[ext_resource type="Script" path="res://Enemy/BaseEnemy.gd" id="1_tiuv0"]
 
 [sub_resource type="Animation" id="Animation_s1o0c"]
 resource_name = "Attack"
