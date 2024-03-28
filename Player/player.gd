@@ -28,18 +28,17 @@ signal postureChanged
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 """
-some reworks I need:
-
-probably need to re-do all animations while keeping in mind some anims playing simutaneously
-on just pressed for the block, do the block animation, then do a hold-block anim, 
-which is just keeping it in place
-
-on the animation tree, these animations will need to be synced somewhat maybe
-or blended
-
-alternatively could have 2 animation players
-one just controls foot movement, the the other does everything else
-^ might be required, I think a tree only does one anim at a time
+may want to do something like isIdling, for when not doing anything
+Animations to make:
+	Unsheath
+	Block
+	HoldBlock (Whatever is at end of block)
+	Idling
+	Walk (for arms while moving and not doing anything else)
+	
+	WalkPlayer: (these are already done of course)
+	Idle (For feet only)
+	Walk (For feet only)
 """
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
