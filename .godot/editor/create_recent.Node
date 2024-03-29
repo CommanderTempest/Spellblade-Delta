@@ -1,8 +1,9 @@
-AnimationPlayer
-Timer
-GPUParticles3D
 TextureProgressBar
 ProgressBar
+TextureRect
+Timer
+AnimationPlayer
+GPUParticles3D
 CanvasLayer
 AnimationTree
 Node

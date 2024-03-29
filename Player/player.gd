@@ -25,21 +25,8 @@ signal postureChanged
 @onready var block_cd = $Timers/Block_CD
 @onready var swing_cd = $Timers/Swing_CD
 @onready var combo_timer = $Timers/ComboTimer
+@onready var parry_timer = $Timers/ParryTimer
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
-
-"""
-may want to do something like isIdling, for when not doing anything
-Animations to make:
-	Unsheath
-	Block
-	HoldBlock (Whatever is at end of block)
-	Idling
-	Walk (for arms while moving and not doing anything else)
-	
-	WalkPlayer: (these are already done of course)
-	Idle (For feet only)
-	Walk (For feet only)
-"""
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -57,6 +44,12 @@ var canSwing := true
 var combo := 1
 
 var contactEnemy : Node3D # the enemy the weapon is in contact with
+
+"""
+So for block/parry UI, I'm using a textureprogressbar
+just put in 2 textures for it
+one regular, and one of the other but lighter or darker
+"""
 
 var posture: int = max_posture:
 	set(value):
@@ -79,23 +72,34 @@ func _ready() -> void:
 	weapon.body_exited.connect(_on_weapon_body_exited)
 
 func _process(delta) -> void:
-	if Input.is_action_just_pressed("dodge") and canDodge and not isBlocking:
+	if Input.is_action_just_pressed("block") and canBlock and not isDodging and not isSwinging:
+		isParrying = true
+		parry_timer.start()
+	
+	if Input.is_action_just_pressed("dodge") and canDodge and not isBlocking and not isSwinging:
 		if animation_player.has_animation("Dodge"):
 			isDodging = true
 			canDodge = false
-			animation_player.play("Dodge")
+			animation_player.queue("Dodge")
 		dodge_cd.start()
-	elif Input.is_action_pressed("block") and canBlock and not isDodging:
-		#isParrying = true
-		isBlocking = true
-		if animation_player.has_animation("Block"):
+	elif Input.is_action_pressed("block") and canBlock and not isDodging and not isSwinging:
+		if not isBlocking:
+			isBlocking = true
 			animation_player.play("Block")
+			animation_player.queue("HoldBlock")
 	elif Input.is_action_just_pressed("attack"):
 		attack()
+		
+	if Input.is_action_pressed("dash"):
+		speed = 3.0
+	elif Input.is_action_just_released("dash"):
+		speed = 2.0
+
 	if Input.is_action_just_released("block"):
+		block_cd.start()
+		animation_player.queue("Idling")
 		isParrying = false
 		isBlocking = false
-		block_cd.start()
 	
 
 func _physics_process(delta):
@@ -167,7 +171,10 @@ func take_damage(damage: int) -> void:
 	if isParrying:
 		print("PARRIED!")
 		posture += 40
-		#particle for successful parry
+		var spark: GPUParticles3D = sparks.instantiate()
+		spark.amount = 20
+		add_child(spark)
+		spark.global_position = weapon.global_position
 	elif isDodging:
 		print("DODGED!")
 		#particle for successful dodge
@@ -218,6 +225,11 @@ func _on_swing_cd_timeout():
 func _on_combo_timer_timeout():
 	combo_timer.stop()
 	combo = 1
+	animation_player.play("Idling")
+
+func _on_parry_timer_timeout():
+	isParrying = false
+	parry_timer.stop()
 
 # @deprecated
 # ceases operations on the animation player
