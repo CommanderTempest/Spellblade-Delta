@@ -1,8 +1,9 @@
+AnimationPlayer
+NavigationAgent3D
+Timer
 TextureProgressBar
 ProgressBar
 TextureRect
-Timer
-AnimationPlayer
 GPUParticles3D
 CanvasLayer
 AnimationTree
@@ -12,7 +13,6 @@ CollisionShape3D
 CharacterBody3D
 MeshInstance3D
 Area3D
-NavigationAgent3D
 ShapeCast3D
 RayCast3D
 CSGBox3D

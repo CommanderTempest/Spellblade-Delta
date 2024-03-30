@@ -80,7 +80,7 @@ func _process(delta) -> void:
 		if animation_player.has_animation("Dodge"):
 			isDodging = true
 			canDodge = false
-			animation_player.queue("Dodge")
+			animation_player.play("Dodge")
 		dodge_cd.start()
 	elif Input.is_action_pressed("block") and canBlock and not isDodging and not isSwinging:
 		if not isBlocking:
@@ -161,7 +161,6 @@ func attack() -> void:
 		swing_cd.start()
 		if animation_player.has_animation("Attack" + str(combo)):
 			animation_player.queue("Attack" + str(combo))
-			# can apparently use animation_player.queue() so mabi don't worry about the tree
 		if isWeaponInContact:
 			if contactEnemy:
 				contactEnemy.enemy_take_damage(player_damage)

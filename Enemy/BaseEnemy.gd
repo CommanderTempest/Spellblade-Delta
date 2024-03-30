@@ -4,6 +4,7 @@ class_name BaseEnemy
 
 @onready var navigation_agent_3d = $NavigationAgent3D
 @onready var animation_player = $AnimationPlayer
+@onready var walk_player = $WalkPlayer
 
 @export var max_hitpoints := 100
 @export var attack_range := 1.5
@@ -12,12 +13,13 @@ class_name BaseEnemy
 @export var attack_speed := 2.0 # How much time passes between attacks
 @export var attack_parts: Array[Area3D]
 @export var sightLine: Area3D
-
-const SPEED = 1.0
+@export var blood: PackedScene
+@export var speed = 1.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var spawnPos: Vector3     # position the enemy spawns at
 var isInContact := false  # is the enemy is currently in contact with a target
 var primaryTarget: Node3D # the target the enemy is tracking/following
 var contactTarget: Node3D # the target the enemy is in contact with
@@ -38,6 +40,8 @@ var hitpoints: int = max_hitpoints:
 #*********BUILT-IN FUNCTIONS************
 
 func _ready() -> void:
+	spawnPos = self.global_position
+	
 	# connect every item in attack parts to a contact
 	for item in attack_parts:
 		print(item.name)
@@ -78,18 +82,34 @@ func _physics_process(delta) ->void:
 	
 		if (distance < aggro_range):
 			provoked = true
+		if distance > attack_range:
+			self.speed = 2.0
+		else:
+			self.speed = 1.0
+		
+		if distance > attack_range * 2:
+			print("Disengaging")
+			provoked = false
+			speed = 1.0
+			navigation_agent_3d.target_position = spawnPos
+			primaryTarget = null
 		
 		if provoked:
 			if distance <= attack_range:
 				attack()
-	
+				
+	if direction.is_zero_approx() or self.global_position == spawnPos:
+		if walk_player.has_animation("Idle"):
+			walk_player.play("Idle")
 	if direction:
 		look_at_target(-direction)
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
+		if walk_player.has_animation("Walk"):
+			walk_player.play("Walk")
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
 
 	move_and_slide()
 
@@ -105,6 +125,7 @@ func look_at_target(direction: Vector3) -> void:
 # this function runs when an enemy is in range of a target
 func attack() -> void:
 	if canAttack:
+		print("or does baseEnemy?")
 		if moves.size() > 0:
 			var selected_move: String = randomize_move()
 			if animation_player.has_animation(selected_move):
@@ -122,6 +143,9 @@ func attack() -> void:
 func enemy_take_damage(damage: int) -> void:
 	print(self.name + " took damage!")
 	hitpoints -= damage
+	var bleed = blood.instantiate()
+	add_child(bleed)
+	bleed.global_position = self.global_position
 
 # this function runs when an enemy's HP drops to 0
 func defeat() -> void:

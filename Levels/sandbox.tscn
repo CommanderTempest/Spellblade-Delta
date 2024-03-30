@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvrsja6ftr3d4"]
+[gd_scene load_steps=10 format=3 uid="uid://dvrsja6ftr3d4"]
 
 [ext_resource type="Material" uid="uid://dfopbxglnfycn" path="res://Levels/Materials/grey.tres" id="1_x4fnc"]
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="3_nrqkt"]
 [ext_resource type="PackedScene" uid="uid://sgo8dp2bqts8" path="res://Enemy/butcher.tscn" id="3_pyaxc"]
+[ext_resource type="PackedScene" uid="uid://ctci0o05h6k1p" path="res://Enemy/bandit.tscn" id="4_cn31x"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hnlq2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -49,7 +50,10 @@ transform = Transform3D(1, 0, 0, 0, 0.4, 0, 0, 0, 0.1, 0, 0.201777, -0.721017)
 use_collision = true
 
 [node name="Butcher" parent="." instance=ExtResource("3_pyaxc")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.124386, -1.09754)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.124386, -6.65972)
 
 [node name="Player" parent="." instance=ExtResource("3_nrqkt")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Bandit" parent="." instance=ExtResource("4_cn31x")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.926026)

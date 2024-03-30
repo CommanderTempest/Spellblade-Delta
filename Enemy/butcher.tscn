@@ -53,8 +53,33 @@ tracks/3/keys = {
 "values": [Vector3(0, -0.900572, 0), Vector3(0.135638, -0.848263, -0.421799), Vector3(-0.510339, -1.68176, 0.0970628), Vector3(0, -0.900572, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_lku8h"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_nmm5e"]
+resource_name = "Attack2"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftShoulder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1, 1.2, 1.5),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftShoulder:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1, 1.2, 1.5),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(0, -0.900572, 0), Vector3(-0.392273, -0.28624, -1.84931), Vector3(-1.29945, -1.80199, -0.150911), Vector3(-1.29945, -0.414649, -0.150911), Vector3(-0.108805, -2.02628, 0.286529), Vector3(0, -0.900572, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ykcoq"]
 resource_name = "Defeat"
@@ -132,33 +157,8 @@ tracks/5/keys = {
 "values": [Vector3(0, 0.610865, 0), Vector3(0.149669, 0.589081, -0.113634)]
 }
 
-[sub_resource type="Animation" id="Animation_nmm5e"]
-resource_name = "Attack2"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftShoulder:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.8, 1, 1.2, 1.5),
-"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2),
-"update": 0,
-"values": [Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893), Vector3(-0.541955, 0.562118, -0.14893)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LeftShoulder:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.8, 1, 1.2, 1.5),
-"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2),
-"update": 0,
-"values": [Vector3(0, -0.900572, 0), Vector3(-0.392273, -0.28624, -1.84931), Vector3(-1.29945, -1.80199, -0.150911), Vector3(-1.29945, -0.414649, -0.150911), Vector3(-0.108805, -2.02628, 0.286529), Vector3(0, -0.900572, 0)]
-}
+[sub_resource type="Animation" id="Animation_lku8h"]
+length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pyw3d"]
 _data = {
@@ -231,3 +231,5 @@ shape = SubResource("BoxShape3D_edtoq")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.306613, 0.289428, 0)
 shape = SubResource("BoxShape3D_78i5g")
+
+[node name="WalkPlayer" type="AnimationPlayer" parent="."]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctci0o05h6k1p"]
+
+[ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_5nw88"]
+[ext_resource type="Script" path="res://Enemy/HumanoidEnemy.gd" id="2_6j3c0"]
+[ext_resource type="PackedScene" uid="uid://d0n831ywfiu6d" path="res://Weapons/sword.tscn" id="3_3yf7u"]
+[ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="3_nvnr5"]
+[ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="4_nh53q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ew5gl"]
+size = Vector3(6, 2, 10)
+
+[node name="Bandit" node_paths=PackedStringArray("attack_parts", "sightLine") instance=ExtResource("1_5nw88")]
+script = ExtResource("2_6j3c0")
+sparks = ExtResource("3_nvnr5")
+attack_parts = [NodePath("Right-Arm/Sword")]
+sightLine = NodePath("Sight")
+blood = ExtResource("4_nh53q")
+
+[node name="Head" parent="." index="1"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 2.28764, 0)
+
+[node name="Left-Leg" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.288562, 0.507947, -0.255778)
+
+[node name="Right-Leg" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.238547, 0.507947, -0.255778)
+
+[node name="Sword" parent="Right-Arm" index="0" instance=ExtResource("3_3yf7u")]
+transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, -0.69734, -0.834396)
+
+[node name="Sight" type="Area3D" parent="." index="11"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sight" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.934751, -5.29128)
+shape = SubResource("BoxShape3D_ew5gl")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="12"]
