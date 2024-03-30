@@ -9,7 +9,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ew5gl"]
 size = Vector3(6, 2, 10)
 
-[node name="Bandit" node_paths=PackedStringArray("attack_parts", "sightLine") instance=ExtResource("1_5nw88")]
+[node name="Bandit" node_paths=PackedStringArray("attack_parts", "sightLine") groups=["Enemy"] instance=ExtResource("1_5nw88")]
 script = ExtResource("2_6j3c0")
 sparks = ExtResource("3_nvnr5")
 attack_parts = [NodePath("Right-Arm/Sword")]

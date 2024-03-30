@@ -195,7 +195,7 @@ func getIsSwinging() -> bool:
 var isWeaponInContact := false # if weapon is currently inside another body
 
 func _on_weapon_body_entered(body):
-	if body != self and body is CharacterBody3D:
+	if body != self and body.is_in_group("Enemy"):
 		isWeaponInContact = true
 		contactEnemy = body
 
@@ -205,7 +205,6 @@ func _on_weapon_body_exited(body):
 		contactEnemy = null
 
 func _on_animation_player_animation_finished(anim_name):
-	# player is no longer dodging
 	if anim_name == "Dodge":
 		isDodging = false
 	elif anim_name == "Parry":
