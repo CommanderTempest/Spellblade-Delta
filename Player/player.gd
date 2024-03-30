@@ -40,6 +40,7 @@ var isSwinging := false
 var canBlock := true 
 var canDodge := true
 var canSwing := true
+var canTickDamage := true
 
 var combo := 1
 
@@ -87,6 +88,11 @@ func _process(delta) -> void:
 		speed = 3.0
 	elif Input.is_action_just_released("dash"):
 		speed = 2.0
+		
+	if isWeaponInContact and canTickDamage:
+		if contactEnemy:
+			canTickDamage = false
+			contactEnemy.enemy_take_damage(player_damage)
 
 func _physics_process(delta):
 	handle_camera_location()
@@ -153,15 +159,11 @@ func block() -> void:
 		animation_player.queue("HoldBlock")
 
 func attack() -> void:
-	canSwing = false
-	isSwinging = true 
-
 	if animation_player.has_animation("Attack" + str(combo)):
+		canSwing = false
+		isSwinging = true 
+		canTickDamage = true
 		animation_player.play("Attack" + str(combo))
-	if isWeaponInContact:
-		if contactEnemy:
-			# might want to add another boolean for ticking damage
-			contactEnemy.enemy_take_damage(player_damage)
 	combo += 1
 	
 func take_damage(damage: int) -> void:
