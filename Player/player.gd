@@ -72,35 +72,21 @@ func _ready() -> void:
 	weapon.body_exited.connect(_on_weapon_body_exited)
 
 func _process(delta) -> void:
-	if Input.is_action_just_pressed("block") and canBlock and not isDodging and not isSwinging:
-		isParrying = true
-		parry_timer.start()
-	
 	if Input.is_action_just_pressed("dodge") and canDodge and not isBlocking and not isSwinging:
-		if animation_player.has_animation("Dodge"):
-			isDodging = true
-			canDodge = false
-			animation_player.play("Dodge")
-		dodge_cd.start()
+		dodge()
 	elif Input.is_action_pressed("block") and canBlock and not isDodging and not isSwinging:
-		if not isBlocking:
-			isBlocking = true
-			animation_player.play("Block")
-			animation_player.queue("HoldBlock")
-	elif Input.is_action_just_pressed("attack"):
+		block()
+	elif Input.is_action_just_pressed("attack") and canSwing and not isBlocking and not isDodging:
 		attack()
+	if Input.is_action_just_released("block"):
+		block_cd.start()
+		animation_player.queue("Idling")
+		isBlocking = false
 		
 	if Input.is_action_pressed("dash"):
 		speed = 3.0
 	elif Input.is_action_just_released("dash"):
 		speed = 2.0
-
-	if Input.is_action_just_released("block"):
-		block_cd.start()
-		animation_player.queue("Idling")
-		isParrying = false
-		isBlocking = false
-	
 
 func _physics_process(delta):
 	handle_camera_location()
@@ -151,20 +137,32 @@ func handle_camera_location() -> void:
 	
 	mouse_motion = Vector2.ZERO
 
+func dodge() -> void:
+	if animation_player.has_animation("Dodge"):
+		isDodging = true
+		canDodge = false
+		animation_player.play("Dodge")
+		dodge_cd.start()
+
+func block() -> void:
+	if not isBlocking:
+		isParrying = true
+		parry_timer.start()
+		isBlocking = true
+		animation_player.play("Parry")
+		animation_player.queue("HoldBlock")
+
 func attack() -> void:
-	if canSwing and not isBlocking and not isDodging:
-		canSwing = false
-		isSwinging = true 
-		combo_timer.start()
-		if combo > 3:
-			combo = 1
-		swing_cd.start()
-		if animation_player.has_animation("Attack" + str(combo)):
-			animation_player.queue("Attack" + str(combo))
-		if isWeaponInContact:
-			if contactEnemy:
-				contactEnemy.enemy_take_damage(player_damage)
-		combo += 1
+	canSwing = false
+	isSwinging = true 
+
+	if animation_player.has_animation("Attack" + str(combo)):
+		animation_player.play("Attack" + str(combo))
+	if isWeaponInContact:
+		if contactEnemy:
+			# might want to add another boolean for ticking damage
+			contactEnemy.enemy_take_damage(player_damage)
+	combo += 1
 	
 func take_damage(damage: int) -> void:
 	if isParrying:
@@ -204,6 +202,21 @@ func _on_weapon_body_entered(body):
 func _on_weapon_body_exited(body):
 	if body != self:
 		isWeaponInContact = false
+		contactEnemy = null
+
+func _on_animation_player_animation_finished(anim_name):
+	# player is no longer dodging
+	if anim_name == "Dodge":
+		isDodging = false
+	elif anim_name == "Parry":
+		isParrying = false
+	elif anim_name == "Attack1" or anim_name == "Attack2" or anim_name == "Attack3":
+		isSwinging = false
+		canSwing = true
+		combo_timer.start()
+	if anim_name == "Attack3":
+		# this if statement should be the last attack animation in the combo
+		combo = 1
 
 #***************TIMER SIGNALS****************
 
@@ -215,38 +228,14 @@ func _on_block_cd_timeout():
 	canBlock = true
 	block_cd.stop()
 
-func _on_swing_cd_timeout():
-	canSwing = true
-	swing_cd.stop()
-	# maybe refactor this to: if left clicked again, wait for anim to finish
-	# then combo into second move
-
 func _on_combo_timer_timeout():
 	combo_timer.stop()
 	combo = 1
+	canSwing = true
+	isSwinging = false
+	animation_player.stop()
 	animation_player.play("Idling")
 
 func _on_parry_timer_timeout():
 	isParrying = false
 	parry_timer.stop()
-
-# @deprecated
-# ceases operations on the animation player
-func _on_animation_player_animation_finished(anim_name):
-	# player is no longer dodging
-	if anim_name == "Dodge":
-		isDodging = false
-	elif anim_name == "Block":
-		isBlocking = false
-		isParrying = false
-	elif anim_name == "Attack1" or anim_name == "Attack2" or anim_name == "Attack3":
-		isSwinging = false
-
-func _on_animation_tree_animation_finished(anim_name):
-	if anim_name == "Dodge":
-		isDodging = false
-	elif anim_name == "Block":
-		isBlocking = false
-		isParrying = false
-	elif anim_name == "Attack1":
-		isSwinging = false

@@ -63,6 +63,9 @@ script = ExtResource("4_j8u8f")
 [node name="Swing_CD" parent="Timers" index="2"]
 wait_time = 0.5
 
+[node name="ComboTimer" parent="Timers" index="3"]
+wait_time = 1.2
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="12"]
 
 [node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" index="0" node_paths=PackedStringArray("player")]
