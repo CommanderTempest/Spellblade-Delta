@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dml0ymhe6ymnl"]
+[gd_scene load_steps=15 format=3 uid="uid://dml0ymhe6ymnl"]
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
-[ext_resource type="PackedScene" uid="uid://d0n831ywfiu6d" path="res://Weapons/sword.tscn" id="2_0do1w"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_23d2a"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_hhhn7"]
 [ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="3_6gn16"]
@@ -32,24 +31,24 @@ height = 20
 
 [node name="Player" node_paths=PackedStringArray("weapon") groups=["Player"] instance=ExtResource("1_4y1s6")]
 script = ExtResource("2_23d2a")
-weapon = NodePath("Right-Arm/Sword")
+weapon = NodePath("Torso/Right-Arm/Sword")
 sparks = ExtResource("3_6gn16")
 blood = ExtResource("4_jng7e")
 
-[node name="Head" parent="." index="1"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 2.28764, 0)
+[node name="Swing_CD" parent="Timers" index="2"]
+wait_time = 0.5
 
-[node name="Sword" parent="Right-Arm" index="0" instance=ExtResource("2_0do1w")]
-transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, -0.673706, -1.03969)
+[node name="ComboTimer" parent="Timers" index="3"]
+wait_time = 1.2
 
-[node name="CameraPivot" type="Node3D" parent="." index="8"]
+[node name="CameraPivot" type="Node3D" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 4, 4)
 
 [node name="SmoothCamera" type="Camera3D" parent="CameraPivot" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
 script = ExtResource("2_hhhn7")
 
-[node name="CenterContainer" type="CenterContainer" parent="." index="9"]
+[node name="CenterContainer" type="CenterContainer" parent="." index="7"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -60,13 +59,7 @@ grow_vertical = 2
 layout_mode = 2
 script = ExtResource("4_j8u8f")
 
-[node name="Swing_CD" parent="Timers" index="2"]
-wait_time = 0.5
-
-[node name="ComboTimer" parent="Timers" index="3"]
-wait_time = 1.2
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="12"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
 
 [node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" index="0" node_paths=PackedStringArray("player")]
 anchors_preset = 7
