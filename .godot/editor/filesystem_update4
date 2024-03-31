@@ -1,12 +1,4 @@
-res://Levels/sandbox.tscn
+res://humanoid.tscn
 res://Levels/Materials/grey.tres
 res://Textures/sparks.tres
 res://Textures/sparksProcess.tres
-res://humanoid.tscn
-res://Player/Player2.tscn
-res://Weapons/sword.tscn
-res://Textures/blood.tscn
-res://Textures/sparks.tscn
-res://Enemy/bandit.tscn
-res://Enemy/butcher.tscn
-res://Player/Player.gd
