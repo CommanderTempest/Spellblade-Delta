@@ -58,4 +58,7 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 [node name="Bandit" parent="." instance=ExtResource("4_cn31x")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.926026)
 
+[node name="ComboTimer" parent="Bandit/Timers" index="3"]
+wait_time = 1.0
+
 [editable path="Bandit"]

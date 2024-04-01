@@ -4,6 +4,8 @@ class_name Player
 
 signal healthChanged
 signal postureChanged
+signal blockStateChanged  # canBlock has changed (used for UI)
+signal dodgeStateChanged  # canDodge has changed (used for UI)
 
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.0
@@ -37,20 +39,20 @@ var isParrying := false
 var isDodging := false
 var isSwinging := false
 
-var canBlock := true 
-var canDodge := true
+var canBlock := true:
+	set(value):
+		canBlock = value
+		blockStateChanged.emit() 
+var canDodge := true:
+	set(value):
+		canDodge = value
+		dodgeStateChanged.emit()
 var canSwing := true
 var canTickDamage := true
 
 var combo := 1
 
 var contactEnemy : Node3D # the enemy the weapon is in contact with
-
-"""
-So for block/parry UI, I'm using a textureprogressbar
-just put in 2 textures for it
-one regular, and one of the other but lighter or darker
-"""
 
 var posture: int = max_posture:
 	set(value):
@@ -79,7 +81,8 @@ func _process(delta) -> void:
 		block()
 	elif Input.is_action_just_pressed("attack") and canSwing and not isBlocking and not isDodging:
 		attack()
-	if Input.is_action_just_released("block"):
+	if Input.is_action_just_released("block") and isBlocking:
+		canBlock = false
 		block_cd.start()
 		animation_player.queue("Idling")
 		isBlocking = false
@@ -152,6 +155,7 @@ func dodge() -> void:
 
 func block() -> void:
 	if not isBlocking:
+		canBlock = false
 		isParrying = true
 		parry_timer.start()
 		isBlocking = true
@@ -218,6 +222,7 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Attack3":
 		# this if statement should be the last attack animation in the combo
 		combo = 1
+		combo_timer.stop()
 
 #***************TIMER SIGNALS****************
 
@@ -226,6 +231,7 @@ func _on_dodge_cd_timeout():
 	dodge_cd.stop()
 
 func _on_block_cd_timeout():
+	print("Blcok timeout")
 	canBlock = true
 	block_cd.stop()
 
@@ -234,6 +240,7 @@ func _on_combo_timer_timeout():
 	combo = 1
 	canSwing = true
 	isSwinging = false
+	print("Running an idle")
 	animation_player.stop()
 	animation_player.play("Idling")
 

@@ -1,11 +1,14 @@
-res://Enemy/bandit.tscn
+res://Levels/sandbox.tscn
 res://Levels/Materials/grey.tres
 res://Textures/sparks.tres
 res://Textures/sparksProcess.tres
-res://Player/Player2.tscn
 res://humanoid.tscn
-res://Levels/sandbox.tscn
+res://Player/Player2.tscn
 res://Weapons/sword.tscn
 res://Textures/blood.tscn
 res://Textures/sparks.tscn
+res://Enemy/bandit.tscn
 res://Enemy/butcher.tscn
+res://Player/Player.gd
+res://Player/BlockBar.gd
+res://Player/DodgeBar.gd

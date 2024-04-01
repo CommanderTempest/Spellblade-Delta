@@ -15,6 +15,9 @@ attack_parts = [NodePath("Torso/Right-Arm/Sword")]
 sightLine = NodePath("Sight")
 blood = ExtResource("4_nh53q")
 
+[node name="Head" parent="Torso" index="0"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
+
 [node name="Sight" type="Area3D" parent="." index="6"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 

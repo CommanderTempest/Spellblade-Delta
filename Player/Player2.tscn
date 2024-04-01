@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dml0ymhe6ymnl"]
+[gd_scene load_steps=21 format=3 uid="uid://dml0ymhe6ymnl"]
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_23d2a"]
@@ -10,6 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://bpfmsuf6ovw33" path="res://Textures/healthbarProgress.png" id="7_q332o"]
 [ext_resource type="Script" path="res://Textures/HealthBar.gd" id="10_5fkyu"]
 [ext_resource type="Script" path="res://Textures/PostureBar.gd" id="11_0ys1s"]
+[ext_resource type="Texture2D" uid="uid://dam64o7sxb8t5" path="res://Textures/ShieldUnder.png" id="11_aeo8u"]
+[ext_resource type="Texture2D" uid="uid://pbmnupbsipx0" path="res://Textures/ShieldProgress.png" id="12_j2tvn"]
+[ext_resource type="Script" path="res://Player/BlockBar.gd" id="13_w2drb"]
+[ext_resource type="Texture2D" uid="uid://duljje6b5tsug" path="res://Textures/DodgeUnder.png" id="14_atsr3"]
+[ext_resource type="Texture2D" uid="uid://dyi7dawpi3yuf" path="res://Textures/DodgeProgress.png" id="15_hl3ab"]
+[ext_resource type="Script" path="res://Player/DodgeBar.gd" id="16_fg6yo"]
 
 [sub_resource type="Gradient" id="Gradient_uqrya"]
 offsets = PackedFloat32Array(0)
@@ -34,6 +40,9 @@ script = ExtResource("2_23d2a")
 weapon = NodePath("Torso/Right-Arm/Sword")
 sparks = ExtResource("3_6gn16")
 blood = ExtResource("4_jng7e")
+
+[node name="Block_CD" parent="Timers" index="1"]
+wait_time = 3.0
 
 [node name="Swing_CD" parent="Timers" index="2"]
 wait_time = 0.5
@@ -98,12 +107,27 @@ texture_progress = SubResource("GradientTexture2D_4pik8")
 script = ExtResource("11_0ys1s")
 player = NodePath("../..")
 
-[node name="BlockBar" type="TextureProgressBar" parent="CanvasLayer" index="2"]
+[node name="BlockBar" type="TextureProgressBar" parent="CanvasLayer" index="2" node_paths=PackedStringArray("player")]
 offset_left = 427.0
 offset_top = 558.0
 offset_right = 467.0
 offset_bottom = 598.0
 max_value = 1.0
+texture_under = ExtResource("11_aeo8u")
+texture_progress = ExtResource("12_j2tvn")
+script = ExtResource("13_w2drb")
+player = NodePath("../..")
+
+[node name="DodgeBar" type="TextureProgressBar" parent="CanvasLayer" index="3" node_paths=PackedStringArray("player")]
+offset_left = 688.0
+offset_top = 558.0
+offset_right = 728.0
+offset_bottom = 598.0
+max_value = 1.0
+texture_under = ExtResource("14_atsr3")
+texture_progress = ExtResource("15_hl3ab")
+script = ExtResource("16_fg6yo")
+player = NodePath("../..")
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="timeout" from="Timers/Dodge_CD" to="." method="_on_dodge_cd_timeout"]
