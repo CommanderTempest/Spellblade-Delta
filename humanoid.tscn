@@ -1,6 +1,8 @@
-[gd_scene load_steps=53 format=3 uid="uid://0l27d06sjlr"]
+[gd_scene load_steps=55 format=3 uid="uid://0l27d06sjlr"]
 
 [ext_resource type="PackedScene" uid="uid://d0n831ywfiu6d" path="res://Weapons/sword.tscn" id="1_p0582"]
+[ext_resource type="Script" path="res://States/StateMachine.gd" id="2_dwhwr"]
+[ext_resource type="Script" path="res://DodgeState.gd" id="3_5wr6j"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_m40ra"]
 size = Vector3(1, 1, 0.5)
@@ -1523,3 +1525,13 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_3cdf7")
 }
+
+[node name="State Machine" type="Node" parent="."]
+script = ExtResource("2_dwhwr")
+
+[node name="DodgeState" type="Node" parent="State Machine"]
+script = ExtResource("3_5wr6j")
+
+[node name="ClimbDetection" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32708, 0)
+target_position = Vector3(0, 0, -2)

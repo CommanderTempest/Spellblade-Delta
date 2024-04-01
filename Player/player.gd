@@ -23,11 +23,13 @@ signal dodgeStateChanged  # canDodge has changed (used for UI)
 @onready var animation_player = $AnimationPlayer
 @onready var walk_player = $WalkPlayer
 @onready var animation_tree = $AnimationTree
+@onready var climb_detection = $ClimbDetection
 @onready var dodge_cd = $Timers/Dodge_CD
 @onready var block_cd = $Timers/Block_CD
 @onready var swing_cd = $Timers/Swing_CD
 @onready var combo_timer = $Timers/ComboTimer
 @onready var parry_timer = $Timers/ParryTimer
+@onready var climb_timer = $Timers/ClimbTimer
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -49,6 +51,7 @@ var canDodge := true:
 		dodgeStateChanged.emit()
 var canSwing := true
 var canTickDamage := true
+var canClimb := true
 
 var combo := 1
 
@@ -110,7 +113,20 @@ func _physics_process(delta):
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = sqrt(jump_height * 2.0 * gravity) 
+		
+		if climb_detection.is_colliding():
+			#play climb animation
+			climb_timer.start()
+			while climb_detection.is_colliding() and canClimb:
+				print("Still collicindg")
+				velocity.y = 0.6
+				self.gravity = 0
+				await get_tree().create_timer(0.1).timeout
+				wait(1)
+			velocity.y = 0
+			self.gravity = 9.8
+		else:
+			velocity.y = sqrt(jump_height * 2.0 * gravity) 
 		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -194,6 +210,9 @@ func take_damage(damage: int) -> void:
 		bleed.global_position = self.global_position
 		bleed.global_position.y += 0.1
 
+func wait(seconds: float) -> void:
+	await get_tree().create_timer(seconds).timeout
+
 func getIsSwinging() -> bool:
 	return self.isSwinging
 
@@ -247,3 +266,8 @@ func _on_combo_timer_timeout():
 func _on_parry_timer_timeout():
 	isParrying = false
 	parry_timer.stop()
+
+func _on_climb_timer_timeout():
+	canClimb = false
+	climb_timer.stop()
+	self.gravity = 9.8

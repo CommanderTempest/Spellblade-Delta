@@ -12,3 +12,6 @@ res://Enemy/butcher.tscn
 res://Player/Player.gd
 res://Player/BlockBar.gd
 res://Player/DodgeBar.gd
+res://States/State.gd
+res://States/StateMachine.gd
+res://DodgeState.gd
