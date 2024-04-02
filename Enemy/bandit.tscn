@@ -1,9 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctci0o05h6k1p"]
+[gd_scene load_steps=7 format=3 uid="uid://ctci0o05h6k1p"]
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_5nw88"]
 [ext_resource type="Script" path="res://Enemy/HumanoidEnemy.gd" id="2_6j3c0"]
 [ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="3_nvnr5"]
 [ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="4_nh53q"]
+
+[sub_resource type="GDScript" id="GDScript_qlci2"]
+script/source = "extends Area3D
+
+@export var Owner: CharacterBody3D
+
+# I was gonna run a check for collisions here and make sure it wasn't owner
+# idk anymore tho
+
+"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ew5gl"]
 size = Vector3(6, 2, 10)
@@ -17,6 +27,9 @@ blood = ExtResource("4_nh53q")
 
 [node name="Head" parent="Torso" index="0"]
 transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
+
+[node name="Sword" parent="Torso/Right-Arm" index="0"]
+script = SubResource("GDScript_qlci2")
 
 [node name="Sight" type="Area3D" parent="." index="6"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)

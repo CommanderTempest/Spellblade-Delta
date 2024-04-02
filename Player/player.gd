@@ -17,6 +17,7 @@ signal dodgeStateChanged  # canDodge has changed (used for UI)
 @export var weapon: Area3D
 @export var sparks: PackedScene
 @export var blood: PackedScene
+@export var state_machine: StateMachine
 
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
@@ -78,8 +79,9 @@ func _ready() -> void:
 	weapon.body_exited.connect(_on_weapon_body_exited)
 
 func _process(delta) -> void:
-	if Input.is_action_just_pressed("dodge") and canDodge and not isBlocking and not isSwinging:
-		dodge()
+	if Input.is_action_just_pressed("dodge"):
+		pass
+		#state_machine.on_child_transition(state_machine.current_state, "DodgeState")
 	elif Input.is_action_pressed("block") and canBlock and not isDodging and not isSwinging:
 		block()
 	elif Input.is_action_just_pressed("attack") and canSwing and not isBlocking and not isDodging:
@@ -118,7 +120,6 @@ func _physics_process(delta):
 			#play climb animation
 			climb_timer.start()
 			while climb_detection.is_colliding() and canClimb:
-				print("Still collicindg")
 				velocity.y = 0.6
 				self.gravity = 0
 				await get_tree().create_timer(0.1).timeout

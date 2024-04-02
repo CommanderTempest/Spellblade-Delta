@@ -1,14 +1,14 @@
 extends TextureProgressBar
 
-@export var player: Player
+@export var dodge_state: State
 
 func _ready():
-	player.dodgeStateChanged.connect(update)
+	dodge_state.dodgeStateChanged.connect(update)
 	update()
 	
 func update():
-	print("Updating dodge state")
-	if player.canDodge:
+	print("Updating dodge icon")
+	if dodge_state.canDodge:
 		value = 0
 	else:
 		value = 1

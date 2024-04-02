@@ -1,8 +1,9 @@
-[gd_scene load_steps=55 format=3 uid="uid://0l27d06sjlr"]
+[gd_scene load_steps=57 format=3 uid="uid://0l27d06sjlr"]
 
 [ext_resource type="PackedScene" uid="uid://d0n831ywfiu6d" path="res://Weapons/sword.tscn" id="1_p0582"]
 [ext_resource type="Script" path="res://States/StateMachine.gd" id="2_dwhwr"]
 [ext_resource type="Script" path="res://DodgeState.gd" id="3_5wr6j"]
+[ext_resource type="Script" path="res://States/IdleState.gd" id="4_0pjhg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_m40ra"]
 size = Vector3(1, 1, 0.5)
@@ -15,6 +16,16 @@ size = Vector3(0.5, 1, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rqvex"]
 size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="GDScript" id="GDScript_qlci2"]
+script/source = "extends Area3D
+
+@export var Owner: CharacterBody3D
+
+# I was gonna run a check for collisions here and make sure it wasn't owner
+# idk anymore tho
+
+"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_24q1n"]
 size = Vector3(2.1, 2.6, 1.5)
@@ -1485,6 +1496,7 @@ skeleton = NodePath("../..")
 
 [node name="Sword" parent="Torso/Right-Arm" instance=ExtResource("1_p0582")]
 transform = Transform3D(0.7, -8.13152e-20, 0, 0, -3.05979e-08, -0.7, -8.13152e-20, 0.7, -3.05979e-08, 0, -0.65, -0.9)
+script = SubResource("GDScript_qlci2")
 
 [node name="Left-Arm" type="MeshInstance3D" parent="Torso"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78, 0, 0)
@@ -1526,11 +1538,17 @@ libraries = {
 "": SubResource("AnimationLibrary_3cdf7")
 }
 
-[node name="State Machine" type="Node" parent="."]
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_dwhwr")
+initial_state = NodePath("IdleState")
 
-[node name="DodgeState" type="Node" parent="State Machine"]
+[node name="DodgeState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim")]
 script = ExtResource("3_5wr6j")
+anim = NodePath("../../AnimationPlayer")
+
+[node name="IdleState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim")]
+script = ExtResource("4_0pjhg")
+anim = NodePath("../../AnimationPlayer")
 
 [node name="ClimbDetection" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32708, 0)

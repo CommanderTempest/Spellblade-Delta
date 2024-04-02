@@ -1,4 +1,5 @@
 extends Node
+class_name StateMachine
 
 @export var initial_state: State
 
@@ -35,3 +36,6 @@ func on_child_transition(state, new_state_name):
 		current_state.Exit()
 	new_state.Enter()
 	current_state = new_state
+
+func getCurrentState() -> State:
+	return current_state
