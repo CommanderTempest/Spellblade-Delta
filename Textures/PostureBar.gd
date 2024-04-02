@@ -1,10 +1,10 @@
 extends TextureProgressBar
 
-@export var player: Player
+@export var posture_component: PostureComponent
 
 func _ready():
-	player.postureChanged.connect(update)
+	posture_component.postureChanged.connect(update)
 	update()
 	
 func update():
-	value = player.posture * 100 / player.max_posture
+	value = posture_component.current_posture * 100 / posture_component.max_posture

@@ -18,7 +18,6 @@ func _ready():
 
 func Enter():
 	if canDodge:
-		print("Can dodge!")
 		isDodging = true
 		canDodge = false
 		dodge_cd.start()
@@ -26,8 +25,6 @@ func Enter():
 			anim.play("Dodge")
 		else:
 			print(self.name + " has no animation: Dodge")
-	print("Transiting out")
-	transitioned.emit(self, "IdleState")
 
 func getIsDodging():
 	return isDodging
@@ -39,3 +36,4 @@ func on_dodge_cd_timeout():
 func on_animation_finished(anim_name: String):
 	if anim_name == "Dodge":
 		isDodging = false
+		transitioned.emit(self, "IdleState")

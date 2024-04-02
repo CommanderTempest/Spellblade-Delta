@@ -7,8 +7,6 @@ signal postureChanged
 signal blockStateChanged  # canBlock has changed (used for UI)
 signal dodgeStateChanged  # canDodge has changed (used for UI)
 
-@export var jump_height: float = 1.0
-@export var fall_multiplier: float = 2.0
 @export var max_hitpoints := 100
 @export var max_posture := 100
 @export var posture_damage := 20
@@ -25,11 +23,6 @@ signal dodgeStateChanged  # canDodge has changed (used for UI)
 @onready var walk_player = $WalkPlayer
 @onready var animation_tree = $AnimationTree
 @onready var climb_detection = $ClimbDetection
-@onready var dodge_cd = $Timers/Dodge_CD
-@onready var block_cd = $Timers/Block_CD
-@onready var swing_cd = $Timers/Swing_CD
-@onready var combo_timer = $Timers/ComboTimer
-@onready var parry_timer = $Timers/ParryTimer
 @onready var climb_timer = $Timers/ClimbTimer
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
@@ -37,21 +30,6 @@ signal dodgeStateChanged  # canDodge has changed (used for UI)
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion := Vector2.ZERO
 
-var isBlocking := false
-var isParrying := false
-var isDodging := false
-var isSwinging := false
-
-var canBlock := true:
-	set(value):
-		canBlock = value
-		blockStateChanged.emit() 
-var canDodge := true:
-	set(value):
-		canDodge = value
-		dodgeStateChanged.emit()
-var canSwing := true
-var canTickDamage := true
 var canClimb := true
 
 var combo := 1
@@ -74,60 +52,34 @@ var hitpoints: int = max_hitpoints:
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-	weapon.body_entered.connect(_on_weapon_body_entered)
-	weapon.body_exited.connect(_on_weapon_body_exited)
 
 func _process(delta) -> void:
-	if Input.is_action_just_pressed("dodge"):
-		pass
-		#state_machine.on_child_transition(state_machine.current_state, "DodgeState")
-	elif Input.is_action_pressed("block") and canBlock and not isDodging and not isSwinging:
-		block()
-	elif Input.is_action_just_pressed("attack") and canSwing and not isBlocking and not isDodging:
-		attack()
-	if Input.is_action_just_released("block") and isBlocking:
-		canBlock = false
-		block_cd.start()
-		animation_player.queue("Idling")
-		isBlocking = false
-		
-	if Input.is_action_pressed("dash"):
-		speed = 3.0
-	elif Input.is_action_just_released("dash"):
-		speed = 2.0
-		
-	if isWeaponInContact and canTickDamage:
-		if contactEnemy:
-			canTickDamage = false
-			contactEnemy.enemy_take_damage(player_damage)
+	pass
+#	if isWeaponInContact and canTickDamage:
+#		if contactEnemy:
+#			canTickDamage = false
+#			contactEnemy.enemy_take_damage(player_damage)
 
 func _physics_process(delta):
 	handle_camera_location()
 	# Add the gravity.
-	if not is_on_floor():
-		# if jumping, apply gravity
-		if (velocity.y >= 0):
-			velocity.y -= gravity * delta
-		# when falling apply more gravity
-		else:
-			velocity.y -= gravity * delta * fall_multiplier
+	
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		
-		if climb_detection.is_colliding():
-			#play climb animation
-			climb_timer.start()
-			while climb_detection.is_colliding() and canClimb:
-				velocity.y = 0.6
-				self.gravity = 0
-				await get_tree().create_timer(0.1).timeout
-				wait(1)
-			velocity.y = 0
-			self.gravity = 9.8
-		else:
-			velocity.y = sqrt(jump_height * 2.0 * gravity) 
+#	if Input.is_action_just_pressed("jump") and is_on_floor():
+#
+#		if climb_detection.is_colliding():
+#			#play climb animation
+#			climb_timer.start()
+#			while climb_detection.is_colliding() and canClimb:
+#				velocity.y = 0.6
+#				self.gravity = 0
+#				await get_tree().create_timer(0.1).timeout
+#				wait(1)
+#			velocity.y = 0
+#			self.gravity = 9.8
+#		else:
+#			velocity.y = sqrt(jump_height * 2.0 * gravity) 
 		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -163,110 +115,8 @@ func handle_camera_location() -> void:
 	
 	mouse_motion = Vector2.ZERO
 
-func dodge() -> void:
-	if animation_player.has_animation("Dodge"):
-		isDodging = true
-		canDodge = false
-		animation_player.play("Dodge")
-		dodge_cd.start()
-
-func block() -> void:
-	if not isBlocking:
-		canBlock = false
-		isParrying = true
-		parry_timer.start()
-		isBlocking = true
-		animation_player.play("Parry")
-		animation_player.queue("HoldBlock")
-
-func attack() -> void:
-	if animation_player.has_animation("Attack" + str(combo)):
-		canSwing = false
-		isSwinging = true 
-		canTickDamage = true
-		animation_player.play("Attack" + str(combo))
-	combo += 1
-	
-func take_damage(damage: int) -> void:
-	if isParrying:
-		print("PARRIED!")
-		posture += 40
-		var spark: GPUParticles3D = sparks.instantiate()
-		spark.amount = 20
-		add_child(spark)
-		spark.global_position = weapon.global_position
-	elif isDodging:
-		print("DODGED!")
-		#particle for successful dodge
-	elif isBlocking:
-		posture -= posture_damage
-		
-		var spark = sparks.instantiate()
-		add_child(spark)
-		spark.global_position = weapon.global_position
-	else:
-		hitpoints -= damage
-		var bleed = blood.instantiate()
-		add_child(bleed)
-		bleed.global_position = self.global_position
-		bleed.global_position.y += 0.1
-
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
-
-func getIsSwinging() -> bool:
-	return self.isSwinging
-
-#******************SIGNALS*****************
-var isWeaponInContact := false # if weapon is currently inside another body
-
-func _on_weapon_body_entered(body):
-	if body != self and body.is_in_group("Enemy"):
-		isWeaponInContact = true
-		contactEnemy = body
-
-func _on_weapon_body_exited(body):
-	if body != self:
-		isWeaponInContact = false
-		contactEnemy = null
-
-func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "Dodge":
-		isDodging = false
-	elif anim_name == "Parry":
-		isParrying = false
-	elif anim_name == "Attack1" or anim_name == "Attack2" or anim_name == "Attack3":
-		isSwinging = false
-		canSwing = true
-		combo_timer.start()
-	if anim_name == "Attack3":
-		# this if statement should be the last attack animation in the combo
-		combo = 1
-		combo_timer.stop()
-
-#***************TIMER SIGNALS****************
-
-func _on_dodge_cd_timeout():
-	canDodge = true
-	dodge_cd.stop()
-
-func _on_block_cd_timeout():
-	print("Blcok timeout")
-	canBlock = true
-	block_cd.stop()
-
-func _on_combo_timer_timeout():
-	combo_timer.stop()
-	combo = 1
-	canSwing = true
-	isSwinging = false
-	print("Running an idle")
-	animation_player.stop()
-	animation_player.play("Idling")
-
-func _on_parry_timer_timeout():
-	isParrying = false
-	parry_timer.stop()
 
 func _on_climb_timer_timeout():
 	canClimb = false

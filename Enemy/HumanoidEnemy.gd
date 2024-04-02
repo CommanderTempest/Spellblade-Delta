@@ -42,20 +42,14 @@ func _ready():
 	
 	# connect all these automatically so we don't have to 
 	# manually do it on every new mob type
-	dodge_cd.timeout.connect(_on_dodge_cd_timeout)
-	block_cd.timeout.connect(_on_block_cd_timeout)
-	swing_cd.timeout.connect(_on_swing_cd_timeout)
-	parry_timer.timeout.connect(_on_parry_timer_timeout)
-	combo_timer.timeout.connect(_on_combo_timer_timeout)
-	stun_duration.timeout.connect(stun_end)
 	self.animation_player.animation_finished.connect(_on_animation_player_animation_finished)
 
 func _process(delta):
 	super._process(delta)
 	
-	if super.getPrimaryTarget():
-		if super.getPrimaryTarget().getIsSwinging():
-			defend()
+#	if super.getPrimaryTarget():
+#		if super.getPrimaryTarget().getIsSwinging():
+#			defend()
 
 func attack() -> void:
 	if canAttack:

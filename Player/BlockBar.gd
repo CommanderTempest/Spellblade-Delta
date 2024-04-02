@@ -1,13 +1,13 @@
 extends TextureProgressBar
 
-@export var player: Player
+@export var blockState: BlockState
 
 func _ready():
-	player.blockStateChanged.connect(update)
+	blockState.blockStateChanged.connect(update)
 	update()
 	
 func update():
-	if player.canBlock:
+	if blockState.canBlock:
 		value = 0
 	else:
 		value = 1

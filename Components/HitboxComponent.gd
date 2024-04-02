@@ -1,9 +1,13 @@
 extends Area3D
 class_name HitboxComponent
 
+@export var damage_to_deal: int
+
 var contact_target: CharacterBody3D
 
 func _ready():
+	if !damage_to_deal:
+		damage_to_deal = 20
 	body_entered.connect(bodyEntered)
 	body_exited.connect(bodyExited)
 

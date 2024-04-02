@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbbs2ie7nvx7x"]
+[gd_scene load_steps=3 format=3 uid="uid://cbbs2ie7nvx7x"]
 
 [ext_resource type="Script" path="res://HealthComponent.gd" id="1_twr60"]
+[ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="2_lsa1x"]
 
 [node name="HealthComponent" type="Node3D"]
 script = ExtResource("1_twr60")
+sparks = ExtResource("2_lsa1x")

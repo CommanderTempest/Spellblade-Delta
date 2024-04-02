@@ -1511,23 +1511,6 @@ shape = SubResource("BoxShape3D_24q1n")
 process_mode = 4
 tree_root = SubResource("AnimationNodeStateMachine_51onq")
 
-[node name="Timers" type="Node" parent="."]
-
-[node name="Dodge_CD" type="Timer" parent="Timers"]
-wait_time = 3.0
-
-[node name="Block_CD" type="Timer" parent="Timers"]
-
-[node name="Swing_CD" type="Timer" parent="Timers"]
-
-[node name="ComboTimer" type="Timer" parent="Timers"]
-wait_time = 0.3
-
-[node name="ParryTimer" type="Timer" parent="Timers"]
-wait_time = 0.5
-
-[node name="StunDuration" type="Timer" parent="Timers"]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_o6628")

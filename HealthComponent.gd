@@ -6,6 +6,7 @@ signal healthChanged
 @export var max_health: int
 @export var blood: PackedScene # don't know if I should use particles here
 @export var sparks: PackedScene
+@export var state_machine: StateMachine
 
 var current_health: int:
 	set(value):
@@ -34,6 +35,13 @@ func hasHealthRemaining() -> bool:
 		return false
 
 func take_damage(damage: int):
+#	if state_machine.current_state is DodgeState:
+#		print("DODGED!")
+#		#dodge particles
+#	elif state_machine.current_state is BlockState:
+#		var spark = sparks.initialize()
+#		add_child(spark)
+#		spark.global_position = get_parent().global_position
 	current_health -= damage
 
 func heal(amount: int):
