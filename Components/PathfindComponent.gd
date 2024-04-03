@@ -15,12 +15,12 @@ func _ready():
 
 func _process(delta):
 	if tracking_target:
-		track_to_target(primary_target.global_position)
+		navigation_agent_3d.target_position = primary_target.global_position
 
 func _physics_process(delta):
 	var next_position = navigation_agent_3d.get_next_path_position()
 	var direction = character.global_position.direction_to(next_position)
-	
+
 	if primary_target:
 		distance = character.global_position.distance_to(primary_target.global_position)
 		
@@ -62,9 +62,6 @@ func has_primary_target() -> bool:
 
 func get_distance_to_target() -> float:
 	return distance
-
-func track_to_target(target: Vector3):
-	navigation_agent_3d.target_position = target
 
 func look_at_target(direction: Vector3) -> void:
 	var adjusted_direction = direction

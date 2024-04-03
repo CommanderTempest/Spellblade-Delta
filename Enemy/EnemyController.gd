@@ -29,9 +29,7 @@ func _physics_process(delta):
 		# sets speed of enemy depending on how far they are
 		navigation.check_range(attack_range) 
 
-		if navigation.get_distance_to_target() > attack_range * 2:
-			print("Out of range")
-			print(str(navigation.get_distance_to_target()) + " is distance " + str(attack_range * 2))
+		if navigation.get_distance_to_target() > attack_range * 14:
 			navigation.return_to_spawn()
 			state_machine.on_child_transition(state_machine.current_state, "IdleState")
 
@@ -40,6 +38,6 @@ func _physics_process(delta):
 				state_machine.on_child_transition(state_machine.current_state, "AttackState")
 
 func on_sight_entered(body: Node3D):
-	if body is CharacterBody3D:
+	if body != self and body is CharacterBody3D:
 		navigation.register_target(body)
 		provoked = true

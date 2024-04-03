@@ -20,3 +20,4 @@ res://Enemy/EnemyController.gd
 res://Components/PathfindComponent.gd
 res://Player/Controller.gd
 res://States/AttackState.gd
+res://HealthComponent.gd

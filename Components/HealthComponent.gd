@@ -13,7 +13,7 @@ var current_health: int:
 		current_health = value
 		healthChanged.emit()
 		if current_health <= 0:
-			print("You have been felled!")
+			print(owner.name + " has been felled!")
 
 func _ready():
 	initializeHealth()

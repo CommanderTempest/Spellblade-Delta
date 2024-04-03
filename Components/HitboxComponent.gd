@@ -2,26 +2,29 @@ extends Area3D
 class_name HitboxComponent
 
 @export var damage_to_deal: int
+@export var attack_state: AttackState
+@export var my_hurtbox : HurtboxComponent
+var contact_target: HurtboxComponent
 
-var contact_target: CharacterBody3D
 
 func _ready():
 	if !damage_to_deal:
 		damage_to_deal = 20
-	body_entered.connect(bodyEntered)
-	body_exited.connect(bodyExited)
+	area_entered.connect(areaEntered)
+	area_exited.connect(areaExited)
 
-func bodyEntered(otherBody: Node3D) -> void:
-	if otherBody != owner and otherBody is CharacterBody3D:
-		print("Hit a character: " + str(otherBody.name))
-		contact_target = otherBody
+func _process(delta):
+	if contact_target and attack_state.isSwinging:
+		contact_target.take_damage(damage_to_deal)
 
-func bodyExited(otherBody: Node3D) -> void:
-	if otherBody is CharacterBody3D:
+func areaEntered(otherArea: Node3D):
+	if otherArea is HurtboxComponent:
+		print(otherArea.name)
+		contact_target = otherArea
+
+func areaExited(otherArea: Node3D) -> void:
+	if otherArea is HurtboxComponent and otherArea != my_hurtbox:
 		contact_target = null
 
 func getOwner():
 	return self.owner
-
-func getContactTarget() -> CharacterBody3D:
-	return contact_target

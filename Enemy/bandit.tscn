@@ -13,6 +13,10 @@ state_machine = NodePath("State Machine")
 sightLine = NodePath("Sight")
 navigation = NodePath("PathfindComponent")
 
+[node name="HitboxComponent" parent="Torso/Right-Arm" index="0" node_paths=PackedStringArray("attack_state", "my_hurtbox")]
+attack_state = NodePath("../../../State Machine/AttackState")
+my_hurtbox = NodePath("../../../HurtboxComponent")
+
 [node name="Sight" type="Area3D" parent="." index="6"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 

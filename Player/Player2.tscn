@@ -38,6 +38,10 @@ height = 20
 script = ExtResource("2_23d2a")
 state_machine = NodePath("State Machine")
 
+[node name="HitboxComponent" parent="Torso/Right-Arm" index="0" node_paths=PackedStringArray("attack_state", "my_hurtbox")]
+attack_state = NodePath("../../../State Machine/AttackState")
+my_hurtbox = NodePath("../../../HurtboxComponent")
+
 [node name="ClimbState" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection")]
 climb_detection = NodePath("../../ClimbDetection")
 
