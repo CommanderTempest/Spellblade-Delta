@@ -1,15 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://dml0ymhe6ymnl"]
+[gd_scene load_steps=20 format=3 uid="uid://dml0ymhe6ymnl"]
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_23d2a"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_hhhn7"]
-[ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="3_6gn16"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_j8u8f"]
-[ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="4_jng7e"]
 [ext_resource type="Texture2D" uid="uid://qegu7ub3dioi" path="res://Textures/healthbarUnder.png" id="6_iuslj"]
 [ext_resource type="Texture2D" uid="uid://bpfmsuf6ovw33" path="res://Textures/healthbarProgress.png" id="7_q332o"]
-[ext_resource type="Script" path="res://States/JumpState.gd" id="8_oo01e"]
-[ext_resource type="Script" path="res://States/ClimbState.gd" id="9_476u2"]
 [ext_resource type="Script" path="res://Textures/HealthBar.gd" id="10_5fkyu"]
 [ext_resource type="Script" path="res://Textures/PostureBar.gd" id="11_0ys1s"]
 [ext_resource type="Texture2D" uid="uid://dam64o7sxb8t5" path="res://Textures/ShieldUnder.png" id="11_aeo8u"]
@@ -18,12 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://duljje6b5tsug" path="res://Textures/DodgeUnder.png" id="14_atsr3"]
 [ext_resource type="Texture2D" uid="uid://dyi7dawpi3yuf" path="res://Textures/DodgeProgress.png" id="15_hl3ab"]
 [ext_resource type="Script" path="res://Player/DodgeBar.gd" id="16_fg6yo"]
-[ext_resource type="Script" path="res://BlockState.gd" id="17_gy3me"]
 [ext_resource type="Script" path="res://Player/Controller.gd" id="17_r1a5t"]
-[ext_resource type="Script" path="res://States/AttackState.gd" id="18_7lk7f"]
-[ext_resource type="Script" path="res://States/HoldState.gd" id="19_n12po"]
-[ext_resource type="Script" path="res://HealthComponent.gd" id="21_ga782"]
-[ext_resource type="Script" path="res://Components/PostureComponent.gd" id="22_n7kp1"]
 
 [sub_resource type="Gradient" id="Gradient_uqrya"]
 offsets = PackedFloat32Array(0)
@@ -43,34 +34,12 @@ gradient = SubResource("Gradient_t7sib")
 width = 300
 height = 20
 
-[node name="Player" node_paths=PackedStringArray("weapon", "state_machine") groups=["Player"] instance=ExtResource("1_4y1s6")]
+[node name="Player" node_paths=PackedStringArray("state_machine") groups=["Player"] instance=ExtResource("1_4y1s6")]
 script = ExtResource("2_23d2a")
-weapon = NodePath("Torso/Right-Arm/Sword")
-sparks = ExtResource("3_6gn16")
-blood = ExtResource("4_jng7e")
 state_machine = NodePath("State Machine")
 
-[node name="BlockState" type="Node" parent="State Machine" index="2" node_paths=PackedStringArray("anim")]
-script = ExtResource("17_gy3me")
-anim = NodePath("../../AnimationPlayer")
-
-[node name="AttackState" type="Node" parent="State Machine" index="3" node_paths=PackedStringArray("anim")]
-script = ExtResource("18_7lk7f")
-anim = NodePath("../../AnimationPlayer")
-
-[node name="HoldState" type="Node" parent="State Machine" index="4"]
-script = ExtResource("19_n12po")
-
-[node name="JumpState" type="Node" parent="State Machine" index="5" node_paths=PackedStringArray("anim", "Character")]
-script = ExtResource("8_oo01e")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
-
-[node name="ClimbState" type="Node" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection", "anim", "Character")]
-script = ExtResource("9_476u2")
+[node name="ClimbState" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection")]
 climb_detection = NodePath("../../ClimbDetection")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
 
 [node name="CameraPivot" type="Node3D" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 4, 4)
@@ -161,20 +130,5 @@ player = NodePath("..")
 walk_player = NodePath("../WalkPlayer")
 climb_detection = NodePath("../ClimbDetection")
 
-[node name="HealthComponent" type="Node3D" parent="." index="11" node_paths=PackedStringArray("state_machine")]
-script = ExtResource("21_ga782")
-max_health = 100
-state_machine = NodePath("../State Machine")
-
-[node name="PostureComponent" type="Node3D" parent="." index="12"]
-script = ExtResource("22_n7kp1")
-max_posture = 100
-
-[node name="Timers" type="Node" parent="." index="13"]
-
-[node name="ClimbTimer" type="Timer" parent="Timers" index="0"]
-wait_time = 2.0
-
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="timeout" from="Timers/ClimbTimer" to="." method="_on_climb_timer_timeout"]

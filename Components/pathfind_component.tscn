@@ -4,5 +4,3 @@
 
 [node name="PathfindComponent" type="Node3D"]
 script = ExtResource("1_qug0l")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

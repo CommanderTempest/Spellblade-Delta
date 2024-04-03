@@ -12,13 +12,16 @@ func _ready():
 	body_exited.connect(bodyExited)
 
 func bodyEntered(otherBody: Node3D) -> void:
-	if otherBody is CharacterBody3D:
+	if otherBody != owner and otherBody is CharacterBody3D:
 		print("Hit a character: " + str(otherBody.name))
 		contact_target = otherBody
 
 func bodyExited(otherBody: Node3D) -> void:
 	if otherBody is CharacterBody3D:
 		contact_target = null
+
+func getOwner():
+	return self.owner
 
 func getContactTarget() -> CharacterBody3D:
 	return contact_target

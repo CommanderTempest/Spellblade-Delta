@@ -6,7 +6,6 @@ extends Node
 @export var attack_state: AttackState
 @export var player: CharacterBody3D
 @export var walk_player: AnimationPlayer
-@export var player_speed := 2.0
 @export var climb_detection: RayCast3D
 
 # Called when the node enters the scene tree for the first time.
@@ -45,12 +44,12 @@ func _physics_process(delta):
 	if input_dir.is_zero_approx():
 		walk_player.play("Idle")
 	if direction:
-		player.velocity.x = direction.x * player_speed
-		player.velocity.z = direction.z * player_speed
+		player.velocity.x = direction.x * player.speed
+		player.velocity.z = direction.z * player.speed
 		walk_player.play("Walk")
 	else:
-		player.velocity.x = move_toward(player.velocity.x, 0, player_speed)
-		player.velocity.z = move_toward(player.velocity.z, 0, player_speed)
+		player.velocity.x = move_toward(player.velocity.x, 0, player.speed)
+		player.velocity.z = move_toward(player.velocity.z, 0, player.speed)
 		#playback.stop()
 	player.move_and_slide()
 

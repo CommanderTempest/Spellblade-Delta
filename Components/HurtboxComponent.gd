@@ -9,8 +9,9 @@ func _ready():
 
 func areaEntered(otherArea: Area3D):
 	if otherArea is HitboxComponent:
-		# instead of taking damage, consider signaling to play or something
-		# to check for parry/block/dodge
-		if attack_state.isSwinging:
-			health_component.take_damage(otherArea.damage_to_deal)
-			print("Hurtbox component has been hit by a hitbox component")
+		if otherArea.getOwner() != self.owner:
+			# instead of taking damage, consider signaling to play or something
+			# to check for parry/block/dodge
+			if attack_state.isSwinging:
+				health_component.take_damage(otherArea.damage_to_deal)
+				print("Hurtbox component has been hit by a hitbox component")

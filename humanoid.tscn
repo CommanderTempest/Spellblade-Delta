@@ -1,9 +1,20 @@
-[gd_scene load_steps=57 format=3 uid="uid://0l27d06sjlr"]
+[gd_scene load_steps=67 format=3 uid="uid://0l27d06sjlr"]
 
-[ext_resource type="PackedScene" uid="uid://d0n831ywfiu6d" path="res://Weapons/sword.tscn" id="1_p0582"]
+[ext_resource type="Script" path="res://Components/HitboxComponent.gd" id="1_q7epg"]
 [ext_resource type="Script" path="res://States/StateMachine.gd" id="2_dwhwr"]
 [ext_resource type="Script" path="res://DodgeState.gd" id="3_5wr6j"]
 [ext_resource type="Script" path="res://States/IdleState.gd" id="4_0pjhg"]
+[ext_resource type="Script" path="res://BlockState.gd" id="5_3mh81"]
+[ext_resource type="Script" path="res://Components/HurtboxComponent.gd" id="5_a3o11"]
+[ext_resource type="Script" path="res://HealthComponent.gd" id="6_cd8sc"]
+[ext_resource type="Script" path="res://States/AttackState.gd" id="6_s40kg"]
+[ext_resource type="Script" path="res://States/HoldState.gd" id="7_3q226"]
+[ext_resource type="Script" path="res://Components/PostureComponent.gd" id="7_xt674"]
+[ext_resource type="Script" path="res://States/JumpState.gd" id="8_srd7y"]
+[ext_resource type="Script" path="res://States/ClimbState.gd" id="9_weneu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_24q1n"]
+size = Vector3(2.1, 2.6, 1.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_m40ra"]
 size = Vector3(1, 1, 0.5)
@@ -17,18 +28,11 @@ size = Vector3(0.5, 1, 0.5)
 [sub_resource type="BoxMesh" id="BoxMesh_rqvex"]
 size = Vector3(0.5, 1, 0.5)
 
-[sub_resource type="GDScript" id="GDScript_qlci2"]
-script/source = "extends Area3D
+[sub_resource type="BoxMesh" id="BoxMesh_hb0ox"]
+size = Vector3(0.5, 4, 0.5)
 
-@export var Owner: CharacterBody3D
-
-# I was gonna run a check for collisions here and make sure it wasn't owner
-# idk anymore tho
-
-"
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_24q1n"]
-size = Vector3(2.1, 2.6, 1.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_sya46"]
+size = Vector3(0.5, 4, 0.5)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u0y5m"]
 animation = &"Attack1"
@@ -1467,8 +1471,15 @@ _data = {
 "Walk": SubResource("Animation_6ltkw")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ppowl"]
+size = Vector3(2.1, 2.6, 1.5)
+
 [node name="Humanoid" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Hitbox" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.154267, 1.29553, -0.321356)
+shape = SubResource("BoxShape3D_24q1n")
 
 [node name="Torso" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -1494,18 +1505,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, 0)
 mesh = SubResource("BoxMesh_rqvex")
 skeleton = NodePath("../..")
 
-[node name="Sword" parent="Torso/Right-Arm" instance=ExtResource("1_p0582")]
-transform = Transform3D(0.7, -8.13152e-20, 0, 0, -3.05979e-08, -0.7, -8.13152e-20, 0.7, -3.05979e-08, 0, -0.65, -0.9)
-script = SubResource("GDScript_qlci2")
+[node name="HitboxComponent" type="Area3D" parent="Torso/Right-Arm"]
+transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, -0.65, -0.9)
+script = ExtResource("1_q7epg")
+damage_to_deal = 20
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Torso/Right-Arm/HitboxComponent"]
+mesh = SubResource("BoxMesh_hb0ox")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torso/Right-Arm/HitboxComponent"]
+shape = SubResource("BoxShape3D_sya46")
 
 [node name="Left-Arm" type="MeshInstance3D" parent="Torso"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78, 0, 0)
 mesh = SubResource("BoxMesh_rqvex")
 skeleton = NodePath("../..")
-
-[node name="Hitbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.154267, 1.29553, -0.321356)
-shape = SubResource("BoxShape3D_24q1n")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 process_mode = 4
@@ -1533,6 +1547,46 @@ anim = NodePath("../../AnimationPlayer")
 script = ExtResource("4_0pjhg")
 anim = NodePath("../../AnimationPlayer")
 
+[node name="BlockState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim")]
+script = ExtResource("5_3mh81")
+anim = NodePath("../../AnimationPlayer")
+
+[node name="AttackState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim")]
+script = ExtResource("6_s40kg")
+anim = NodePath("../../AnimationPlayer")
+
+[node name="HoldState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim")]
+script = ExtResource("7_3q226")
+anim = NodePath("../../AnimationPlayer")
+
+[node name="JumpState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
+script = ExtResource("8_srd7y")
+anim = NodePath("../../AnimationPlayer")
+Character = NodePath("../..")
+
+[node name="ClimbState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
+script = ExtResource("9_weneu")
+anim = NodePath("../../AnimationPlayer")
+Character = NodePath("../..")
+
 [node name="ClimbDetection" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32708, 0)
 target_position = Vector3(0, 0, -2)
+
+[node name="HurtboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component", "attack_state")]
+script = ExtResource("5_a3o11")
+health_component = NodePath("../HealthComponent")
+attack_state = NodePath("../State Machine/AttackState")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18021, 0)
+shape = SubResource("BoxShape3D_ppowl")
+
+[node name="HealthComponent" type="Node3D" parent="." node_paths=PackedStringArray("state_machine")]
+script = ExtResource("6_cd8sc")
+max_health = 100
+state_machine = NodePath("../State Machine")
+
+[node name="PostureComponent" type="Node3D" parent="."]
+script = ExtResource("7_xt674")
+max_posture = 100

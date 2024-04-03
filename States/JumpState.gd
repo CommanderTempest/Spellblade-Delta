@@ -1,13 +1,10 @@
 extends State
 class_name JumpState
 
-@export var jump_height: float = 1.0
+@export var jump_height: float = 0.4
 var fall_multiplier := 2.0
 
 var hasHitFloor := false # if the player has hit the floor after jumping
-
-#Possible idea, from here transition to climbing state,
-#then when climbing is done, transition to jump so the player goes over a little
 
 func Enter() -> void:
 	pass
