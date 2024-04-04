@@ -5,6 +5,10 @@ class_name EnemyController
 @export var sightLine: Area3D
 @export var navigation: PathfindComponent
 @export var attack_range = 0.5
+@export var hurtbox: HurtboxComponent
+@export var hitbox: HitboxComponent
+
+var primary_target: Player
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -15,6 +19,7 @@ var provoked := false
 func _ready():
 	spawn_pos = global_position
 	sightLine.body_entered.connect(on_sight_entered)
+	hurtbox.hurt.connect(on_hurtbox_hurt)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -35,9 +40,26 @@ func _physics_process(delta):
 
 		if provoked:
 			if navigation.get_distance_to_target() <= attack_range:
-				state_machine.on_child_transition(state_machine.current_state, "AttackState")
+				if primary_target.getIsSwinging():
+					state_machine.on_child_transition(state_machine.current_state, "BlockState")
+				else:
+					if state_machine.current_state is AttackState:
+						if !state_machine.current_state.isSwinging:
+							state_machine.on_child_transition(state_machine.current_state, "AttackState")
+					else:
+						state_machine.on_child_transition(state_machine.current_state, "AttackState")
+			else:
+				state_machine.on_child_transition(state_machine.current_state, "IdleState")
 
 func on_sight_entered(body: Node3D):
 	if body != self and body is CharacterBody3D:
 		navigation.register_target(body)
+		primary_target = body
 		provoked = true
+
+func on_hurtbox_hurt(hurtBy: HitboxComponent):
+	# hit by itself
+	if hurtBy == hitbox:
+		return
+	else:
+		hurtbox.take_damage(hurtBy.damage_to_deal)

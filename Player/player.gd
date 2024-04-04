@@ -5,6 +5,8 @@ class_name Player
 @export var speed := 2.0
 @export var player_damage := 20
 @export var state_machine: StateMachine
+@export var hurtbox: HurtboxComponent
+@export var hitbox: HitboxComponent
 
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
@@ -19,6 +21,7 @@ var mouse_motion := Vector2.ZERO
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	hurtbox.hurt.connect(on_hurtbox_hurt)
 
 func _process(delta) -> void:
 	pass
@@ -64,3 +67,15 @@ func handle_camera_location() -> void:
 
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
+
+func getIsSwinging() -> bool:
+	if state_machine.current_state is AttackState:
+		return state_machine.current_state.isSwinging
+	return false
+
+func on_hurtbox_hurt(hurtBy: HitboxComponent):
+	# hit by itself
+	if hurtBy == hitbox:
+		return
+	else:
+		hurtbox.take_damage(hurtBy.damage_to_deal)

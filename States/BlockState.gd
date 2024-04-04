@@ -14,7 +14,9 @@ var canBlock := true:
 
 func _ready():
 	block_cd.wait_time = 3.0 # in seconds
+	parry_length.wait_time = 0.5
 	add_child(block_cd)
+	add_child(parry_length)
 	block_cd.timeout.connect(on_block_cd_timeout)
 	parry_length.timeout.connect(on_parry_length_timeout)
 	anim.animation_finished.connect(on_animation_finished)

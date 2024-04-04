@@ -1,13 +1,23 @@
 extends Area3D
 class_name HurtboxComponent
 
+"""
+next idea, put state machine in here, and check the state we're in
+and if we're doing/blocking or whatev
+"""
+
+signal hurt
+
 @export var health_component: HealthComponent
+var canTakeDamage := false
 
 func _ready():
 	area_entered.connect(areaEntered)
 
 func areaEntered(otherArea: Area3D):
-	pass
+	if otherArea is HitboxComponent:
+		hurt.emit(otherArea as HitboxComponent)
+
 #	if otherArea is HitboxComponent:
 #		if otherArea.getOwner() != self.owner:
 #			# instead of taking damage, consider signaling to play or something

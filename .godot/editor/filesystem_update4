@@ -1,8 +1,8 @@
-res://humanoid.tscn
+res://Levels/sandbox.tscn
 res://Levels/Materials/grey.tres
 res://Textures/sparks.tres
 res://Textures/sparksProcess.tres
-res://Levels/sandbox.tscn
+res://humanoid.tscn
 res://Player/Player2.tscn
 res://Weapons/sword.tscn
 res://Enemy/bandit.tscn
@@ -11,13 +11,9 @@ res://Components/hurtbox_component.tscn
 res://Components/hitbox_component.tscn
 res://Components/pathfind_component.tscn
 res://Components/posture_component.tscn
-res://Enemy/BaseEnemy.gd
-res://Enemy/HumanoidEnemy.gd
 res://Components/HitboxComponent.gd
 res://Components/HurtboxComponent.gd
+res://Player/Controller.gd
 res://Player/Player.gd
 res://Enemy/EnemyController.gd
-res://Components/PathfindComponent.gd
-res://Player/Controller.gd
-res://States/AttackState.gd
-res://HealthComponent.gd
+res://States/BlockState.gd
