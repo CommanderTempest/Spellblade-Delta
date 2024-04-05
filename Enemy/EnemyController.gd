@@ -12,6 +12,7 @@ var primary_target: Player
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var rng = RandomNumberGenerator.new()
 var spawn_pos: Vector3 
 var provoked := false
 
@@ -41,7 +42,9 @@ func _physics_process(delta):
 		if provoked:
 			if navigation.get_distance_to_target() <= attack_range:
 				if primary_target.getIsSwinging():
-					state_machine.on_child_transition(state_machine.current_state, "BlockState")
+					var randomizedState: String = randomize_move()
+					if randomize_move() != "None":
+						state_machine.on_child_transition(state_machine.current_state, randomizedState)
 				else:
 					if state_machine.current_state is AttackState:
 						if !state_machine.current_state.isSwinging:
@@ -50,6 +53,28 @@ func _physics_process(delta):
 						state_machine.on_child_transition(state_machine.current_state, "AttackState")
 			else:
 				state_machine.on_child_transition(state_machine.current_state, "IdleState")
+
+func getStatus() -> String:
+	if state_machine.current_state is BlockState:
+		if state_machine.current_state.isParrying:
+			return "Parry"
+		elif state_machine.current_state.isBlocking:
+			return "Block"
+	elif state_machine.current_state is DodgeState:
+		if state_machine.current_state.isDodging:
+			return "Dodge"
+	return "None"
+
+func randomize_move() -> String:
+	var my_random_number = round(rng.randf_range(0, 1))
+	if my_random_number == 1:
+		# make a defense choice
+		my_random_number = round(rng.randf_range(0, 1))
+		if my_random_number == 0:
+			return "DodgeState"
+		elif my_random_number == 1:
+			return "BlockState"
+	return "None"
 
 func on_sight_entered(body: Node3D):
 	if body != self and body is CharacterBody3D:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dml0ymhe6ymnl"]
+[gd_scene load_steps=22 format=3 uid="uid://dml0ymhe6ymnl"]
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_23d2a"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://duljje6b5tsug" path="res://Textures/DodgeUnder.png" id="14_atsr3"]
 [ext_resource type="Texture2D" uid="uid://dyi7dawpi3yuf" path="res://Textures/DodgeProgress.png" id="15_hl3ab"]
 [ext_resource type="Script" path="res://Player/DodgeBar.gd" id="16_fg6yo"]
+[ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="16_vyamq"]
+[ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="17_2pfob"]
 [ext_resource type="Script" path="res://Player/Controller.gd" id="17_r1a5t"]
 
 [sub_resource type="Gradient" id="Gradient_uqrya"]
@@ -135,6 +137,12 @@ attack_state = NodePath("../State Machine/AttackState")
 player = NodePath("..")
 walk_player = NodePath("../WalkPlayer")
 climb_detection = NodePath("../ClimbDetection")
+
+[node name="HurtboxComponent" parent="." index="11" node_paths=PackedStringArray("posture_component", "character")]
+posture_component = NodePath("../PostureComponent")
+character = NodePath("..")
+blood = ExtResource("16_vyamq")
+sparks = ExtResource("17_2pfob")
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

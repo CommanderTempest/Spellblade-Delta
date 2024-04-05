@@ -18,7 +18,7 @@ func _process(delta):
 	if contact_target and attack_state.isSwinging:
 		if canTickDamage:
 			canTickDamage = false
-			#contact_target.take_damage(damage_to_deal)
+			contact_target.take_damage(damage_to_deal)
 	else: 
 		canTickDamage = true
 

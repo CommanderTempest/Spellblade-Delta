@@ -72,6 +72,17 @@ func getIsSwinging() -> bool:
 	if state_machine.current_state is AttackState:
 		return state_machine.current_state.isSwinging
 	return false
+	
+func getStatus() -> String:
+	if state_machine.current_state is BlockState:
+		if state_machine.current_state.isParrying:
+			return "Parry"
+		elif state_machine.current_state.isBlocking:
+			return "Block"
+	elif state_machine.current_state is DodgeState:
+		if state_machine.current_state.isDodging:
+			return "Dodge"
+	return "None"
 
 func on_hurtbox_hurt(hurtBy: HitboxComponent):
 	# hit by itself

@@ -11,6 +11,8 @@ var current_posture: int:
 		postureChanged.emit()
 		if current_posture <= 0:
 			print("You have been stunned!")
+		elif current_posture > max_posture:
+			current_posture = max_posture
 
 func _ready():
 	initializePosture()
