@@ -6,3 +6,7 @@ res://Levels/asorea.tscn
 res://Shaders/sandShader.tres
 res://Components/inventory_component.tscn
 res://Components/inventory_component.gd
+res://Levels/sandbox.tscn
+res://humanoid.tscn
+res://Player/Player2.tscn
+res://Enemy/bandit.tscn

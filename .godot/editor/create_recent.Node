@@ -1,4 +1,5 @@
 CSGBox3D
+StaticBody3D
 Node3D
 MeshInstance3D
 NavigationRegion3D
@@ -29,5 +30,3 @@ TextureRect
 GPUParticles3D
 CanvasLayer
 AnimationTree
-CharacterBody3D
-ShapeCast3D
