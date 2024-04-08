@@ -1,3 +1,8 @@
+CSGBox3D
+Node3D
+MeshInstance3D
+NavigationRegion3D
+Player
 NavigationAgent3D
 EnemyController
 PathfindComponent
@@ -13,7 +18,6 @@ HoldState
 AttackState
 BlockState
 IdleState
-Node3D
 Area3D
 Timer
 RayCast3D
@@ -26,7 +30,4 @@ GPUParticles3D
 CanvasLayer
 AnimationTree
 CharacterBody3D
-MeshInstance3D
 ShapeCast3D
-CSGBox3D
-NavigationRegion3D
