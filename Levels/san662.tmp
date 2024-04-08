@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvrsja6ftr3d4"]
+
+[ext_resource type="Material" uid="uid://dfopbxglnfycn" path="res://Levels/Materials/grey.tres" id="1_x4fnc"]
+[ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="3_nrqkt"]
+[ext_resource type="PackedScene" uid="uid://sgo8dp2bqts8" path="res://Enemy/butcher.tscn" id="3_pyaxc"]
+[ext_resource type="PackedScene" uid="uid://ctci0o05h6k1p" path="res://Enemy/bandit.tscn" id="4_cn31x"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hnlq2"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_sst73"]
+sky_material = SubResource("ProceduralSkyMaterial_hnlq2")
+
+[sub_resource type="Environment" id="Environment_sfrbh"]
+background_mode = 2
+sky = SubResource("Sky_sst73")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_oml4r"]
+vertices = PackedVector3Array(0, 0.5, -9.5, -9.5, 0.5, 0, -9.5, 0.5, 9.5, 0, 0.5, 9.5, 9.5, 0.5, 0, 9.5, 0.5, -9.5, 0, 0.5, 9.5, 9.5, 0.5, 9.5, 9.5, 0.5, 0, 0, 0.5, -9.5, -9.5, 0.5, -9.5, -9.5, 0.5, 0)
+polygons = [PackedInt32Array(5, 4, 0), PackedInt32Array(0, 4, 3), PackedInt32Array(0, 3, 1), PackedInt32Array(1, 3, 2), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9)]
+
+[sub_resource type="BoxMesh" id="BoxMesh_22qak"]
+size = Vector3(20, 1, 20)
+
+[node name="Sandbox" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sfrbh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_oml4r")
+
+[node name="Floor" type="CSGMesh3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_22qak")
+material = ExtResource("1_x4fnc")
+
+[node name="LevelObjects" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/LevelObjects"]
+transform = Transform3D(1, 0, 0, 0, 0.4, 0, 0, 0, 0.1, 0, 0.201777, -0.721017)
+use_collision = true
+
+[node name="Butcher" parent="." instance=ExtResource("3_pyaxc")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.124386, -6.65972)
+
+[node name="Player" parent="." instance=ExtResource("3_nrqkt")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Bandit" parent="." instance=ExtResource("4_cn31x")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.926026)
+
+[node name="Head" parent="Bandit/Torso" index="0"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
+
+[node name="ComboTimer" parent="Bandit/Timers" index="3"]
+wait_time = 1.0
+
+[editable path="Bandit"]

@@ -1,93 +1,53 @@
 extends CharacterBody3D
-
 class_name Player
 
-@export var jump_height: float = 1.0
-@export var fall_multiplier: float = 2.0
-@export var max_hitpoints := 100
-@export var max_posture := 100
 @export var posture_damage := 20
 @export var speed := 2.0
+@export var player_damage := 20
+@export var state_machine: StateMachine
+@export var hurtbox: HurtboxComponent
+@export var hitbox: HitboxComponent
 
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
 @onready var animation_player = $AnimationPlayer
-@onready var sword = $Arm/Sword
-@onready var dodge_timer = $DodgeTimer
-@onready var parry_timer = $ParryTimer
-@onready var dodge_cd = $DodgeCD
-@onready var parry_cd = $ParryCD
-@onready var block_cd = $BlockCD
+@onready var walk_player = $WalkPlayer
+@onready var animation_tree = $AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion := Vector2.ZERO
 
-var posture: int = max_posture:
-	set(value):
-		#update UI
-		posture = value
-		if posture <= 0:
-			print("STUNNED")
-			posture = max_posture
-var hitpoints: int = max_hitpoints: 
-	set(value):
-		hitpoints = value
-		if hitpoints <= 0:
-			print("You're dead lol")
-
-var isDodging := false
-var isBlocking := false
-var isParrying := false
-
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
+	hurtbox.hurt.connect(on_hurtbox_hurt)
+
 func _process(delta) -> void:
-	if Input.is_action_pressed("attack"):
-		if not isBlocking and not isDodging:
-			attack()
-	if Input.is_action_just_pressed("dodge") and dodge_cd.is_stopped():
-		isDodging = true
-		dodge_timer.start()
-	if Input.is_action_just_pressed("block") and block_cd.is_stopped():
-		isParrying = true
-		isBlocking = true
-		parry_timer.start()
-	if Input.is_action_just_released("block"):
-		isParrying = false
-		isBlocking = false
-		parry_timer.stop()
-		block_cd.start()
+	pass
+#	if isWeaponInContact and canTickDamage:
+#		if contactEnemy:
+#			canTickDamage = false
+#			contactEnemy.enemy_take_damage(player_damage)
 
 func _physics_process(delta):
 	handle_camera_location()
-	# Add the gravity.
-	if not is_on_floor():
-		# if jumping, apply gravity
-		if (velocity.y >= 0):
-			velocity.y -= gravity * delta
-		# when falling apply more gravity
-		else:
-			velocity.y -= gravity * delta * fall_multiplier
 
-	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = sqrt(jump_height * 2.0 * gravity)
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	if input_dir.is_zero_approx():
+		walk_player.play("Idle")
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
+		walk_player.play("Walk")
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
-
+		#playback.stop()
 	move_and_slide()
-	
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: 
 		mouse_motion = -event.relative * 0.001
@@ -105,41 +65,28 @@ func handle_camera_location() -> void:
 	
 	mouse_motion = Vector2.ZERO
 
-func attack() -> void:
-	animation_player.play("Attack")
+func wait(seconds: float) -> void:
+	await get_tree().create_timer(seconds).timeout
+
+func getIsSwinging() -> bool:
+	if state_machine.current_state is AttackState:
+		return state_machine.current_state.isSwinging
+	return false
 	
-func take_damage() -> void:
-	if isParrying:
-		print("PARRIED!")
-	elif isDodging:
-		print("DODGED!")
-	elif isBlocking:
-		print("Blocked, posture took a hit")
-		posture -= posture_damage
+func getStatus() -> String:
+	if state_machine.current_state is BlockState:
+		if state_machine.current_state.isParrying:
+			return "Parry"
+		elif state_machine.current_state.isBlocking:
+			return "Block"
+	elif state_machine.current_state is DodgeState:
+		if state_machine.current_state.isDodging:
+			return "Dodge"
+	return "None"
+
+func on_hurtbox_hurt(hurtBy: HitboxComponent):
+	# hit by itself
+	if hurtBy == hitbox:
+		return
 	else:
-		print("YOU'VE BEEN HIT!")
-		
-
-#**********TIMERS***********
-
-func _on_dodge_timer_timeout():
-	isDodging = false
-	print("Dodge on CD")
-	dodge_timer.stop()
-	dodge_cd.start()
-	
-func _on_parry_timer_timeout():
-	isParrying = false
-	print("Parry on CD")
-	parry_timer.stop()
-	block_cd.start()
-
-func _on_dodge_cd_timeout():
-	dodge_cd.stop()
-	print("Dodge off CD")
-
-func _on_block_cd_timeout():
-	block_cd.stop()
-	print("Block off CD")
-	
-#***********SECTION C***************
+		hurtbox.take_damage(hurtBy.damage_to_deal)

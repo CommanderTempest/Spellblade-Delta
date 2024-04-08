@@ -1,0 +1,148 @@
+[gd_scene load_steps=22 format=3 uid="uid://dml0ymhe6ymnl"]
+
+[ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
+[ext_resource type="Script" path="res://Player/Player.gd" id="2_23d2a"]
+[ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_hhhn7"]
+[ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_j8u8f"]
+[ext_resource type="Texture2D" uid="uid://qegu7ub3dioi" path="res://Textures/healthbarUnder.png" id="6_iuslj"]
+[ext_resource type="Texture2D" uid="uid://bpfmsuf6ovw33" path="res://Textures/healthbarProgress.png" id="7_q332o"]
+[ext_resource type="Script" path="res://Textures/HealthBar.gd" id="10_5fkyu"]
+[ext_resource type="Script" path="res://Textures/PostureBar.gd" id="11_0ys1s"]
+[ext_resource type="Texture2D" uid="uid://dam64o7sxb8t5" path="res://Textures/ShieldUnder.png" id="11_aeo8u"]
+[ext_resource type="Texture2D" uid="uid://pbmnupbsipx0" path="res://Textures/ShieldProgress.png" id="12_j2tvn"]
+[ext_resource type="Script" path="res://Player/BlockBar.gd" id="13_w2drb"]
+[ext_resource type="Texture2D" uid="uid://duljje6b5tsug" path="res://Textures/DodgeUnder.png" id="14_atsr3"]
+[ext_resource type="Texture2D" uid="uid://dyi7dawpi3yuf" path="res://Textures/DodgeProgress.png" id="15_hl3ab"]
+[ext_resource type="Script" path="res://Player/DodgeBar.gd" id="16_fg6yo"]
+[ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="16_vyamq"]
+[ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="17_2pfob"]
+[ext_resource type="Script" path="res://Player/Controller.gd" id="17_r1a5t"]
+
+[sub_resource type="Gradient" id="Gradient_uqrya"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2af0d"]
+gradient = SubResource("Gradient_uqrya")
+width = 300
+height = 20
+
+[sub_resource type="Gradient" id="Gradient_t7sib"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.761506, 0.630395, 0.083204, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4pik8"]
+gradient = SubResource("Gradient_t7sib")
+width = 300
+height = 20
+
+[node name="Player" node_paths=PackedStringArray("state_machine", "hurtbox", "hitbox") groups=["Player"] instance=ExtResource("1_4y1s6")]
+script = ExtResource("2_23d2a")
+state_machine = NodePath("State Machine")
+hurtbox = NodePath("HurtboxComponent")
+hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
+
+[node name="HitboxComponent" parent="Torso/Right-Arm" index="0" node_paths=PackedStringArray("attack_state", "my_hurtbox")]
+attack_state = NodePath("../../../State Machine/AttackState")
+my_hurtbox = NodePath("../../../HurtboxComponent")
+
+[node name="ClimbState" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection")]
+climb_detection = NodePath("../../ClimbDetection")
+
+[node name="CameraPivot" type="Node3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 4, 4)
+
+[node name="SmoothCamera" type="Camera3D" parent="CameraPivot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
+script = ExtResource("2_hhhn7")
+
+[node name="CenterContainer" type="CenterContainer" parent="." index="7"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Control" parent="CenterContainer" index="0"]
+layout_mode = 2
+script = ExtResource("4_j8u8f")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
+
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" index="0" node_paths=PackedStringArray("health_component")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -148.0
+offset_right = 150.0
+offset_bottom = -108.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Health"
+value = 50.0
+texture_under = ExtResource("6_iuslj")
+texture_progress = ExtResource("7_q332o")
+script = ExtResource("10_5fkyu")
+health_component = NodePath("../../HealthComponent")
+
+[node name="PostureBar" type="TextureProgressBar" parent="CanvasLayer" index="1" node_paths=PackedStringArray("posture_component")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -198.0
+offset_right = 150.0
+offset_bottom = -178.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 50.0
+texture_under = SubResource("GradientTexture2D_2af0d")
+texture_progress = SubResource("GradientTexture2D_4pik8")
+script = ExtResource("11_0ys1s")
+posture_component = NodePath("../../PostureComponent")
+
+[node name="BlockBar" type="TextureProgressBar" parent="CanvasLayer" index="2" node_paths=PackedStringArray("blockState")]
+offset_left = 427.0
+offset_top = 558.0
+offset_right = 467.0
+offset_bottom = 598.0
+max_value = 1.0
+texture_under = ExtResource("11_aeo8u")
+texture_progress = ExtResource("12_j2tvn")
+script = ExtResource("13_w2drb")
+blockState = NodePath("../../State Machine/BlockState")
+
+[node name="DodgeBar" type="TextureProgressBar" parent="CanvasLayer" index="3" node_paths=PackedStringArray("dodge_state")]
+offset_left = 688.0
+offset_top = 558.0
+offset_right = 728.0
+offset_bottom = 598.0
+max_value = 1.0
+texture_under = ExtResource("14_atsr3")
+texture_progress = ExtResource("15_hl3ab")
+script = ExtResource("16_fg6yo")
+dodge_state = NodePath("../../State Machine/DodgeState")
+
+[node name="Controller" type="Node" parent="." index="10" node_paths=PackedStringArray("state_machine", "dodge_state", "block_state", "attack_state", "player", "walk_player", "climb_detection")]
+script = ExtResource("17_r1a5t")
+state_machine = NodePath("../State Machine")
+dodge_state = NodePath("../State Machine/DodgeState")
+block_state = NodePath("../State Machine/BlockState")
+attack_state = NodePath("../State Machine/AttackState")
+player = NodePath("..")
+walk_player = NodePath("../WalkPlayer")
+climb_detection = NodePath("../ClimbDetection")
+
+[node name="HurtboxComponent" parent="." index="11" node_paths=PackedStringArray("posture_component", "character")]
+posture_component = NodePath("../PostureComponent")
+character = NodePath("..")
+blood = ExtResource("16_vyamq")
+sparks = ExtResource("17_2pfob")
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,4 +1,11 @@
-res://Enemy
-res://Player
+res://Components
+res://Shaders
 res://Levels
+res://Enemy
+res://States
+res://Player
+res://Textures
+res://
+E:/Godot Projects/Spellblade/Items
+res://Weapons
 res://Levels/Materials
