@@ -1,8 +1,10 @@
-[gd_scene load_steps=102 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=106 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
 [ext_resource type="Shader" uid="uid://sm8f6riu0baw" path="res://Shaders/sandShader.tres" id="3_iro0v"]
+[ext_resource type="Shader" uid="uid://df4ofbf03b6bd" path="res://Shaders/grass.tres" id="4_ji74i"]
+[ext_resource type="PackedScene" uid="uid://mxs6iuq0yqtt" path="res://water_plane.tscn" id="5_8suvy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7dey"]
 sky_top_color = Color(0.47451, 0.45098, 0.337255, 1)
@@ -311,6 +313,14 @@ points = PackedVector3Array(6.5, 5, 5, 6.5, 5, -5, -6.5, 5, 5, 6.5, -5, 5, 6.5, 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xsuf7"]
 points = PackedVector3Array(2.5, -0.5, 50, -2.5, 0.5, 50, -2.5, -0.5, 50, 2.5, -0.5, -50, -2.5, 0.5, -50, -2.5, -0.5, -50)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7w4m0"]
+render_priority = 0
+shader = ExtResource("4_ji74i")
+
+[sub_resource type="BoxMesh" id="BoxMesh_k4uq2"]
+material = SubResource("ShaderMaterial_7w4m0")
+size = Vector3(1, 0.05, 1)
+
 [node name="Asorea" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -323,7 +333,7 @@ light_energy = 2.0
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_20n71")]
-transform = Transform3D(-0.1, 0, -1.50996e-08, 0, 0.1, 0, 1.50996e-08, 0, -0.1, 0, 0, 47.8706)
+transform = Transform3D(-0.2, 0, -3.01992e-08, 0, 0.2, 0, 3.01992e-08, 0, -0.2, 0, 0, 47.8706)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_hy1l6")
@@ -1222,3 +1232,10 @@ shape = SubResource("ConvexPolygonShape3D_jndx2")
 [node name="CollisionShape3D88" type="CollisionShape3D" parent="NavigationRegion3D/LowerIsle/StaticBody3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.00665641, -0.587927, 52.4974)
 shape = SubResource("ConvexPolygonShape3D_xsuf7")
+
+[node name="Grass" type="MeshInstance3D" parent="NavigationRegion3D/LowerIsle"]
+transform = Transform3D(15.0381, 0, 0, 0, 1, 0, 0, 0, 27.7227, -3.20912, 0.05, 33.7791)
+mesh = SubResource("BoxMesh_k4uq2")
+
+[node name="WaterPlane" parent="." instance=ExtResource("5_8suvy")]
+transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, -0.5, 0)

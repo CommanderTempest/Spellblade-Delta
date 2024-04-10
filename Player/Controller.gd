@@ -33,7 +33,7 @@ func _process(delta):
 	
 func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and player.is_on_floor():
-		if climb_detection.is_colliding():
+		if climb_detection.is_colliding() and not state_machine.current_state is ClimbState:
 			state_machine.on_child_transition(state_machine.current_state, "ClimbState")
 		else:
 			state_machine.on_child_transition(state_machine.current_state, "JumpState")
