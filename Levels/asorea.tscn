@@ -1,10 +1,11 @@
-[gd_scene load_steps=106 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=107 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
 [ext_resource type="Shader" uid="uid://sm8f6riu0baw" path="res://Shaders/sandShader.tres" id="3_iro0v"]
 [ext_resource type="Shader" uid="uid://df4ofbf03b6bd" path="res://Shaders/grass.tres" id="4_ji74i"]
 [ext_resource type="PackedScene" uid="uid://mxs6iuq0yqtt" path="res://water_plane.tscn" id="5_8suvy"]
+[ext_resource type="PackedScene" uid="uid://c3pb3gcq0xjcv" path="res://Assets/chest.tscn" id="6_3ajef"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7dey"]
 sky_top_color = Color(0.47451, 0.45098, 0.337255, 1)
@@ -1239,3 +1240,6 @@ mesh = SubResource("BoxMesh_k4uq2")
 
 [node name="WaterPlane" parent="." instance=ExtResource("5_8suvy")]
 transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, -0.5, 0)
+
+[node name="Chest" parent="." instance=ExtResource("6_3ajef")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.348457, 42.6404)

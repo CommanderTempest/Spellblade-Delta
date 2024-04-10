@@ -1,6 +1,9 @@
+ChestComponent
+CollisionShape3D
+StaticBody3D
+Area3D
 MeshInstance3D
 CSGBox3D
-StaticBody3D
 Node3D
 NavigationRegion3D
 Player
@@ -10,7 +13,6 @@ PathfindComponent
 HitboxComponent
 PostureComponent
 HealthComponent
-CollisionShape3D
 HurtboxComponent
 ClimbState
 JumpState
@@ -19,7 +21,6 @@ HoldState
 AttackState
 BlockState
 IdleState
-Area3D
 Timer
 RayCast3D
 DodgeState
