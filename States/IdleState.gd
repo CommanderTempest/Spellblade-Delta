@@ -2,6 +2,7 @@ extends State
 class_name IdleState
 
 func Enter():
+	Character.gravity = 9.8 # make sure gravity is on
 	if anim.has_animation("Idling"):
 		anim.queue("Idling")
 	else:

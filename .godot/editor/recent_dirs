@@ -1,12 +1,13 @@
-res://Assets
-res://Components
-res://Shaders
 res://
+res://Assets/BanditCamp
+res://Assets
+res://Textures
+res://Shaders
+res://Components
 res://Levels
 res://Enemy
 res://States
 res://Player
-res://Textures
 E:/Godot Projects/Spellblade/Items
 res://Weapons
 res://Levels/Materials

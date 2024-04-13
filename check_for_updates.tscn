@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjorjhgc0u43b"]
+
+[ext_resource type="Script" path="res://CheckForUpdates.gd" id="1_ncy7x"]
+
+[node name="CheckForUpdates" type="Node"]
+script = ExtResource("1_ncy7x")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

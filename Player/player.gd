@@ -32,6 +32,10 @@ func _process(delta) -> void:
 
 func _physics_process(delta):
 	handle_camera_location()
+	
+	# Add the gravity.
+	if not is_on_floor() and not state_machine.current_state is ClimbState:
+		velocity.y -= gravity * delta
 
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyapetae0sghx"]
+
+[ext_resource type="PackedScene" uid="uid://d05ytmwc7rv6h" path="res://Assets/BanditCamp/GreenTent.glb" id="1_knc5h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1rgoh"]
+size = Vector3(8, 6, 6)
+
+[node name="GreenTent" type="StaticBody3D"]
+
+[node name="GreenTent" parent="." instance=ExtResource("1_knc5h")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94596, 0)
+shape = SubResource("BoxShape3D_1rgoh")

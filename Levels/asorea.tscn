@@ -1,11 +1,22 @@
-[gd_scene load_steps=107 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=118 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
 [ext_resource type="Shader" uid="uid://sm8f6riu0baw" path="res://Shaders/sandShader.tres" id="3_iro0v"]
 [ext_resource type="Shader" uid="uid://df4ofbf03b6bd" path="res://Shaders/grass.tres" id="4_ji74i"]
 [ext_resource type="PackedScene" uid="uid://mxs6iuq0yqtt" path="res://water_plane.tscn" id="5_8suvy"]
+[ext_resource type="PackedScene" uid="uid://othuspuqls1y" path="res://Assets/Grass.tscn" id="5_ex6gj"]
 [ext_resource type="PackedScene" uid="uid://c3pb3gcq0xjcv" path="res://Assets/chest.tscn" id="6_3ajef"]
+[ext_resource type="PackedScene" uid="uid://dcnw03cthc478" path="res://Assets/BanditCamp/spike_wall.tscn" id="7_yyh3p"]
+[ext_resource type="PackedScene" uid="uid://db045nbm5f4yw" path="res://Assets/Tower.tscn" id="8_o63y7"]
+[ext_resource type="PackedScene" uid="uid://dd7t1hsgqdi1y" path="res://Assets/spike.tscn" id="8_ph6ud"]
+[ext_resource type="PackedScene" uid="uid://ps0w0wijhmpr" path="res://Assets/BanditCamp/PartiallyDamagedPlank.glb" id="9_y4n4o"]
+[ext_resource type="PackedScene" uid="uid://ctci0o05h6k1p" path="res://Enemy/bandit.tscn" id="10_6rjhq"]
+[ext_resource type="PackedScene" uid="uid://dyapetae0sghx" path="res://Assets/green_tent.tscn" id="11_on8w4"]
+[ext_resource type="PackedScene" uid="uid://owl3fcl4fcw6" path="res://Assets/BanditCamp/barrel.tscn" id="12_prwv8"]
+[ext_resource type="PackedScene" uid="uid://dllopk4g1vbpk" path="res://Assets/BanditCamp/crate.tscn" id="13_0ef77"]
+[ext_resource type="PackedScene" uid="uid://dqgyd6srer4ik" path="res://Assets/BanditCamp/damaged_tower.tscn" id="14_5aglc"]
+[ext_resource type="Material" uid="uid://dfopbxglnfycn" path="res://Levels/Materials/grey.tres" id="15_xu1n4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7dey"]
 sky_top_color = Color(0.47451, 0.45098, 0.337255, 1)
@@ -328,7 +339,7 @@ size = Vector3(1, 0.05, 1)
 environment = SubResource("Environment_dsxtb")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.187303, 0.463592, 0, 0.927184, 0.374607, -0.5, 0.324419, -0.802965, 0, 0, 0)
+transform = Transform3D(-0.90587, -0.423089, -0.019872, 0.347709, -0.769628, 0.535511, -0.241863, 0.478194, 0.844294, 0, 0, 0)
 light_color = Color(0.952941, 0.870588, 0.803922, 1)
 light_energy = 2.0
 shadow_enabled = true
@@ -1238,8 +1249,166 @@ shape = SubResource("ConvexPolygonShape3D_xsuf7")
 transform = Transform3D(15.0381, 0, 0, 0, 1, 0, 0, 0, 27.7227, -3.20912, 0.05, 33.7791)
 mesh = SubResource("BoxMesh_k4uq2")
 
+[node name="Camp" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="Grass" parent="NavigationRegion3D/Camp" instance=ExtResource("5_ex6gj")]
+transform = Transform3D(0.752, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 26.3816, 0, 5.72119)
+
+[node name="Grass2" parent="NavigationRegion3D/Camp" instance=ExtResource("5_ex6gj")]
+transform = Transform3D(0.43, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 27.5616, 0, -14.434)
+
+[node name="Tower" parent="NavigationRegion3D/Camp" instance=ExtResource("8_o63y7")]
+transform = Transform3D(-0.0819898, 0, 0.391507, 0, 0.4, 0, -0.391507, 0, -0.0819898, 18.2075, 0, 4.80916)
+
+[node name="SpikeWall" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.985976, 0, 0.166889, 0, 1, 0, -0.166889, 0, 0.985976, 28.7832, 0, -2.6219)
+
+[node name="SpikeWall2" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.996324, 0, -0.0856603, 0, 1, 0, 0.0856603, 0, 0.996324, 27.6233, 0, -2.65271)
+
+[node name="SpikeWall3" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(-0.999567, 0, 0.029422, 0, 1, 0, -0.029422, 0, -0.999567, 27.3671, 0, -2.68832)
+
+[node name="SpikeWall4" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(-0.99236, 0, -0.123376, 0, 1, 0, 0.123376, 0, -0.99236, 26.2321, 0, -2.66838)
+
+[node name="SpikeWall5" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(-0.999199, 0, 0.0400097, 0, 1, 0, -0.0400097, 0, -0.999199, 25.0729, 0, -2.52813)
+
+[node name="SpikeWall7" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.938908, 0, 0.344168, 0, 1, 0, -0.344168, 0, 0.938908, 18.4287, 0, -1.98272)
+
+[node name="SpikeWall12" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.772512, 0, 0.635, 0, 1, 0, -0.635, 0, 0.772512, 17.5639, 0, -1.26404)
+
+[node name="SpikeWall13" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.85376, 0, 0.520667, 0, 1, 0, -0.520667, 0, 0.85376, 16.6169, 0, -0.682383)
+
+[node name="SpikeWall14" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.835884, 0, 0.548906, 0, 1, 0, -0.548906, 0, 0.835884, 15.7128, 0, -0.109037)
+
+[node name="Spike" parent="NavigationRegion3D/Camp/SpikeWall14" index="0"]
+visible = false
+
+[node name="Spike2" parent="NavigationRegion3D/Camp/SpikeWall14" index="1"]
+visible = false
+
+[node name="SpikeWall8" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.877104, 0, 0.4803, 0, 1, 0, -0.4803, 0, 0.877104, 19.4528, 0, -2.4019)
+
+[node name="SpikeWall9" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.949305, 0, 0.314357, 0, 1, 0, -0.314357, 0, 0.949305, 20.4705, 0, -2.94774)
+
+[node name="SpikeWall6" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(-0.999199, 0, 0.0400097, 0, 1, 0, -0.0400097, 0, -0.999199, 13.9203, 0, 0.164138)
+
+[node name="SpikeWall10" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.995914, 0, 0.0903023, 0, 1, 0, -0.0903023, 0, 0.995914, 14.0778, 0, 0.149859)
+
+[node name="SpikeWall11" parent="NavigationRegion3D/Camp" instance=ExtResource("7_yyh3p")]
+transform = Transform3D(0.995914, 0, 0.0903023, 0, 1, 0, -0.0903023, 0, 0.995914, 15.1707, 0, 0.0507615)
+
+[node name="Spike5" parent="NavigationRegion3D/Camp/SpikeWall11" index="4"]
+visible = false
+
+[node name="Spike" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.1, 0, 0, 0, 0.0625678, -0.0780081, 0, 0.0780081, 0.0625678, 18.4916, -0.95314, 4.24564)
+
+[node name="Spike2" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0828559, -1.86265e-09, 0.0559902, 0.0436769, 0.0625678, -0.0646343, -0.0350318, 0.0780081, 0.0518412, 18.0621, -0.76621, 4.4787)
+
+[node name="Spike3" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0635949, -2.75316e-06, 0.0771731, 0.060337, 0.0623496, -0.0497188, -0.0481158, 0.0781826, 0.0396529, 17.7002, -0.76621, 4.27794)
+
+[node name="Spike4" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0883998, -2.75299e-06, 0.0467492, 0.0365512, 0.0623496, -0.0691124, -0.029146, 0.0781826, 0.0551179, 17.3524, -0.76621, 4.61353)
+
+[node name="Spike5" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0883998, -2.75299e-06, 0.0467492, 0.0365512, 0.0623496, -0.0691124, -0.029146, 0.0781826, 0.0551179, 16.9498, -0.76621, 4.39381)
+
+[node name="Spike6" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0883998, -2.75299e-06, 0.0467492, 0.0365512, 0.0623496, -0.0691124, -0.029146, 0.0781826, 0.0551179, 16.6381, -0.76621, 4.67981)
+
+[node name="Spike7" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0883998, -2.75299e-06, 0.0467492, 0.0365512, 0.0623496, -0.0691124, -0.029146, 0.0781826, 0.0551179, 16.1598, -0.76621, 4.62226)
+
+[node name="Spike8" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0987333, -0.0141601, 0.00715774, 0.0143909, 0.0609238, -0.077982, 0.00668156, 0.0780242, 0.0621899, 15.8004, -0.76621, 4.39107)
+
+[node name="Spike9" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0995967, 0.00541039, 0.00715774, 0.00220582, 0.0625615, -0.077982, -0.00869712, 0.0778253, 0.0621899, 18.8447, -0.316214, 4.65927)
+
+[node name="Spike10" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0796298, 0.0460638, 0.0392074, 0.00220582, 0.0625615, -0.077982, -0.0604502, 0.0629617, 0.0488016, 18.4046, -0.913998, 4.05766)
+
+[node name="Spike11" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0551227, 0.0643125, 0.0531544, 0.00220582, 0.0625615, -0.077982, -0.0834064, 0.0441582, 0.033067, 18.6212, -0.703297, 4.20638)
+
+[node name="Spike12" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0294176, 0.0741416, 0.0603127, 0.00220582, 0.0625615, -0.077982, -0.0955497, 0.0242708, 0.0167687, 18.6212, -0.703297, 3.97113)
+
+[node name="Spike13" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.037285, -0.059527, -0.0711784, -0.00500303, 0.0753085, -0.0656018, 0.0926542, 0.0280207, 0.0251006, 15.9115, -0.922434, 4.061)
+
+[node name="Spike14" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.06532, -0.0463884, -0.0598449, -0.0104545, 0.0727536, -0.0678056, 0.0749933, 0.0505471, 0.0426731, 15.7553, -0.677407, 4.23123)
+
+[node name="Spike15" parent="NavigationRegion3D/Camp" instance=ExtResource("8_ph6ud")]
+transform = Transform3D(0.0834165, -0.0300642, -0.0462368, -0.0139734, 0.0695794, -0.0704518, 0.053352, 0.0652292, 0.0538397, 15.9782, -0.720752, 4.29268)
+
+[node name="PartiallyDamagedPlank" parent="NavigationRegion3D/Camp" instance=ExtResource("9_y4n4o")]
+transform = Transform3D(-8.74228e-09, 0.18246, 0.081905, 0, 0.081905, -0.18246, -0.2, -7.97557e-09, -3.58018e-09, 26.0324, 1.48363, -2.57157)
+
+[node name="Bandit" parent="NavigationRegion3D/Camp" instance=ExtResource("10_6rjhq")]
+transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, 24.2497, 0, -1.56996)
+
+[node name="Bandit2" parent="NavigationRegion3D/Camp" node_paths=PackedStringArray("state_machine", "sightLine", "navigation", "hurtbox", "hitbox") instance=ExtResource("10_6rjhq")]
+transform = Transform3D(-0.568074, 0, -0.193112, 0, 0.6, 0, 0.193112, 0, -0.568074, 19.5456, 0, -1.19403)
+state_machine = NodePath("../Bandit/State Machine")
+sightLine = NodePath("../Bandit/Sight")
+navigation = NodePath("../Bandit/PathfindComponent")
+hurtbox = NodePath("../Bandit/HurtboxComponent")
+hitbox = NodePath("../Bandit/Torso/Right-Arm/HitboxComponent")
+
+[node name="GreenTent" parent="NavigationRegion3D/Camp" instance=ExtResource("11_on8w4")]
+transform = Transform3D(0.354041, 0, -0.186159, 0, 0.4, 0, 0.186159, 0, 0.354041, 31.4695, 0.970353, -8.73646)
+
+[node name="GreenTent2" parent="NavigationRegion3D/Camp" instance=ExtResource("11_on8w4")]
+transform = Transform3D(0.393747, 0, 0.0704491, 0, 0.4, 0, -0.0704491, 0, 0.393747, 32.4954, 0, -12.0911)
+
+[node name="Barrel" parent="NavigationRegion3D/Camp" instance=ExtResource("12_prwv8")]
+transform = Transform3D(0.591901, 0, -0.806011, 0, 1, 0, 0.806011, 0, 0.591901, 24.9939, 0, -3.50319)
+
+[node name="Barrel2" parent="NavigationRegion3D/Camp" instance=ExtResource("12_prwv8")]
+transform = Transform3D(0.591901, 0, -0.806011, 0, 1, 0, 0.806011, 0, 0.591901, 18.9411, 0, 3.16253)
+
+[node name="Barrel3" parent="NavigationRegion3D/Camp" instance=ExtResource("12_prwv8")]
+transform = Transform3D(0.973599, 0, -0.228266, 0, 1, 0, 0.228266, 0, 0.973599, 18.9411, 0, 2.67129)
+
+[node name="Barrel4" parent="NavigationRegion3D/Camp" instance=ExtResource("12_prwv8")]
+transform = Transform3D(0.574034, 0, -0.818832, 0, 1, 0, 0.818832, 0, 0.574034, 19.0652, 0.593522, 2.92122)
+
+[node name="Barrel5" parent="NavigationRegion3D/Camp" instance=ExtResource("12_prwv8")]
+transform = Transform3D(0.131045, 0, -0.991376, 0, 1, 0, 0.991376, 0, 0.131045, 19.3177, -0.000508606, 2.92122)
+
+[node name="Crate" parent="NavigationRegion3D/Camp" instance=ExtResource("13_0ef77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.7216, 0, -4.18127)
+
+[node name="Crate2" parent="NavigationRegion3D/Camp" instance=ExtResource("13_0ef77")]
+transform = Transform3D(0.693352, 0, 0.7206, 0, 1, 0, -0.7206, 0, 0.693352, 19.4427, 0, 1.82277)
+
+[node name="DamagedTower" parent="NavigationRegion3D/Camp" instance=ExtResource("14_5aglc")]
+transform = Transform3D(0.0702704, 0, 0.393779, 0, 0.4, 0, -0.393779, 0, 0.0702704, 28.0703, 1.05531, -5.91685)
+
+[node name="Rock" type="CSGBox3D" parent="NavigationRegion3D/Camp"]
+transform = Transform3D(9.02212, 0, -1.16545, 0, 1.42739, 0, 1.70524, 0, 6.16618, 29.4581, 0.346856, -7.66401)
+material_override = ExtResource("15_xu1n4")
+
 [node name="WaterPlane" parent="." instance=ExtResource("5_8suvy")]
 transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, -0.5, 0)
 
 [node name="Chest" parent="." instance=ExtResource("6_3ajef")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.348457, 42.6404)
+
+[editable path="NavigationRegion3D/Camp/SpikeWall14"]
+[editable path="NavigationRegion3D/Camp/SpikeWall11"]

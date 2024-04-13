@@ -1,4 +1,3 @@
-res://Levels/asorea.tscn
 res://Levels/Materials/grey.tres
 res://Textures/sparksProcess.tres
 res://Textures/sparks.tres
@@ -7,12 +6,7 @@ res://Shaders/sandShader.tres
 res://Shaders/grass.tres
 res://Shaders/water.gdshader
 res://Shaders/water_material.tres
-res://Levels/sandbox.tscn
-res://humanoid.tscn
-res://Player/Player2.tscn
-res://Enemy/bandit.tscn
-res://Components/inventory_component.tscn
-res://water_plane.tscn
-res://Assets/chest.tscn
-res://Components/ChestComponent.gd
-res://Assets/chest_component.tscn
+res://Shaders/grass.gdshader
+res://Assets/grass2.res
+res://Levels/asorea.tscn
+res://CheckForUpdates.gd
