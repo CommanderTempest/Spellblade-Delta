@@ -1,3 +1,7 @@
+res://Item/Items
+res://Inventory
+res://Player
+res://Item
 res://
 res://Assets/BanditCamp
 res://Assets
@@ -7,7 +11,6 @@ res://Components
 res://Levels
 res://Enemy
 res://States
-res://Player
 E:/Godot Projects/Spellblade/Items
 res://Weapons
 res://Levels/Materials

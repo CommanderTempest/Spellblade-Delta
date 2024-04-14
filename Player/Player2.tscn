@@ -1,8 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://dml0ymhe6ymnl"]
+[gd_scene load_steps=29 format=3 uid="uid://dml0ymhe6ymnl"]
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_23d2a"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_hhhn7"]
+[ext_resource type="Resource" uid="uid://ctdoondvvlpmd" path="res://Inventory/test_inv.tres" id="3_vvjvb"]
+[ext_resource type="Script" path="res://Inventory/inventory_data_equip.gd" id="4_erd53"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_j8u8f"]
 [ext_resource type="Texture2D" uid="uid://qegu7ub3dioi" path="res://Textures/healthbarUnder.png" id="6_iuslj"]
 [ext_resource type="Texture2D" uid="uid://bpfmsuf6ovw33" path="res://Textures/healthbarProgress.png" id="7_q332o"]
@@ -13,10 +15,18 @@
 [ext_resource type="Script" path="res://Player/BlockBar.gd" id="13_w2drb"]
 [ext_resource type="Texture2D" uid="uid://duljje6b5tsug" path="res://Textures/DodgeUnder.png" id="14_atsr3"]
 [ext_resource type="Texture2D" uid="uid://dyi7dawpi3yuf" path="res://Textures/DodgeProgress.png" id="15_hl3ab"]
+[ext_resource type="PackedScene" uid="uid://baulwrx2ttsup" path="res://Inventory/inventory.tscn" id="15_u8jiv"]
+[ext_resource type="Script" path="res://Inventory/inventory_interface.gd" id="16_5u3c6"]
 [ext_resource type="Script" path="res://Player/DodgeBar.gd" id="16_fg6yo"]
 [ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="16_vyamq"]
 [ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="17_2pfob"]
 [ext_resource type="Script" path="res://Player/Controller.gd" id="17_r1a5t"]
+[ext_resource type="PackedScene" uid="uid://de7e771j6dkuc" path="res://Inventory/slot.tscn" id="18_aqeb7"]
+[ext_resource type="PackedScene" uid="uid://cl1pckqtxil68" path="res://Inventory/hot_bar_inventory.tscn" id="19_k2p5u"]
+
+[sub_resource type="Resource" id="Resource_38tt1"]
+script = ExtResource("4_erd53")
+slot_datas = Array[Resource("res://Inventory/slot_data.gd")]([null])
 
 [sub_resource type="Gradient" id="Gradient_uqrya"]
 offsets = PackedFloat32Array(0)
@@ -37,17 +47,22 @@ width = 300
 height = 20
 
 [node name="Player" node_paths=PackedStringArray("state_machine", "hurtbox", "hitbox") groups=["Player"] instance=ExtResource("1_4y1s6")]
+collision_layer = 2
 script = ExtResource("2_23d2a")
 state_machine = NodePath("State Machine")
 hurtbox = NodePath("HurtboxComponent")
 hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
-
-[node name="Head" parent="Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
+inventory_data = ExtResource("3_vvjvb")
+equip_inventory_data = SubResource("Resource_38tt1")
 
 [node name="HitboxComponent" parent="Torso/Right-Arm" index="0" node_paths=PackedStringArray("attack_state", "my_hurtbox")]
 attack_state = NodePath("../../../State Machine/AttackState")
 my_hurtbox = NodePath("../../../HurtboxComponent")
+
+[node name="InteractRay" type="RayCast3D" parent="Torso" index="5"]
+transform = Transform3D(1, 7.09593e-16, -4.9738e-14, -2.16972e-16, 1, -3.57628e-07, 7.10543e-15, 3.57628e-07, 1, 2.41585e-13, -0.471542, -0.320233)
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 4
 
 [node name="ClimbState" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection")]
 climb_detection = NodePath("../../ClimbDetection")
@@ -131,6 +146,52 @@ texture_progress = ExtResource("15_hl3ab")
 script = ExtResource("16_fg6yo")
 dodge_state = NodePath("../../State Machine/DodgeState")
 
+[node name="InventoryInterface" type="Control" parent="CanvasLayer" index="4"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_5u3c6")
+
+[node name="PlayerInventory" parent="CanvasLayer/InventoryInterface" index="0" instance=ExtResource("15_u8jiv")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="EquipInventory" parent="CanvasLayer/InventoryInterface" index="1" instance=ExtResource("15_u8jiv")]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 10.0
+offset_right = 490.0
+offset_bottom = 50.0
+
+[node name="ExternalInventory" parent="CanvasLayer/InventoryInterface" index="2" instance=ExtResource("15_u8jiv")]
+visible = false
+layout_mode = 0
+offset_left = 784.0
+offset_top = 89.0
+offset_right = 824.0
+offset_bottom = 129.0
+
+[node name="GrabbedSlot" parent="CanvasLayer/InventoryInterface" index="3" instance=ExtResource("18_aqeb7")]
+visible = false
+modulate = Color(1, 1, 1, 0.513726)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="HotBarInventory" parent="CanvasLayer" index="5" instance=ExtResource("19_k2p5u")]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 430.0
+offset_bottom = 90.0
+
 [node name="Controller" type="Node" parent="." index="10" node_paths=PackedStringArray("state_machine", "dodge_state", "block_state", "attack_state", "player", "walk_player", "climb_detection")]
 script = ExtResource("17_r1a5t")
 state_machine = NodePath("../State Machine")
@@ -149,3 +210,6 @@ sparks = ExtResource("17_2pfob")
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="drop_slot_data" from="CanvasLayer/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
+[connection signal="gui_input" from="CanvasLayer/InventoryInterface" to="CanvasLayer/InventoryInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="CanvasLayer/InventoryInterface" to="CanvasLayer/InventoryInterface" method="_on_visibility_changed"]

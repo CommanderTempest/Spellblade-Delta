@@ -1,30 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3pb3gcq0xjcv"]
+[gd_scene load_steps=4 format=3 uid="uid://c3pb3gcq0xjcv"]
 
+[ext_resource type="Script" path="res://Item/chest.gd" id="1_yh6lv"]
 [ext_resource type="PackedScene" uid="uid://cqmppqa3cu5vo" path="res://Assets/chest2.glb" id="1_yipjx"]
-[ext_resource type="Script" path="res://Components/ChestComponent.gd" id="2_0qxdn"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2icup"]
-size = Vector3(3.5, 2, 3.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mwixf"]
-size = Vector3(1.2, 0.8, 1)
+size = Vector3(4, 2.5, 3)
 
-[node name="Chest" type="Node3D"]
+[node name="Chest" type="StaticBody3D" groups=["external_inventory"]]
+collision_layer = 5
+collision_mask = 0
+script = ExtResource("1_yh6lv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15806, 0)
+shape = SubResource("BoxShape3D_mwixf")
 
 [node name="chest2" parent="." instance=ExtResource("1_yipjx")]
-
-[node name="Area3D" type="Area3D" parent="chest2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chest2/Area3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.580241, 0)
-shape = SubResource("BoxShape3D_2icup")
-
-[node name="ChestComponent" type="Node3D" parent="chest2/Area3D" node_paths=PackedStringArray("loot_hitbox")]
-script = ExtResource("2_0qxdn")
-loot_hitbox = NodePath("..")
-
-[node name="Hitbox" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.164968, 0)
-shape = SubResource("BoxShape3D_mwixf")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)

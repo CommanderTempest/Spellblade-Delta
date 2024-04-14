@@ -1,12 +1,18 @@
 extends CharacterBody3D
 class_name Player
 
+signal toggle_inventory()
+
+const PICK_UP = preload("res://Item/PickUp/pick_up.tscn")
+
 @export var posture_damage := 20
 @export var speed := 2.0
 @export var player_damage := 20
 @export var state_machine: StateMachine
 @export var hurtbox: HurtboxComponent
 @export var hitbox: HitboxComponent
+@export var inventory_data: InventoryData
+@export var equip_inventory_data: InventoryDataEquip
 
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
@@ -14,6 +20,11 @@ class_name Player
 @onready var walk_player = $WalkPlayer
 @onready var animation_tree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
+@onready var inventory_interface = $CanvasLayer/InventoryInterface
+@onready var hot_bar_inventory = $CanvasLayer/HotBarInventory
+@onready var interact_ray = $Torso/InteractRay
+@onready var health_component = $HealthComponent
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -21,7 +32,16 @@ var mouse_motion := Vector2.ZERO
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	inventory_interface.set_player_inventory_data(inventory_data)
+	inventory_interface.set_equip_inventory_data(equip_inventory_data)
+	inventory_interface.force_close.connect(toggle_inventory_interface)
+	hot_bar_inventory.set_inventory_data(inventory_data)
 	hurtbox.hurt.connect(on_hurtbox_hurt)
+	
+	PlayerManager.player = self
+	
+	for node in get_tree().get_nodes_in_group("external_inventory"):
+		node.toggle_inventory.connect(toggle_inventory_interface)
 
 func _process(delta) -> void:
 	pass
@@ -57,6 +77,13 @@ func _input(event: InputEvent) -> void:
 		mouse_motion = -event.relative * 0.001
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _unhandled_input(event) -> void:
+	if Input.is_action_just_pressed("inventory"):
+		toggle_inventory.emit()
+		toggle_inventory_interface()
+	if Input.is_action_just_pressed("interact"):
+		interact()
 
 func handle_camera_location() -> void:
 	rotate_y(mouse_motion.x)
@@ -94,3 +121,35 @@ func on_hurtbox_hurt(hurtBy: HitboxComponent):
 		return
 	else:
 		hurtbox.take_damage(hurtBy.damage_to_deal)
+
+func toggle_inventory_interface(external_inventory_owner = null) -> void:
+	inventory_interface.visible = not inventory_interface.visible
+	
+	if inventory_interface.visible:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		hot_bar_inventory.hide()
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		hot_bar_inventory.show()
+	
+	if external_inventory_owner and inventory_interface.visible:
+		inventory_interface.set_external_inventory(external_inventory_owner)
+	else:
+		inventory_interface.clear_external_inventory()
+
+func interact() -> void:
+	if interact_ray.is_colliding():
+		interact_ray.get_collider().player_interact()
+
+func get_drop_position() -> Vector3:
+	var direction = -global_transform.basis.z
+	return global_position + direction
+
+func heal(heal_value: int) -> void:
+	health_component.heal(heal_value)
+
+func _on_inventory_interface_drop_slot_data(slot_data):
+	var pick_up = PICK_UP.instantiate()
+	pick_up.slot_data = slot_data
+	pick_up.position = get_drop_position()
+	add_child(pick_up)

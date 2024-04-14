@@ -77,7 +77,7 @@ func randomize_move() -> String:
 	return "None"
 
 func on_sight_entered(body: Node3D):
-	if body != self and body is CharacterBody3D:
+	if body != self and body is Player:
 		navigation.register_target(body)
 		primary_target = body
 		provoked = true
