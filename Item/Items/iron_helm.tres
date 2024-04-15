@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=2 format=3 uid="uid://vbivujldpm2e"]
+[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=3 format=3 uid="uid://vbivujldpm2e"]
 
 [ext_resource type="Script" path="res://Item/item_data_equip.gd" id="1_101kv"]
+[ext_resource type="Texture2D" uid="uid://cgjybtiefbsu7" path="res://Textures/IronHelm.png" id="2_4be8a"]
 
 [resource]
 script = ExtResource("1_101kv")
@@ -8,3 +9,4 @@ defence = 1
 name = "Iron Helmet"
 description = "Smells like fresh iron"
 stackable = false
+texture = ExtResource("2_4be8a")

@@ -35,7 +35,7 @@ func _physics_process(delta):
 		# sets speed of enemy depending on how far they are
 		navigation.check_range(attack_range) 
 
-		if navigation.get_distance_to_target() > attack_range * 14:
+		if navigation.get_distance_to_target() > attack_range * 50:
 			navigation.return_to_spawn()
 			state_machine.on_child_transition(state_machine.current_state, "IdleState")
 

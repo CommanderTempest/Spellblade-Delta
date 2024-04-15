@@ -1,8 +1,9 @@
+Node3D
+CollisionShape3D
+Area3D
 HBoxContainer
 MarginContainer
 PanelContainer
-Area3D
-CollisionShape3D
 Sprite3D
 RigidBody3D
 RayCast3D
@@ -15,7 +16,6 @@ Node
 CSGBox3D
 StaticBody3D
 SpotLight3D
-Node3D
 MultiMeshInstance3D
 MeshInstance3D
 ChestComponent
@@ -30,4 +30,3 @@ HealthComponent
 HurtboxComponent
 ClimbState
 JumpState
-HoldState

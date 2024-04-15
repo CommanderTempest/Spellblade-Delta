@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=127 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
@@ -21,6 +21,7 @@
 [ext_resource type="Resource" uid="uid://bed1i4bonrlq3" path="res://Item/Items/wood.tres" id="19_yoemt"]
 [ext_resource type="Script" path="res://Inventory/slot_data.gd" id="20_7x2bb"]
 [ext_resource type="PackedScene" uid="uid://p1bvtvyb1g55" path="res://Item/PickUp/pick_up.tscn" id="21_rl6h6"]
+[ext_resource type="Script" path="res://Levels/DeathHitbox.gd" id="22_ggqxf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7dey"]
 sky_top_color = Color(0.47451, 0.45098, 0.337255, 1)
@@ -350,6 +351,9 @@ slot_datas = Array[ExtResource("20_7x2bb")]([SubResource("Resource_8ojmc"), null
 script = ExtResource("20_7x2bb")
 item_data = ExtResource("19_yoemt")
 quantity = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sai41"]
+size = Vector3(4, 1, 4)
 
 [node name="Asorea" type="Node3D"]
 
@@ -1432,6 +1436,21 @@ inventory_data = SubResource("Resource_rh3f6")
 [node name="PickUp" parent="." instance=ExtResource("21_rl6h6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.30767, 0.698905, 44.5258)
 slot_data = SubResource("Resource_balat")
+
+[node name="DeathHitbox" type="Area3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -60, 0)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("22_ggqxf")
+SpawnPos = Vector3(0, 1, 46)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathHitbox"]
+shape = SubResource("BoxShape3D_sai41")
+
+[node name="StartPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 46)
+
+[connection signal="body_entered" from="DeathHitbox" to="DeathHitbox" method="_on_body_entered"]
 
 [editable path="NavigationRegion3D/Camp/SpikeWall14"]
 [editable path="NavigationRegion3D/Camp/SpikeWall11"]

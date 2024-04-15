@@ -25,7 +25,6 @@ hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
 material_override = ExtResource("3_bgtic")
 
 [node name="Head" parent="Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 material_override = ExtResource("3_bgtic")
 
 [node name="Left-Leg" parent="Torso" index="1"]
@@ -49,6 +48,8 @@ material_override = ExtResource("3_bgtic")
 
 [node name="Sight" type="Area3D" parent="." index="6"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sight" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.934751, -5.29128)
