@@ -1,9 +1,6 @@
-res://Player/Player2.tscn
 res://Inventory/slot.gd
+res://Levels/DeathHitbox.gd
 res://Levels/Materials/grey.tres
-res://Item/Items/wood.tres
-res://Item/Items/health_potion.tres
-res://Item/Items/iron_helm.tres
 res://Inventory/test_inv.tres
 res://Textures/sparksProcess.tres
 res://Textures/sparks.tres
@@ -14,14 +11,4 @@ res://Shaders/water.gdshader
 res://Shaders/water_material.tres
 res://Shaders/grass.gdshader
 res://Assets/grass2.res
-res://Levels/sandbox.tscn
-res://humanoid.tscn
-res://Enemy/bandit.tscn
 res://Levels/asorea.tscn
-res://Inventory/slot.tscn
-res://Inventory/inventory.tscn
-res://Assets/chest.tscn
-res://Item/PickUp/pick_up.tscn
-res://Inventory/hot_bar_inventory.tscn
-res://Levels/DeathHitbox.gd
-res://Enemy/EnemyController.gd

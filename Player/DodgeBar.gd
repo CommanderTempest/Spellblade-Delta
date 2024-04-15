@@ -7,7 +7,6 @@ func _ready():
 	update()
 	
 func update():
-	print("Updating dodge icon")
 	if dodge_state.canDodge:
 		value = 0
 	else:

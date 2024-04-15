@@ -1,5 +1,6 @@
-Node3D
 CollisionShape3D
+StaticBody3D
+Node3D
 Area3D
 HBoxContainer
 MarginContainer
@@ -14,11 +15,9 @@ TextureRect
 HTTPRequest
 Node
 CSGBox3D
-StaticBody3D
 SpotLight3D
 MultiMeshInstance3D
 MeshInstance3D
-ChestComponent
 NavigationRegion3D
 Player
 NavigationAgent3D
