@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdgqjs1khcm2x"]
+
+[ext_resource type="PackedScene" uid="uid://c6dp5r50qxtup" path="res://Assets/Characters/NanaoHibiya.glb" id="1_6idvu"]
+[ext_resource type="Script" path="res://Entity/interactable_entity.gd" id="1_fbg8r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_omwlr"]
+size = Vector3(1, 1.8, 0.6)
+
+[node name="Nanao" type="CharacterBody3D" groups=["conversation"]]
+collision_layer = 5
+script = ExtResource("1_fbg8r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907289, 0)
+shape = SubResource("BoxShape3D_omwlr")
+
+[node name="NanaoHibiya" parent="." instance=ExtResource("1_6idvu")]
+
+[editable path="NanaoHibiya"]

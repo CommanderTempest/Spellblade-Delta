@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cykokfgal8ktm"]
+
+[ext_resource type="Script" path="res://Entity/interactable_entity.gd" id="1_g027l"]
+[ext_resource type="PackedScene" uid="uid://chjc7uor0jh5b" path="res://Assets/Characters/Reddie.glb" id="1_vx0eg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g85ga"]
+size = Vector3(0.85, 1.7, 0.5)
+
+[node name="Diana" type="CharacterBody3D" groups=["conversation"]]
+collision_layer = 5
+script = ExtResource("1_g027l")
+
+[node name="Reddie" parent="." instance=ExtResource("1_vx0eg")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.853576, 0)
+shape = SubResource("BoxShape3D_g85ga")

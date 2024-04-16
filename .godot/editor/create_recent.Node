@@ -1,16 +1,18 @@
+Label
+MarginContainer
+AnimationPlayer
 CollisionShape3D
+CharacterBody3D
 StaticBody3D
 Node3D
 Area3D
 HBoxContainer
-MarginContainer
 PanelContainer
 Sprite3D
 RigidBody3D
 RayCast3D
 Control
 GridContainer
-Label
 TextureRect
 HTTPRequest
 Node
@@ -28,4 +30,3 @@ PostureComponent
 HealthComponent
 HurtboxComponent
 ClimbState
-JumpState

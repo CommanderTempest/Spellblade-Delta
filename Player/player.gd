@@ -23,6 +23,7 @@ const PICK_UP = preload("res://Item/PickUp/pick_up.tscn")
 @onready var inventory_interface = $CanvasLayer/InventoryInterface
 @onready var hot_bar_inventory = $CanvasLayer/HotBarInventory
 @onready var interact_ray = $Torso/InteractRay
+@onready var interact_label = $CanvasLayer/NotificationContainer/InteractLabel
 @onready var health_component = $HealthComponent
 
 
@@ -40,8 +41,14 @@ func _ready() -> void:
 	
 	PlayerManager.player = self
 	
+	# registers lootable nodes
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
+	
+	# registers talkable nodes
+	for node in get_tree().get_nodes_in_group("conversation"):
+		node.toggle_conversation.connect(toggle_conversation_interface)
+	
 
 func _process(delta) -> void:
 	pass
@@ -59,6 +66,18 @@ func _physics_process(delta):
 
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	# handles display of UI for pickups
+	if interact_ray.is_colliding():
+		if interact_ray.get_collider().is_in_group("external_inventory"):
+			if not interact_label.visible:
+				interact_label.visible = true
+		elif interact_ray.get_collider().is_in_group("conversation"):
+			if not interact_label.visible:
+				interact_label.visible = true
+	else:
+		if interact_label.visible:
+			interact_label.visible = false
 	
 	if input_dir.is_zero_approx():
 		walk_player.play("Idle")
@@ -136,6 +155,9 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 		inventory_interface.set_external_inventory(external_inventory_owner)
 	else:
 		inventory_interface.clear_external_inventory()
+
+func toggle_conversation_interface() -> void:
+	pass
 
 func interact() -> void:
 	if interact_ray.is_colliding():

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dcnw03cthc478"]
 
-[ext_resource type="PackedScene" uid="uid://dd7t1hsgqdi1y" path="res://Assets/spike.tscn" id="1_hldbq"]
+[ext_resource type="PackedScene" uid="uid://dd7t1hsgqdi1y" path="res://Assets/BanditCamp/spike.tscn" id="1_hldbq"]
 
 [node name="SpikeWall" type="Node3D"]
 
