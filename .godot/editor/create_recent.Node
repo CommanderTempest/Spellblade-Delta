@@ -1,9 +1,11 @@
+MeshInstance3D
+MultiMeshInstance3D
+StaticBody3D
+CollisionShape3D
 Label
 MarginContainer
 AnimationPlayer
-CollisionShape3D
 CharacterBody3D
-StaticBody3D
 Node3D
 Area3D
 HBoxContainer
@@ -18,8 +20,6 @@ HTTPRequest
 Node
 CSGBox3D
 SpotLight3D
-MultiMeshInstance3D
-MeshInstance3D
 NavigationRegion3D
 Player
 NavigationAgent3D

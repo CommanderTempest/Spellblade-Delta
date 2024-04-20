@@ -1,3 +1,5 @@
+res://Shaders
+res://Assets/Foliage
 res://Entity
 res://Assets/Characters
 res://Assets/BanditCamp
@@ -8,7 +10,6 @@ res://Item
 res://
 res://Assets
 res://Textures
-res://Shaders
 res://Components
 res://Levels
 res://Enemy

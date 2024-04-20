@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dl025r2sxaomt"
-path="res://.godot/imported/Katana.glb-79cb0e6b2434e2906273563fe7cf22ec.scn"
+uid="uid://dhcdajkkx425u"
+path="res://.godot/imported/grass2.glb-0fa1dc5372e668133e28b196477b5095.scn"
 
 [deps]
 
-source_file="res://Assets/Katana.glb"
-dest_files=["res://.godot/imported/Katana.glb-79cb0e6b2434e2906273563fe7cf22ec.scn"]
+source_file="res://Assets/Foliage/grass2.glb"
+dest_files=["res://.godot/imported/grass2.glb-0fa1dc5372e668133e28b196477b5095.scn"]
 
 [params]
 

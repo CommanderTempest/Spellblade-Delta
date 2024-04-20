@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=133 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
@@ -9,9 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://cdgqjs1khcm2x" path="res://Assets/Characters/Nanao.tscn" id="5_ilglk"]
 [ext_resource type="PackedScene" uid="uid://cykokfgal8ktm" path="res://Assets/Characters/diana.tscn" id="6_2wiln"]
 [ext_resource type="PackedScene" uid="uid://c3pb3gcq0xjcv" path="res://Assets/chest.tscn" id="6_3ajef"]
+[ext_resource type="PackedScene" uid="uid://bccftnih4ur50" path="res://Assets/Foliage/rock.tscn" id="7_0ek7h"]
 [ext_resource type="PackedScene" uid="uid://dcnw03cthc478" path="res://Assets/BanditCamp/spike_wall.tscn" id="7_yyh3p"]
+[ext_resource type="PackedScene" uid="uid://c2c48t0kie5dd" path="res://Assets/Foliage/tree.tscn" id="8_h68jx"]
 [ext_resource type="PackedScene" uid="uid://db045nbm5f4yw" path="res://Assets/BanditCamp/Tower.tscn" id="8_o63y7"]
 [ext_resource type="PackedScene" uid="uid://dd7t1hsgqdi1y" path="res://Assets/BanditCamp/spike.tscn" id="8_ph6ud"]
+[ext_resource type="PackedScene" uid="uid://bfag113wha73a" path="res://Assets/Foliage/tree2.tscn" id="9_mlfxb"]
 [ext_resource type="PackedScene" uid="uid://ps0w0wijhmpr" path="res://Assets/BanditCamp/PartiallyDamagedPlank.glb" id="9_y4n4o"]
 [ext_resource type="PackedScene" uid="uid://ctci0o05h6k1p" path="res://Enemy/bandit.tscn" id="10_6rjhq"]
 [ext_resource type="PackedScene" uid="uid://dyapetae0sghx" path="res://Assets/BanditCamp/green_tent.tscn" id="11_on8w4"]
@@ -1278,6 +1281,18 @@ transform = Transform3D(0.0764618, 0, 0.695811, 0, 0.7, 0, -0.695811, 0, 0.07646
 
 [node name="Diana" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("6_2wiln")]
 transform = Transform3D(0.208337, 0, 0.668278, 0, 0.7, 0, -0.668278, 0, 0.208337, -8.50532, 0, 43.9728)
+
+[node name="rock" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("7_0ek7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.929755, 0.665367, 38.4901)
+
+[node name="rock2" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("7_0ek7h")]
+transform = Transform3D(0.621845, 0.783112, -0.00665648, 2.98023e-08, -0.00849968, -0.999964, -0.78314, 0.621823, -0.00528553, 0.929755, -0.33577, 40.1437)
+
+[node name="Tree" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("8_h68jx")]
+transform = Transform3D(0.836152, 0, -0.548498, 0, 1, 0, 0.548498, 0, 0.836152, 0, 0, 36.3013)
+
+[node name="StaticBody3D2" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("9_mlfxb")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -3, 0, 38.5845)
 
 [node name="Camp" type="Node3D" parent="NavigationRegion3D"]
 

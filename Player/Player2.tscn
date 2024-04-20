@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://ctdoondvvlpmd" path="res://Inventory/test_inv.tres" id="3_vvjvb"]
 [ext_resource type="Script" path="res://Inventory/inventory_data_equip.gd" id="4_erd53"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_j8u8f"]
-[ext_resource type="PackedScene" uid="uid://dl025r2sxaomt" path="res://Assets/Katana.glb" id="5_xx4ti"]
+[ext_resource type="PackedScene" uid="uid://dl025r2sxaomt" path="res://Assets/Weapons/Katana.glb" id="5_xx4ti"]
 [ext_resource type="Texture2D" uid="uid://qegu7ub3dioi" path="res://Textures/healthbarUnder.png" id="6_iuslj"]
 [ext_resource type="Texture2D" uid="uid://bpfmsuf6ovw33" path="res://Textures/healthbarProgress.png" id="7_q332o"]
 [ext_resource type="Script" path="res://Textures/HealthBar.gd" id="10_5fkyu"]
@@ -55,6 +55,9 @@ hurtbox = NodePath("HurtboxComponent")
 hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
 inventory_data = ExtResource("3_vvjvb")
 equip_inventory_data = SubResource("Resource_38tt1")
+
+[node name="Head" parent="Torso" index="0"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 
 [node name="HitboxComponent" parent="Torso/Right-Arm" index="0" node_paths=PackedStringArray("attack_state", "my_hurtbox")]
 attack_state = NodePath("../../../State Machine/AttackState")

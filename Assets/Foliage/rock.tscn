@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bccftnih4ur50"]
+
+[ext_resource type="PackedScene" uid="uid://db2e1p13ddpj7" path="res://Assets/Foliage/rock.glb" id="1_f70kv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_38ep0"]
+size = Vector3(3, 3, 3)
+
+[node name="rock" type="StaticBody3D"]
+
+[node name="rock" parent="." instance=ExtResource("1_f70kv")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_38ep0")

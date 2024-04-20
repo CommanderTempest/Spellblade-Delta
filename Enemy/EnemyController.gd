@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name EnemyController
 
+signal AttackingEntity # signals to the mob group component that a target's been registered
+
 @export var state_machine: StateMachine
 @export var sightLine: Area3D
 @export var navigation: PathfindComponent
