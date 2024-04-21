@@ -1,4 +1,4 @@
-[gd_scene load_steps=133 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=137 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
@@ -17,7 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://bfag113wha73a" path="res://Assets/Foliage/tree2.tscn" id="9_mlfxb"]
 [ext_resource type="PackedScene" uid="uid://ps0w0wijhmpr" path="res://Assets/BanditCamp/PartiallyDamagedPlank.glb" id="9_y4n4o"]
 [ext_resource type="PackedScene" uid="uid://ctci0o05h6k1p" path="res://Enemy/bandit.tscn" id="10_6rjhq"]
+[ext_resource type="PackedScene" uid="uid://datrktanfecde" path="res://Assets/Foliage/rock_2.tscn" id="10_g6atl"]
+[ext_resource type="PackedScene" uid="uid://6gwk31wxjns4" path="res://Assets/Foliage/grass2.tscn" id="11_kyy71"]
 [ext_resource type="PackedScene" uid="uid://dyapetae0sghx" path="res://Assets/BanditCamp/green_tent.tscn" id="11_on8w4"]
+[ext_resource type="PackedScene" uid="uid://bbhpol3u14qyl" path="res://Assets/Foliage/ivy.tscn" id="12_fvuax"]
 [ext_resource type="PackedScene" uid="uid://owl3fcl4fcw6" path="res://Assets/BanditCamp/barrel.tscn" id="12_prwv8"]
 [ext_resource type="PackedScene" uid="uid://dllopk4g1vbpk" path="res://Assets/BanditCamp/crate.tscn" id="13_0ef77"]
 [ext_resource type="PackedScene" uid="uid://dqgyd6srer4ik" path="res://Assets/BanditCamp/damaged_tower.tscn" id="14_5aglc"]
@@ -28,6 +31,7 @@
 [ext_resource type="Script" path="res://Inventory/slot_data.gd" id="20_7x2bb"]
 [ext_resource type="PackedScene" uid="uid://p1bvtvyb1g55" path="res://Item/PickUp/pick_up.tscn" id="21_rl6h6"]
 [ext_resource type="Script" path="res://Levels/DeathHitbox.gd" id="22_ggqxf"]
+[ext_resource type="PackedScene" uid="uid://bjorjhgc0u43b" path="res://check_for_updates.tscn" id="32_6wcqp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7dey"]
 sky_top_color = Color(0.47451, 0.45098, 0.337255, 1)
@@ -1294,6 +1298,15 @@ transform = Transform3D(0.836152, 0, -0.548498, 0, 1, 0, 0.548498, 0, 0.836152, 
 [node name="StaticBody3D2" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("9_mlfxb")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -3, 0, 38.5845)
 
+[node name="Rock2" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("10_g6atl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 32)
+
+[node name="Node3D" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("11_kyy71")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -4.13742, 0, 37.5954)
+
+[node name="Ivy" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("12_fvuax")]
+transform = Transform3D(-0.0279959, -0.578063, 0.0753466, 0.298691, -0.0544169, 0.00660952, 0.000465687, 0.151269, 0.290309, 3.68165, 2.78071, 44)
+
 [node name="Camp" type="Node3D" parent="NavigationRegion3D"]
 
 [node name="Grass" parent="NavigationRegion3D/Camp" instance=ExtResource("5_ex6gj")]
@@ -1475,6 +1488,8 @@ shape = SubResource("BoxShape3D_sai41")
 
 [node name="StartPos" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 46)
+
+[node name="CheckForUpdates" parent="." instance=ExtResource("32_6wcqp")]
 
 [connection signal="body_entered" from="DeathHitbox" to="DeathHitbox" method="_on_body_entered"]
 
