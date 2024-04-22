@@ -1,4 +1,4 @@
-[gd_scene load_steps=142 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=147 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
@@ -32,9 +32,14 @@
 [ext_resource type="PackedScene" uid="uid://dxyrus8mem5h7" path="res://Assets/Foliage/tree_4.tscn" id="16_dnb46"]
 [ext_resource type="PackedScene" uid="uid://b8mh61t0xyw6i" path="res://Assets/Foliage/tree_3.tscn" id="17_r6jr6"]
 [ext_resource type="Script" path="res://Inventory/inventory_data.gd" id="18_aph2l"]
+[ext_resource type="PackedScene" uid="uid://b6imfbq2ly2sy" path="res://Assets/Foliage/flower_purple.tscn" id="18_on7c5"]
+[ext_resource type="PackedScene" uid="uid://bxat7twckyt3k" path="res://Assets/Foliage/flower_red.tscn" id="19_wa5oj"]
 [ext_resource type="Resource" uid="uid://bed1i4bonrlq3" path="res://Item/Items/wood.tres" id="19_yoemt"]
+[ext_resource type="PackedScene" uid="uid://b05dtgfv83kn1" path="res://Assets/Foliage/flower_white.tscn" id="20_5f555"]
 [ext_resource type="Script" path="res://Inventory/slot_data.gd" id="20_7x2bb"]
 [ext_resource type="PackedScene" uid="uid://p1bvtvyb1g55" path="res://Item/PickUp/pick_up.tscn" id="21_rl6h6"]
+[ext_resource type="PackedScene" uid="uid://crdty6xf3u0q6" path="res://Assets/Foliage/pink_flower.tscn" id="21_smgaq"]
+[ext_resource type="PackedScene" uid="uid://bl0wr3f8cc011" path="res://Assets/Foliage/yellow_flower.tscn" id="22_4sibr"]
 [ext_resource type="Script" path="res://Levels/DeathHitbox.gd" id="22_ggqxf"]
 [ext_resource type="PackedScene" uid="uid://bjorjhgc0u43b" path="res://check_for_updates.tscn" id="32_6wcqp"]
 
@@ -1301,7 +1306,10 @@ transform = Transform3D(0.621845, 0.783112, -0.00665648, 2.98023e-08, -0.0084996
 transform = Transform3D(0.836152, 0, -0.548498, 0, 1, 0, 0.548498, 0, 0.836152, 0, 0, 36.3013)
 
 [node name="StaticBody3D2" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("9_mlfxb")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -3, 0, 38.5845)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -2.64838, 0, 38.5845)
+
+[node name="StaticBody3D3" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("9_mlfxb")]
+transform = Transform3D(0.335229, 0, 0.218224, 0, 0.4, 0, -0.218224, 0, 0.335229, -9.12905, 0, 41.7055)
 
 [node name="Rock2" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("10_g6atl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 32)
@@ -1326,6 +1334,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 39)
 
 [node name="Tree3" parent="NavigationRegion3D/LowerIsle" instance=ExtResource("17_r6jr6")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3.38435, 0.428315, 34.0846)
+
+[node name="Woods" type="Node3D" parent="NavigationRegion3D/LowerIsle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.99192, 0.216662, 42.7431)
+
+[node name="FlowerPurple" parent="NavigationRegion3D/LowerIsle/Woods" instance=ExtResource("18_on7c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.150499, 0)
+
+[node name="FlowerRed" parent="NavigationRegion3D/LowerIsle/Woods" instance=ExtResource("19_wa5oj")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1, -0.112491, 0)
+
+[node name="FlowerWhite" parent="NavigationRegion3D/LowerIsle/Woods" instance=ExtResource("20_5f555")]
+transform = Transform3D(0.809816, 0, -0.586683, 0, 1, 0, 0.586683, 0, 0.809816, -0.857632, -0.242733, 0)
+
+[node name="PinkFlower" parent="NavigationRegion3D/LowerIsle/Woods" instance=ExtResource("21_smgaq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.59429, -0.205765, 0.854904)
+
+[node name="YellowFlower" parent="NavigationRegion3D/LowerIsle/Woods" instance=ExtResource("22_4sibr")]
+transform = Transform3D(0.761006, 0, 0.648744, 0, 1, 0, -0.648744, 0, 0.761006, -1.54662, -0.485496, 0.788147)
 
 [node name="Camp" type="Node3D" parent="NavigationRegion3D"]
 

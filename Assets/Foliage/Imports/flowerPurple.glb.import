@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bf4mbuba8e2or"
-path="res://.godot/imported/flowerRed.glb-99a8b375fe641a6a18075e42abaca8bc.scn"
+uid="uid://bbyfkjre2ly7d"
+path="res://.godot/imported/flowerPurple.glb-592dbb987bc04a63da5484d5bf612776.scn"
 
 [deps]
 
-source_file="res://Assets/Foliage/Imports/flowerRed.glb"
-dest_files=["res://.godot/imported/flowerRed.glb-99a8b375fe641a6a18075e42abaca8bc.scn"]
+source_file="res://Assets/Foliage/Imports/flowerPurple.glb"
+dest_files=["res://.godot/imported/flowerPurple.glb-592dbb987bc04a63da5484d5bf612776.scn"]
 
 [params]
 
