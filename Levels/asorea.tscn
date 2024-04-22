@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=151 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://crdty6xf3u0q6" path="res://Assets/Foliage/pink_flower.tscn" id="21_smgaq"]
 [ext_resource type="PackedScene" uid="uid://bl0wr3f8cc011" path="res://Assets/Foliage/yellow_flower.tscn" id="22_4sibr"]
 [ext_resource type="Script" path="res://Levels/DeathHitbox.gd" id="22_ggqxf"]
+[ext_resource type="PackedScene" uid="uid://c3nnklu8rjlka" path="res://Assets/Foliage/berry_bush.tscn" id="23_eywit"]
 [ext_resource type="PackedScene" uid="uid://bjorjhgc0u43b" path="res://check_for_updates.tscn" id="32_6wcqp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7dey"]
@@ -1845,6 +1846,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.59429, -0.205765, 0.854904)
 
 [node name="YellowFlower" parent="NavigationRegion3D/LowerIsle/Woods" instance=ExtResource("22_4sibr")]
 transform = Transform3D(0.761006, 0, 0.648744, 0, 1, 0, -0.648744, 0, 0.761006, -1.54662, -0.485496, 0.788147)
+
+[node name="BerryBush" parent="NavigationRegion3D/LowerIsle/Woods" instance=ExtResource("23_eywit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97882, 0, 2.65242)
 
 [node name="Camp" type="Node3D" parent="NavigationRegion3D"]
 
