@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b83rxxgpg5aft"
-path="res://.godot/imported/Ivy.glb-75bd70f0984b774ef652307657d90cfe.scn"
+uid="uid://020j21imunmf"
+path="res://.godot/imported/stump.glb-7765dd92c2639524f15e29749afc9c1b.scn"
 
 [deps]
 
-source_file="res://Assets/Foliage/Ivy.glb"
-dest_files=["res://.godot/imported/Ivy.glb-75bd70f0984b774ef652307657d90cfe.scn"]
+source_file="res://Assets/Foliage/Imports/stump.glb"
+dest_files=["res://.godot/imported/stump.glb-7765dd92c2639524f15e29749afc9c1b.scn"]
 
 [params]
 

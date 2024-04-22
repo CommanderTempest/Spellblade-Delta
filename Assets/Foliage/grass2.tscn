@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://6gwk31wxjns4"]
 
 [ext_resource type="Shader" uid="uid://8gfmp583dnoa" path="res://Shaders/grass2.tres" id="1_ew0uj"]
-[ext_resource type="PackedScene" uid="uid://dhcdajkkx425u" path="res://Assets/Foliage/grass2.glb" id="1_pascp"]
+[ext_resource type="PackedScene" uid="uid://dhcdajkkx425u" path="res://Assets/Foliage/Imports/grass2.glb" id="1_pascp"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ohvf5"]
 fractal_type = 0

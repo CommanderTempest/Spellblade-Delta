@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bbhpol3u14qyl"]
 
-[ext_resource type="PackedScene" uid="uid://b83rxxgpg5aft" path="res://Assets/Foliage/Ivy.glb" id="1_7h7gi"]
+[ext_resource type="PackedScene" uid="uid://b83rxxgpg5aft" path="res://Assets/Foliage/Imports/Ivy.glb" id="1_7h7gi"]
 
 [node name="Ivy" type="Node3D"]
 

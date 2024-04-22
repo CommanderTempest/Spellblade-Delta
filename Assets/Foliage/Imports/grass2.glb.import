@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://t0e1jy88b6ia"
-path="res://.godot/imported/LowTree.glb-54a8fa6d4aff53e4616089243e48b8a6.scn"
+uid="uid://dhcdajkkx425u"
+path="res://.godot/imported/grass2.glb-4ccb0f9d39a8018313873ad0e10fdb96.scn"
 
 [deps]
 
-source_file="res://Assets/Foliage/LowTree.glb"
-dest_files=["res://.godot/imported/LowTree.glb-54a8fa6d4aff53e4616089243e48b8a6.scn"]
+source_file="res://Assets/Foliage/Imports/grass2.glb"
+dest_files=["res://.godot/imported/grass2.glb-4ccb0f9d39a8018313873ad0e10fdb96.scn"]
 
 [params]
 

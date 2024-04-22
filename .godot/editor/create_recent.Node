@@ -1,6 +1,6 @@
+StaticBody3D
 MeshInstance3D
 MultiMeshInstance3D
-StaticBody3D
 CollisionShape3D
 Label
 MarginContainer

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://db2e1p13ddpj7"
-path="res://.godot/imported/rock.glb-42ee8634e819402054efffdd72db6885.scn"
+uid="uid://b83rxxgpg5aft"
+path="res://.godot/imported/Ivy.glb-0063d78d57ed50340d4143b4ed388bb3.scn"
 
 [deps]
 
-source_file="res://Assets/Foliage/rock.glb"
-dest_files=["res://.godot/imported/rock.glb-42ee8634e819402054efffdd72db6885.scn"]
+source_file="res://Assets/Foliage/Imports/Ivy.glb"
+dest_files=["res://.godot/imported/Ivy.glb-0063d78d57ed50340d4143b4ed388bb3.scn"]
 
 [params]
 
