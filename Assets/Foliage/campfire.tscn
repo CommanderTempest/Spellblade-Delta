@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh216tlmmcqco"]
+
+[ext_resource type="PackedScene" uid="uid://dt4uxst2umcav" path="res://Assets/Foliage/Imports/Campfire.glb" id="1_ncp4q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_43f8u"]
+size = Vector3(2.5, 2, 2.5)
+
+[node name="Campfire" type="StaticBody3D"]
+
+[node name="Campfire" parent="." instance=ExtResource("1_ncp4q")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56142, 0)
+shape = SubResource("BoxShape3D_43f8u")
