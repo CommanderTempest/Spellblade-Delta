@@ -8,7 +8,6 @@ noise_type = 2
 seed = 4
 frequency = 0.004
 cellular_distance_function = 3
-cellular_jitter = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gli05"]
 seamless = true

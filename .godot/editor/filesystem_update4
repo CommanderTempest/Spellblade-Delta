@@ -1,4 +1,4 @@
-res://Levels/sandbox.tscn
+res://Levels/asorea.tscn
 res://Inventory/slot.gd
 res://Levels/DeathHitbox.gd
 res://Levels/Materials/grey.tres
@@ -13,16 +13,3 @@ res://Shaders/water_material.tres
 res://Shaders/grass.gdshader
 res://Assets/grass2.res
 res://Shaders/grass2.tres
-res://humanoid.tscn
-res://Levels/asorea.tscn
-res://Enemy/bandit.tscn
-res://Components/hitbox_component.tscn
-res://check_for_updates.tscn
-res://Assets/Foliage/tree2.tscn
-res://Assets/Foliage/rock_2.tscn
-res://Assets/Foliage/grass2.tscn
-res://Assets/Foliage/ivy.tscn
-res://Assets/Foliage/rock.tscn
-res://Assets/Foliage/tree_3.tscn
-res://Assets/Foliage/tree_4.tscn
-res://Assets/Foliage/flower_purple.tscn
