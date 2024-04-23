@@ -1,3 +1,4 @@
+res://Levels/asorea.tscn
 res://Inventory/slot.gd
 res://Levels/DeathHitbox.gd
 res://Levels/Materials/grey.tres
@@ -11,4 +12,10 @@ res://Shaders/water.gdshader
 res://Shaders/water_material.tres
 res://Shaders/grass2.tres
 res://Shaders/grass.gdshader
-res://Levels/asorea.tscn
+res://States/ClimbState.gd
+res://Levels/sandbox.tscn
+res://humanoid.tscn
+res://Enemy/bandit.tscn
+res://Components/hitbox_component.tscn
+res://check_for_updates.tscn
+res://Assets/Foliage/campfire.tscn

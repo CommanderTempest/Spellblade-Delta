@@ -1,7 +1,7 @@
 extends State
 class_name JumpState
 
-@export var jump_height: float = 0.4
+@export var jump_height: float = 1.0
 var fall_multiplier := 2.0
 
 var hasHitFloor := false # if the player has hit the floor after jumping
