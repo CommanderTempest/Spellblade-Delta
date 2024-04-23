@@ -9,6 +9,9 @@ signal AttackingEntity # signals to the mob group component that a target's been
 @export var attack_range = 0.5
 @export var hurtbox: HurtboxComponent
 @export var hitbox: HitboxComponent
+@export var healthComp: HealthComponent
+
+@onready var animation_player = $AnimationPlayer
 
 var primary_target: Player
 
@@ -23,6 +26,9 @@ func _ready():
 	spawn_pos = global_position
 	sightLine.body_entered.connect(on_sight_entered)
 	hurtbox.hurt.connect(on_hurtbox_hurt)
+	healthComp.defeated.connect(on_defeat)
+	animation_player.animation_finished.connect(on_anim_finish)
+	animation_player.animation_changed.connect(on_anim_change)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -84,9 +90,22 @@ func on_sight_entered(body: Node3D):
 		primary_target = body
 		provoked = true
 
+func on_defeat() -> void:
+	if animation_player.has_animation("Defeat"):
+		print("Playing Defeat")
+		animation_player.play("Defeat")
+
 func on_hurtbox_hurt(hurtBy: HitboxComponent):
 	# hit by itself
 	if hurtBy == hitbox:
 		return
 	else:
 		hurtbox.take_damage(hurtBy.damage_to_deal)
+
+func on_anim_finish(anim: String) -> void:
+	if anim == "Defeat":
+		self.process_mode = Node.PROCESS_MODE_DISABLED
+
+func on_anim_change(oldAnim: String, newAnim: String) -> void:
+	if oldAnim == "Defeat":
+		self.process_mode = Node.PROCESS_MODE_DISABLED

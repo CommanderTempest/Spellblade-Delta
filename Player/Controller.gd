@@ -37,6 +37,9 @@ func _physics_process(delta):
 			state_machine.on_child_transition(state_machine.current_state, "ClimbState")
 		else:
 			state_machine.on_child_transition(state_machine.current_state, "JumpState")
+	elif Input.is_action_just_pressed("jump"):
+		if climb_detection.is_colliding() and not state_machine.current_state is ClimbState:
+			state_machine.on_child_transition(state_machine.current_state, "ClimbState")
 	
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()

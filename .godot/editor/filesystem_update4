@@ -1,4 +1,4 @@
-res://Levels/asorea.tscn
+res://humanoid.tscn
 res://Inventory/slot.gd
 res://Levels/DeathHitbox.gd
 res://Levels/Materials/grey.tres
@@ -12,11 +12,13 @@ res://Shaders/water.gdshader
 res://Shaders/water_material.tres
 res://Shaders/grass2.tres
 res://Shaders/grass.gdshader
-res://States/ClimbState.gd
-res://Levels/sandbox.tscn
-res://humanoid.tscn
+res://Player/Player2.tscn
+res://Components/HealthComponent.gd
+res://Player/Player.gd
+res://Levels/asorea.tscn
 res://Enemy/bandit.tscn
-res://Components/hitbox_component.tscn
+res://Enemy/EnemyController.gd
+res://Levels/sandbox.tscn
 res://check_for_updates.tscn
 res://Assets/Foliage/campfire.tscn
-res://States/JumpState.gd
+res://Player/Controller.gd

@@ -13,19 +13,19 @@ albedo_color = Color(0.196078, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ew5gl"]
 size = Vector3(6, 2, 10)
 
-[node name="Bandit" node_paths=PackedStringArray("state_machine", "sightLine", "navigation", "hurtbox", "hitbox") groups=["Enemy"] instance=ExtResource("1_5nw88")]
+[node name="Bandit" node_paths=PackedStringArray("state_machine", "sightLine", "navigation", "hurtbox", "hitbox", "healthComp") groups=["Enemy"] instance=ExtResource("1_5nw88")]
 script = ExtResource("3_o12xa")
 state_machine = NodePath("State Machine")
 sightLine = NodePath("Sight")
 navigation = NodePath("PathfindComponent")
 hurtbox = NodePath("HurtboxComponent")
 hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
+healthComp = NodePath("HealthComponent")
 
 [node name="Torso" parent="." index="1"]
 material_override = ExtResource("3_bgtic")
 
 [node name="Head" parent="Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 material_override = ExtResource("3_bgtic")
 
 [node name="Left-Leg" parent="Torso" index="1"]

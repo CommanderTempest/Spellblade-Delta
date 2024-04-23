@@ -2028,7 +2028,7 @@ SpawnPos = Vector3(0, 1, 46)
 shape = SubResource("BoxShape3D_sai41")
 
 [node name="StartPos" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 46)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.88953, 46)
 
 [node name="CheckForUpdates" parent="." instance=ExtResource("32_6wcqp")]
 

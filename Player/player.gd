@@ -38,6 +38,7 @@ func _ready() -> void:
 	inventory_interface.force_close.connect(toggle_inventory_interface)
 	hot_bar_inventory.set_inventory_data(inventory_data)
 	hurtbox.hurt.connect(on_hurtbox_hurt)
+	health_component.defeated.connect(on_defeat)
 	
 	PlayerManager.player = self
 	
@@ -169,6 +170,13 @@ func get_drop_position() -> Vector3:
 
 func heal(heal_value: int) -> void:
 	health_component.heal(heal_value)
+
+func on_defeat() -> void:
+	animation_player.play("Defeat")
+	# main menu?
+	
+	# teleport back here
+	self.position = Vector3(0,7,46)
 
 func _on_inventory_interface_drop_slot_data(slot_data):
 	var pick_up = PICK_UP.instantiate()
