@@ -2022,7 +2022,7 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -60, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("22_ggqxf")
-SpawnPos = Vector3(0, 1, 46)
+SpawnPos = Vector3(0, 7, 46)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DeathHitbox"]
 shape = SubResource("BoxShape3D_sai41")

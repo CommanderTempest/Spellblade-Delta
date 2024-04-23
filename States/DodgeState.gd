@@ -25,6 +25,8 @@ func Enter():
 			anim.play("Dodge")
 		else:
 			print(self.name + " has no animation: Dodge")
+func Exit():
+	pass
 
 func getIsDodging():
 	return isDodging

@@ -22,3 +22,10 @@ res://Levels/sandbox.tscn
 res://check_for_updates.tscn
 res://Assets/Foliage/campfire.tscn
 res://Player/Controller.gd
+res://Components/HurtboxComponent.gd
+res://Inventory/inventory_data.gd
+res://Player/Stuck.gd
+res://States/DodgeState.gd
+res://Entity/interactable_entity.gd
+res://Item/chest.gd
+res://States/ClimbState.gd

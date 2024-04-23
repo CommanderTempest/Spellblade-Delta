@@ -13,6 +13,7 @@ const PICK_UP = preload("res://Item/PickUp/pick_up.tscn")
 @export var hitbox: HitboxComponent
 @export var inventory_data: InventoryData
 @export var equip_inventory_data: InventoryDataEquip
+@export var Spawn_Pos: Vector3 = Vector3(0,7,46)
 
 @onready var camera_pivot = $CameraPivot
 @onready var smooth_camera = $CameraPivot/SmoothCamera
@@ -25,6 +26,8 @@ const PICK_UP = preload("res://Item/PickUp/pick_up.tscn")
 @onready var interact_ray = $Torso/InteractRay
 @onready var interact_label = $CanvasLayer/NotificationContainer/InteractLabel
 @onready var health_component = $HealthComponent
+@onready var dialogue = $CanvasLayer/DialogueBox/Dialogue
+@onready var dialogue_box = $CanvasLayer/DialogueBox
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -96,7 +99,10 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: 
 		mouse_motion = -event.relative * 0.001
 	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _unhandled_input(event) -> void:
 	if Input.is_action_just_pressed("inventory"):
@@ -158,11 +164,14 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 		inventory_interface.clear_external_inventory()
 
 func toggle_conversation_interface() -> void:
-	pass
+	dialogue_box.visible = not dialogue_box.visible
 
 func interact() -> void:
 	if interact_ray.is_colliding():
-		interact_ray.get_collider().player_interact()
+		if interact_ray.get_collider() is InteractableEntity:
+			toggle_conversation_interface()
+		else:
+			interact_ray.get_collider().player_interact(self)
 
 func get_drop_position() -> Vector3:
 	var direction = -global_transform.basis.z
@@ -176,10 +185,14 @@ func on_defeat() -> void:
 	# main menu?
 	
 	# teleport back here
-	self.position = Vector3(0,7,46)
+	health_component.heal(100)
+	self.position = Spawn_Pos
 
 func _on_inventory_interface_drop_slot_data(slot_data):
 	var pick_up = PICK_UP.instantiate()
 	pick_up.slot_data = slot_data
 	pick_up.position = get_drop_position()
 	add_child(pick_up)
+
+func _on_button_pressed():
+	self.position = Spawn_Pos

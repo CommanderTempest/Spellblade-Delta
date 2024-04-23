@@ -38,13 +38,13 @@ func take_damage(damage: int):
 		if status == "Parry":
 			var spark = sparks.instantiate()
 			add_child(spark)
-			spark.global_position = self.global_position
+			spark.global_position = character.global_position
 			if posture_component:
 				posture_component.heal_posture(damage)
 		elif status == "Block" and posture_component.hasPostureRemaining():
 			var spark = sparks.instantiate()
 			add_child(spark)
-			spark.global_position = self.global_position
+			spark.global_position = character.global_position
 			if posture_component:
 				posture_component.take_posture_damage(damage)
 		elif status == "Dodge":

@@ -48,6 +48,9 @@ material_override = SubResource("StandardMaterial3D_hd5xh")
 [node name="Left-Arm" parent="Torso" index="4"]
 material_override = ExtResource("3_bgtic")
 
+[node name="DodgeState" parent="State Machine" index="0" node_paths=PackedStringArray("Character")]
+Character = NodePath("../..")
+
 [node name="ClimbState" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection")]
 climb_detection = NodePath("../../ClimbDetection")
 

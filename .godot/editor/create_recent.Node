@@ -1,3 +1,6 @@
+TextEdit
+MarginContainer
+Button
 Timer
 CollisionShape3D
 StaticBody3D
@@ -5,11 +8,8 @@ Node3D
 MeshInstance3D
 MultiMeshInstance3D
 Label
-MarginContainer
 AnimationPlayer
 CharacterBody3D
 Area3D
 HBoxContainer
 PanelContainer
-Sprite3D
-RigidBody3D

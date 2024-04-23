@@ -45,6 +45,7 @@ func Physics_Update(_delta: float) -> void:
 			Character.gravity = 0
 			await get_tree().create_timer(0.1).timeout
 		climb_timer.stop()
+		#Vault here
 		transitioned.emit(self, "IdleState")
 
 func on_climb_timer_timeout():
