@@ -19,3 +19,4 @@ res://Enemy/bandit.tscn
 res://Components/hitbox_component.tscn
 res://check_for_updates.tscn
 res://Assets/Foliage/campfire.tscn
+res://States/JumpState.gd

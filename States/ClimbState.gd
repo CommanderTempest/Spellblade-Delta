@@ -5,7 +5,7 @@ class_name ClimbState
 
 var climb_timer: Timer = Timer.new() # how long you can climb for
 var climb_cd: Timer = Timer.new()
-var climb_speed: float = 1.0
+var climb_speed: float = 1.3
 var canClimb := true
 var isClimbing := false
 
@@ -21,8 +21,12 @@ func Enter() -> void:
 	# if can't climb, jump instead
 	if canClimb == false:
 		transitioned.emit(self, "JumpState")
+	else:
+		if anim.has_animation("Climb"):
+			anim.play("Climb");
 
 func Exit() -> void:
+	anim.stop()
 	if not climb_cd.time_left > 0:
 		canClimb = false
 		climb_cd.start()
@@ -41,15 +45,12 @@ func Physics_Update(_delta: float) -> void:
 			Character.gravity = 0
 			await get_tree().create_timer(0.1).timeout
 		climb_timer.stop()
-		Character.velocity.y = 0
-		Character.gravity = 9.8
-		transitioned.emit(self, "JumpState")
+		transitioned.emit(self, "IdleState")
 
 func on_climb_timer_timeout():
 	climb_timer.stop()
 	transitioned.emit(self, "IdleState")
 
 func on_climb_cd_timeout():
-	print("Can climb now")
 	climb_cd.stop()
 	canClimb = true
