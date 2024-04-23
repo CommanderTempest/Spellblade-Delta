@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxat7twckyt3k"]
+
+[ext_resource type="PackedScene" uid="uid://bf4mbuba8e2or" path="res://Assets/Foliage/Imports/flowerRed.glb" id="1_3pilt"]
+
+[node name="FlowerRed" type="Node3D"]
+
+[node name="flowerRed" parent="." instance=ExtResource("1_3pilt")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.5556, 0, -3.86127)

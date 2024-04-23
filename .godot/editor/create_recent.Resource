@@ -1,0 +1,5 @@
+ItemDataEquip
+ItemDataConsumable
+InventoryData
+ItemData
+Resource

@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name EnemyController
 
+signal AttackingEntity # signals to the mob group component that a target's been registered
+
 @export var state_machine: StateMachine
 @export var sightLine: Area3D
 @export var navigation: PathfindComponent
@@ -35,7 +37,7 @@ func _physics_process(delta):
 		# sets speed of enemy depending on how far they are
 		navigation.check_range(attack_range) 
 
-		if navigation.get_distance_to_target() > attack_range * 14:
+		if navigation.get_distance_to_target() > attack_range * 50:
 			navigation.return_to_spawn()
 			state_machine.on_child_transition(state_machine.current_state, "IdleState")
 
@@ -77,7 +79,7 @@ func randomize_move() -> String:
 	return "None"
 
 func on_sight_entered(body: Node3D):
-	if body != self and body is CharacterBody3D:
+	if body != self and body is Player:
 		navigation.register_target(body)
 		primary_target = body
 		provoked = true

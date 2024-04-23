@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqgyd6srer4ik"]
+
+[ext_resource type="PackedScene" uid="uid://dis1lah5hh7nd" path="res://Assets/BanditCamp/Tower2.glb" id="1_d1q45"]
+[ext_resource type="PackedScene" uid="uid://dn274wrf665h7" path="res://Assets/BanditCamp/damagedLadder.glb" id="2_dao1a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2spcy"]
+size = Vector3(8, 14, 7)
+
+[node name="DamagedTower" type="StaticBody3D"]
+
+[node name="Tower2" parent="." instance=ExtResource("1_d1q45")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.15137, 6.82934, -2.16796)
+shape = SubResource("BoxShape3D_2spcy")
+
+[node name="damagedLadder" parent="." instance=ExtResource("2_dao1a")]
+transform = Transform3D(0.99885, -0.0569927, 0, 0.0479433, 1.18739, 0, 0, 0, 1, 5.79477, 0, -2.47604)

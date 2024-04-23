@@ -20,7 +20,7 @@ func _ready():
 
 func initializeHealth():
 	if max_health:
-		current_health = max_health
+		current_health = max_health / 2
 	else:
 		max_health = 100
 		current_health = max_health

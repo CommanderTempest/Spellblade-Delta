@@ -11,7 +11,7 @@ func _ready():
 	add_child(combo_timer)
 	combo_timer.timeout.connect(on_combo_timer_timeout)
 	anim.animation_finished.connect(on_animation_finished)
-	anim.animation_changed.connect(on_animation_changed)
+	#anim.animation_changed.connect(on_animation_changed)
 
 func Enter():
 	if anim.has_animation("Attack" + str(combo)):
