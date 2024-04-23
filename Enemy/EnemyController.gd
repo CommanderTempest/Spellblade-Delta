@@ -10,6 +10,7 @@ signal AttackingEntity # signals to the mob group component that a target's been
 @export var hurtbox: HurtboxComponent
 @export var hitbox: HitboxComponent
 @export var healthComp: HealthComponent
+@export var climb_detection: RayCast3D
 
 @onready var animation_player = $AnimationPlayer
 
@@ -59,6 +60,13 @@ func _physics_process(delta):
 							state_machine.on_child_transition(state_machine.current_state, "AttackState")
 					else:
 						state_machine.on_child_transition(state_machine.current_state, "AttackState")
+			elif primary_target:
+				# 1.0 is jump height here
+				if primary_target.global_position.y - 1.0 >= self.global_position.y:
+					if climb_detection.is_colliding() and not state_machine.current_state is ClimbState:
+						state_machine.on_child_transition(state_machine.current_state, "ClimbState")
+				elif primary_target.global_position.y >= self.global_position.y:
+					state_machine.on_child_transition(state_machine.current_state, "JumpState")
 			else:
 				state_machine.on_child_transition(state_machine.current_state, "IdleState")
 

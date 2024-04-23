@@ -13,7 +13,7 @@ albedo_color = Color(0.196078, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ew5gl"]
 size = Vector3(6, 2, 10)
 
-[node name="Bandit" node_paths=PackedStringArray("state_machine", "sightLine", "navigation", "hurtbox", "hitbox", "healthComp") groups=["Enemy"] instance=ExtResource("1_5nw88")]
+[node name="Bandit" node_paths=PackedStringArray("state_machine", "sightLine", "navigation", "hurtbox", "hitbox", "healthComp", "climb_detection") groups=["Enemy"] instance=ExtResource("1_5nw88")]
 script = ExtResource("3_o12xa")
 state_machine = NodePath("State Machine")
 sightLine = NodePath("Sight")
@@ -21,6 +21,7 @@ navigation = NodePath("PathfindComponent")
 hurtbox = NodePath("HurtboxComponent")
 hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
 healthComp = NodePath("HealthComponent")
+climb_detection = NodePath("ClimbDetection")
 
 [node name="Torso" parent="." index="1"]
 material_override = ExtResource("3_bgtic")
@@ -46,6 +47,9 @@ material_override = SubResource("StandardMaterial3D_hd5xh")
 
 [node name="Left-Arm" parent="Torso" index="4"]
 material_override = ExtResource("3_bgtic")
+
+[node name="ClimbState" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection")]
+climb_detection = NodePath("../../ClimbDetection")
 
 [node name="Sight" type="Area3D" parent="." index="6"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
