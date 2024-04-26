@@ -1,4 +1,4 @@
-[gd_scene load_steps=152 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=151 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
@@ -42,7 +42,6 @@
 [ext_resource type="Script" path="res://Levels/DeathHitbox.gd" id="22_ggqxf"]
 [ext_resource type="PackedScene" uid="uid://c3nnklu8rjlka" path="res://Assets/Foliage/berry_bush.tscn" id="23_eywit"]
 [ext_resource type="PackedScene" uid="uid://dh216tlmmcqco" path="res://Assets/Foliage/campfire.tscn" id="24_0k2b7"]
-[ext_resource type="PackedScene" uid="uid://bjorjhgc0u43b" path="res://check_for_updates.tscn" id="32_6wcqp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7dey"]
 sky_top_color = Color(0.47451, 0.45098, 0.337255, 1)
@@ -2029,8 +2028,6 @@ shape = SubResource("BoxShape3D_sai41")
 
 [node name="StartPos" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.88953, 46)
-
-[node name="CheckForUpdates" parent="." instance=ExtResource("32_6wcqp")]
 
 [connection signal="body_entered" from="DeathHitbox" to="DeathHitbox" method="_on_body_entered"]
 

@@ -12,4 +12,3 @@ AnimationPlayer
 CharacterBody3D
 Area3D
 HBoxContainer
-PanelContainer

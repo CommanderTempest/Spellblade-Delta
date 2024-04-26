@@ -28,6 +28,8 @@ const PICK_UP = preload("res://Item/PickUp/pick_up.tscn")
 @onready var health_component = $HealthComponent
 @onready var dialogue = $CanvasLayer/DialogueBox/Dialogue
 @onready var dialogue_box = $CanvasLayer/DialogueBox
+@onready var close_dialogue = $CanvasLayer/DialogueBox/Dialogue/CloseDialogue
+
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -196,3 +198,6 @@ func _on_inventory_interface_drop_slot_data(slot_data):
 
 func _on_button_pressed():
 	self.position = Spawn_Pos
+
+func _on_close_dialogue_pressed():
+	dialogue_box.visible = false
