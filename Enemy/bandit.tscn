@@ -27,7 +27,6 @@ climb_detection = NodePath("ClimbDetection")
 material_override = ExtResource("3_bgtic")
 
 [node name="Head" parent="Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 material_override = ExtResource("3_bgtic")
 
 [node name="Left-Leg" parent="Torso" index="1"]
@@ -69,6 +68,9 @@ posture_component = NodePath("../PostureComponent")
 character = NodePath("..")
 blood = ExtResource("3_fne0v")
 sparks = ExtResource("4_m8rk0")
+
+[node name="HealthComponent" parent="." index="9"]
+max_health = 50
 
 [node name="PathfindComponent" type="Node3D" parent="." index="11" node_paths=PackedStringArray("navigation_agent_3d", "character")]
 script = ExtResource("2_uhxn6")

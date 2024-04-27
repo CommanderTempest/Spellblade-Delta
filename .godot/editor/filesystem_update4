@@ -1,4 +1,4 @@
-res://Player/Player2.tscn
+res://Levels/asorea.tscn
 res://Inventory/slot.gd
 res://Levels/DeathHitbox.gd
 res://Levels/Materials/grey.tres
@@ -14,9 +14,8 @@ res://Shaders/grass2.tres
 res://Shaders/grass.gdshader
 res://Levels/sandbox.tscn
 res://humanoid.tscn
-res://Levels/asorea.tscn
 res://Enemy/bandit.tscn
 res://check_for_updates.tscn
+res://Player/Player2.tscn
 res://Assets/Foliage/grass2.tscn
-res://Player/Player.gd
-res://Item/PickUp/pick_up.tscn
+res://Assets/Foliage/bush.tscn
