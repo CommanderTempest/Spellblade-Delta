@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_23d2a"]
-[ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_hhhn7"]
 [ext_resource type="Resource" uid="uid://ctdoondvvlpmd" path="res://Inventory/test_inv.tres" id="3_vvjvb"]
 [ext_resource type="Script" path="res://Inventory/inventory_data_equip.gd" id="4_erd53"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_j8u8f"]
@@ -48,6 +47,8 @@ gradient = SubResource("Gradient_t7sib")
 width = 300
 height = 20
 
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_q383m"]
+
 [node name="Player" node_paths=PackedStringArray("state_machine", "hurtbox", "hitbox") groups=["Player"] instance=ExtResource("1_4y1s6")]
 collision_layer = 2
 script = ExtResource("2_23d2a")
@@ -56,9 +57,6 @@ hurtbox = NodePath("HurtboxComponent")
 hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
 inventory_data = ExtResource("3_vvjvb")
 equip_inventory_data = SubResource("Resource_38tt1")
-
-[node name="Head" parent="Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 
 [node name="HitboxComponent" parent="Torso/Right-Arm" index="0" node_paths=PackedStringArray("attack_state", "my_hurtbox")]
 attack_state = NodePath("../../../State Machine/AttackState")
@@ -81,14 +79,7 @@ Character = NodePath("../..")
 [node name="ClimbState" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection")]
 climb_detection = NodePath("../../ClimbDetection")
 
-[node name="CameraPivot" type="Node3D" parent="." index="6"]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 3, 4)
-
-[node name="SmoothCamera" type="Camera3D" parent="CameraPivot" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
-script = ExtResource("2_hhhn7")
-
-[node name="CenterContainer" type="CenterContainer" parent="." index="7"]
+[node name="CenterContainer" type="CenterContainer" parent="." index="6"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -99,7 +90,7 @@ grow_vertical = 2
 layout_mode = 2
 script = ExtResource("4_j8u8f")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
 
 [node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" index="0" node_paths=PackedStringArray("health_component")]
 anchors_preset = 7
@@ -213,7 +204,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -150.0
-offset_top = 80.0
+offset_top = 68.0
 offset_right = 150.0
 offset_bottom = 110.0
 grow_horizontal = 2
@@ -222,7 +213,7 @@ grow_vertical = 2
 [node name="InteractLabel" type="Label" parent="CanvasLayer/NotificationContainer" index="0"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Press [E] to Interact"
+text = "[E] を押して対話します"
 horizontal_alignment = 1
 
 [node name="Debugs" type="MarginContainer" parent="CanvasLayer" index="7"]
@@ -232,7 +223,7 @@ offset_bottom = 640.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Debugs" index="0"]
 layout_mode = 2
-text = "Teleport to Spawn"
+text = "テレポートしてスポーンする"
 
 [node name="DialogueBox" type="MarginContainer" parent="CanvasLayer" index="8"]
 visible = false
@@ -243,8 +234,9 @@ offset_bottom = 400.0
 
 [node name="Dialogue" type="TextEdit" parent="CanvasLayer/DialogueBox" index="0"]
 layout_mode = 2
-text = "Hello there"
+text = "こにちは"
 placeholder_text = "Ho there"
+editable = false
 wrap_mode = 1
 
 [node name="CloseDialogue" type="Button" parent="CanvasLayer/DialogueBox/Dialogue" index="5"]
@@ -253,27 +245,29 @@ offset_left = 185.0
 offset_top = 68.0
 offset_right = 301.0
 offset_bottom = 99.0
-text = "Close Textbox"
+text = "閉める"
 
 [node name="Controls" type="MarginContainer" parent="CanvasLayer" index="9"]
-offset_left = 972.0
+offset_left = 933.0
 offset_top = 253.0
 offset_right = 1153.0
-offset_bottom = 522.0
+offset_bottom = 548.0
 
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/Controls" index="0"]
 layout_mode = 2
 text = "Keybinds:
-[LMB] - Attack
-[Q] - Dodge
-[F] Parry
-[Hold F] Block
-[Shift] Sprint
-[Space] Jump/Climb
-[Esc] Free Mouse
+[Tab] 在庫を開く/閉じる
+[LMB] - 襲撃
+[Q] - 逃げる
+[F] パリー
+[Fを押し続ける] 防ぐ
+[Shift] 疾走
+[Space] ジャンプ/登る
+[Esc] マウスのロックを解除する
 "
+editable = false
 
-[node name="Controller" type="Node" parent="." index="10" node_paths=PackedStringArray("state_machine", "dodge_state", "block_state", "attack_state", "player", "walk_player", "climb_detection")]
+[node name="Controller" type="Node" parent="." index="9" node_paths=PackedStringArray("state_machine", "dodge_state", "block_state", "attack_state", "player", "walk_player", "climb_detection")]
 script = ExtResource("17_r1a5t")
 state_machine = NodePath("../State Machine")
 dodge_state = NodePath("../State Machine/DodgeState")
@@ -283,13 +277,24 @@ player = NodePath("..")
 walk_player = NodePath("../WalkPlayer")
 climb_detection = NodePath("../ClimbDetection")
 
-[node name="HurtboxComponent" parent="." index="11" node_paths=PackedStringArray("posture_component", "character")]
+[node name="HurtboxComponent" parent="." index="10" node_paths=PackedStringArray("posture_component", "character")]
 posture_component = NodePath("../PostureComponent")
 character = NodePath("..")
 blood = ExtResource("16_vyamq")
 sparks = ExtResource("17_2pfob")
 
-[node name="CheckForUpdates" parent="." index="14" instance=ExtResource("25_xu347")]
+[node name="CheckForUpdates" parent="." index="13" instance=ExtResource("25_xu347")]
+
+[node name="CameraMount" type="Node3D" parent="." index="14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.25469e-08, 1.858, 1.05861)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraMount" index="0"]
+transform = Transform3D(1, 1.55848e-08, 1.40037e-09, -1.55848e-08, 0.983982, 0.17827, 1.40037e-09, -0.17827, 0.983982, 0, 0.26927, 0)
+shape = SubResource("SeparationRayShape3D_q383m")
+spring_length = 3.0
+
+[node name="SmoothCamera" type="Camera3D" parent="CameraMount/SpringArm3D" index="0"]
+transform = Transform3D(1, -1.55849e-08, 1.40037e-09, 1.55849e-08, 0.983982, -0.17827, 1.40035e-09, 0.17827, 0.983982, -2.61501e-07, 0.0255492, 2.99123)
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

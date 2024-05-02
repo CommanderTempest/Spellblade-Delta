@@ -1,10 +1,10 @@
-res://Levels/asorea.tscn
+res://Player/Camera/CameraTestPlayer.tscn
 res://Inventory/slot.gd
 res://Levels/DeathHitbox.gd
 res://Levels/Materials/grey.tres
-res://Inventory/test_inv.tres
 res://Textures/sparksProcess.tres
 res://Textures/sparks.tres
+res://Inventory/test_inv.tres
 res://Shaders/rockshader.tres
 res://Shaders/sandShader.tres
 res://Shaders/grass.tres
@@ -14,8 +14,10 @@ res://Shaders/grass2.tres
 res://Shaders/grass.gdshader
 res://Levels/sandbox.tscn
 res://humanoid.tscn
+res://Levels/asorea.tscn
 res://Enemy/bandit.tscn
-res://check_for_updates.tscn
-res://Player/Player2.tscn
 res://Assets/Foliage/grass2.tscn
-res://Assets/Foliage/bush.tscn
+res://Player/Player2.tscn
+res://Player/Camera/CameraTestPlayer.gd
+res://Player/SmoothCamera.gd
+res://Player/Player.gd

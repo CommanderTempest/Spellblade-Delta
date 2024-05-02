@@ -13,7 +13,7 @@ var canBlock := true:
 		blockStateChanged.emit()
 
 func _ready():
-	block_cd.wait_time = 3.0 # in seconds
+	block_cd.wait_time = 2.0 # in seconds
 	parry_length.wait_time = 0.5
 	add_child(block_cd)
 	add_child(parry_length)

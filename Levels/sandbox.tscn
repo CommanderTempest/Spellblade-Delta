@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvrsja6ftr3d4"]
+[gd_scene load_steps=8 format=3 uid="uid://dvrsja6ftr3d4"]
 
 [ext_resource type="Material" uid="uid://dfopbxglnfycn" path="res://Levels/Materials/grey.tres" id="1_x4fnc"]
-[ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="3_nrqkt"]
 [ext_resource type="PackedScene" uid="uid://ctci0o05h6k1p" path="res://Enemy/bandit.tscn" id="4_cn31x"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hnlq2"]
@@ -48,16 +47,10 @@ use_collision = true
 mesh = SubResource("BoxMesh_22qak")
 material = ExtResource("1_x4fnc")
 
-[node name="Player" parent="." instance=ExtResource("3_nrqkt")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-
 [node name="Bandit" parent="." instance=ExtResource("4_cn31x")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.926026)
 
 [node name="Hitbox" parent="Bandit" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.154267, 1.29553, -0.321356)
-
-[node name="Head" parent="Bandit/Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 
 [editable path="Bandit"]

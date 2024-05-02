@@ -4,6 +4,7 @@ class_name Player
 signal toggle_inventory()
 
 const PICK_UP = preload("res://Item/PickUp/pick_up.tscn")
+const CAMERA_SPEED := 3.0
 
 @export var posture_damage := 20
 @export var speed := 2.0
@@ -14,9 +15,12 @@ const PICK_UP = preload("res://Item/PickUp/pick_up.tscn")
 @export var inventory_data: InventoryData
 @export var equip_inventory_data: InventoryDataEquip
 @export var Spawn_Pos: Vector3 = Vector3(0,7,46)
+@export var sens_horizontal := 0.5 # sensitivity-horizontal
+@export var sens_vertical := 0.5
 
-@onready var camera_pivot = $CameraPivot
-@onready var smooth_camera = $CameraPivot/SmoothCamera
+#@onready var camera_pivot = $SpringArm3D
+#@onready var smooth_camera = $SpringArm3D/SmoothCamera
+@onready var camera_mount = $CameraMount
 @onready var animation_player = $AnimationPlayer
 @onready var walk_player = $WalkPlayer
 @onready var animation_tree = $AnimationTree
@@ -30,11 +34,10 @@ const PICK_UP = preload("res://Item/PickUp/pick_up.tscn")
 @onready var dialogue_box = $CanvasLayer/DialogueBox
 @onready var close_dialogue = $CanvasLayer/DialogueBox/Dialogue/CloseDialogue
 
-
-
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion := Vector2.ZERO
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -64,7 +67,7 @@ func _process(delta) -> void:
 #			contactEnemy.enemy_take_damage(player_damage)
 
 func _physics_process(delta):
-	handle_camera_location()
+	#handle_camera_location()
 	
 	# Add the gravity.
 	if not is_on_floor() and not state_machine.current_state is ClimbState:
@@ -98,31 +101,43 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: 
-		mouse_motion = -event.relative * 0.001
+	
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		rotate_y(deg_to_rad(-event.relative.x * sens_horizontal))
+		camera_mount.rotate_x(deg_to_rad(-event.relative.y * sens_vertical))
+		camera_mount.rotation_degrees.x = clampf(
+			camera_mount.rotation_degrees.x,
+			-90.0,
+			90.0
+		)
 	if event.is_action_pressed("ui_cancel"):
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
-func _unhandled_input(event) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory.emit()
 		toggle_inventory_interface()
 	if Input.is_action_just_pressed("interact"):
 		interact()
 
-func handle_camera_location() -> void:
-	rotate_y(mouse_motion.x)
-	camera_pivot.rotate_x(mouse_motion.y)
-	camera_pivot.rotation_degrees.x = clampf(
-		camera_pivot.rotation_degrees.x,
-		-90.0,
-		90.0
-	)
-	
-	mouse_motion = Vector2.ZERO
+#func _unhandled_input(event) -> void:
+	#if Input.is_action_just_pressed("inventory"):
+		#toggle_inventory.emit()
+		#toggle_inventory_interface()
+	#if Input.is_action_just_pressed("interact"):
+		#interact()
+
+#func handle_camera_location() -> void:
+	#rotate_y(mouse_motion.x * CAMERA_SPEED)
+	#camera_pivot.rotate_x(mouse_motion.y * CAMERA_SPEED)
+	#camera_pivot.rotation_degrees.x = clampf(
+		#camera_pivot.rotation_degrees.x,
+		#-90.0,
+		#90.0
+	#)
+	#
+	#mouse_motion = Vector2.ZERO
 
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
