@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://0l27d06sjlr"]
+[gd_scene load_steps=70 format=3 uid="uid://0l27d06sjlr"]
 
 [ext_resource type="Script" path="res://Components/HitboxComponent.gd" id="1_q7epg"]
 [ext_resource type="Script" path="res://States/StateMachine.gd" id="2_dwhwr"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://States/JumpState.gd" id="8_srd7y"]
 [ext_resource type="Script" path="res://States/ClimbState.gd" id="9_weneu"]
 [ext_resource type="Script" path="res://Components/HealthComponent.gd" id="11_7313k"]
+[ext_resource type="PackedScene" uid="uid://lrsokrh7br8o" path="res://Assets/Weapons/slash.tscn" id="13_kqn6q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_24q1n"]
 size = Vector3(2.1, 2.6, 0.5)
@@ -326,6 +327,18 @@ tracks/14/keys = {
 "method": &"setTickDamage"
 }]
 }
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Slashes/Slash:play")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
 
 [sub_resource type="Animation" id="Animation_bt05f"]
 resource_name = "Attack2"
@@ -515,6 +528,18 @@ tracks/14/keys = {
 "method": &"setTickDamage"
 }]
 }
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Slashes/Slash2:play")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
 
 [sub_resource type="Animation" id="Animation_2ohxq"]
 resource_name = "Attack3"
@@ -667,6 +692,18 @@ tracks/11/keys = {
 "args": [false],
 "method": &"setTickDamage"
 }]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Slashes/Slash3:play")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_yjsn5"]
@@ -1608,6 +1645,42 @@ tracks/17/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Slashes/Slash:play")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Slashes/Slash2:play")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Slashes/Slash3:play")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o6628"]
 _data = {
@@ -1926,3 +1999,14 @@ state_machine = NodePath("../State Machine")
 [node name="PostureComponent" type="Node3D" parent="."]
 script = ExtResource("7_xt674")
 max_posture = 100
+
+[node name="Slashes" type="Node3D" parent="."]
+
+[node name="Slash" parent="Slashes" instance=ExtResource("13_kqn6q")]
+transform = Transform3D(5.09057, 2.91257, 0.633054, 2.97966, -5.20784, 4.3216e-07, 1.09895, 0.628761, -2.93245, -0.455815, 1.25589, -1.01128)
+
+[node name="Slash2" parent="Slashes" instance=ExtResource("13_kqn6q")]
+transform = Transform3D(-4.49351, 3.95392, -0.209046, 3.82108, 4.46891, 0.597542, 1.09895, 0.628761, -2.93245, 0.337799, 1.25589, -1.01128)
+
+[node name="Slash3" parent="Slashes" instance=ExtResource("13_kqn6q")]
+transform = Transform3D(-0.364892, 5.96163, 0.28538, 4.86387, -0.0386252, 1.75651, 3.49422, 0.676331, -2.41522, 0.337799, 1.25589, -1.27937)

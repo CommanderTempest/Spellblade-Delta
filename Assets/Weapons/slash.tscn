@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://lrsokrh7br8o"]
+
+[ext_resource type="PackedScene" uid="uid://5mi4suq3obj2" path="res://Assets/Weapons/slash2.glb" id="1_kkxen"]
+[ext_resource type="Script" path="res://Assets/Weapons/slash.gd" id="1_visai"]
+[ext_resource type="Shader" uid="uid://dogelrkmlqw1" path="res://Shaders/slash.tres" id="2_1j60n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5pfap"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_1j60n")
+shader_parameter/Color = Color(0.138533, 0.142484, 0.664438, 1)
+shader_parameter/Gradient_1_Slider = 0.8
+shader_parameter/Gradient_2_Slider = 0.33
+
+[sub_resource type="Animation" id="Animation_4dggv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slash2/SlashCurve:surface_material_override/0:shader_parameter/Gradient_1_Slider")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:play")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_d6v20"]
+resource_name = "slash"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slash2/SlashCurve:surface_material_override/0:shader_parameter/Gradient_1_Slider")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.1, 0.18, 0.805]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:play")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wcsgr"]
+_data = {
+"RESET": SubResource("Animation_4dggv"),
+"slash": SubResource("Animation_d6v20")
+}
+
+[node name="Slash" type="Node3D"]
+script = ExtResource("1_visai")
+
+[node name="slash2" parent="." instance=ExtResource("1_kkxen")]
+
+[node name="SlashCurve" parent="slash2" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_5pfap")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wcsgr")
+}
+
+[editable path="slash2"]

@@ -1,9 +1,9 @@
-SpringArm3D
 Node3D
+AnimationPlayer
+SpringArm3D
 Camera3D
 CollisionShape3D
 CharacterBody3D
-AnimationPlayer
 MarginContainer
 TextEdit
 Button

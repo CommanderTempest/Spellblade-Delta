@@ -1,7 +1,8 @@
-res://Player/Camera/CameraTestPlayer.tscn
+res://Assets/Weapons/slash.tscn
 res://Inventory/slot.gd
 res://Levels/DeathHitbox.gd
 res://Levels/Materials/grey.tres
+res://Shaders/slash.tres
 res://Textures/sparksProcess.tres
 res://Textures/sparks.tres
 res://Inventory/test_inv.tres
@@ -18,6 +19,3 @@ res://Levels/asorea.tscn
 res://Enemy/bandit.tscn
 res://Assets/Foliage/grass2.tscn
 res://Player/Player2.tscn
-res://Player/Camera/CameraTestPlayer.gd
-res://Player/SmoothCamera.gd
-res://Player/Player.gd
