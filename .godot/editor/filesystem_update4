@@ -19,3 +19,4 @@ res://Levels/asorea.tscn
 res://Enemy/bandit.tscn
 res://Assets/Foliage/grass2.tscn
 res://Player/Player2.tscn
+res://Components/HurtboxComponent.gd

@@ -1,3 +1,4 @@
+AudioStreamPlayer3D
 Node3D
 AnimationPlayer
 SpringArm3D
@@ -11,4 +12,3 @@ Timer
 StaticBody3D
 MeshInstance3D
 MultiMeshInstance3D
-Label

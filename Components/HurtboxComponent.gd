@@ -13,6 +13,7 @@ signal hurt
 @export var character: CharacterBody3D
 @export var blood: PackedScene # don't know if I should use particles here
 @export var sparks: PackedScene
+@export var ParrySound: AudioStreamPlayer3D
 var canTakeDamage := false
 
 func _ready():
@@ -36,12 +37,14 @@ func take_damage(damage: int):
 	if character is Player or character is EnemyController:
 		status = character.getStatus()
 		if status == "Parry":
+			ParrySound.play()
 			var spark = sparks.instantiate()
 			add_child(spark)
 			spark.global_position = character.global_position
 			if posture_component:
 				posture_component.heal_posture(damage)
 		elif status == "Block" and posture_component.hasPostureRemaining():
+			ParrySound.play()
 			var spark = sparks.instantiate()
 			add_child(spark)
 			spark.global_position = character.global_position
