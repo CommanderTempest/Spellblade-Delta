@@ -6,7 +6,7 @@
 albedo_color = Color(0.541176, 0.0941176, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_yhs85"]
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="Animation" id="Animation_s2ib4"]
 resource_name = "Spark"
@@ -68,7 +68,7 @@ process_material = ExtResource("1_butak")
 draw_pass_1 = SubResource("BoxMesh_yhs85")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "Bleed"
 libraries = {
 "": SubResource("AnimationLibrary_f7j6j")
 }
+autoplay = "Bleed"

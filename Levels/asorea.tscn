@@ -1,6 +1,7 @@
-[gd_scene load_steps=155 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=156 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
+[ext_resource type="Script" path="res://Levels/LightCycle.gd" id="1_acoql"]
 [ext_resource type="Shader" uid="uid://c2f6r6fjhg5yf" path="res://Shaders/rockshader.tres" id="2_20kj6"]
 [ext_resource type="Shader" uid="uid://sm8f6riu0baw" path="res://Shaders/sandShader.tres" id="3_iro0v"]
 [ext_resource type="Shader" uid="uid://df4ofbf03b6bd" path="res://Shaders/grass.tres" id="4_ji74i"]
@@ -426,11 +427,13 @@ size = Vector3(4, 1, 4)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dsxtb")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." node_paths=PackedStringArray("environment")]
 transform = Transform3D(-0.90587, -0.423089, -0.0198722, 0.347709, -0.769628, 0.535511, -0.241863, 0.478194, 0.844294, 0, 28.8752, 0)
 light_color = Color(0.952941, 0.870588, 0.803922, 1)
 light_energy = 2.0
 shadow_enabled = true
+script = ExtResource("1_acoql")
+environment = NodePath("../WorldEnvironment")
 
 [node name="Player" parent="." instance=ExtResource("1_20n71")]
 transform = Transform3D(0.29994, 0, 0.00600533, 0, 0.3, 0, -0.00600533, 0, 0.29994, 0, 5.74965, 47.8706)
@@ -2161,6 +2164,10 @@ transform = Transform3D(0.29051, 0, 0.52498, 0, 0.6, 0, -0.52498, 0, 0.29051, 28
 
 [node name="Head" parent="NavigationRegion3D/Camp/Bandit2/Torso" index="0"]
 transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
+
+[node name="SwordSwingSound" parent="NavigationRegion3D/Camp/Bandit2" index="13"]
+max_db = 3.0
+max_distance = 0.0
 
 [node name="GreenTent" parent="NavigationRegion3D/Camp" instance=ExtResource("11_on8w4")]
 transform = Transform3D(0.354041, 0, -0.186159, 0, 0.4, 0, 0.186159, 0, 0.354041, 31.4695, 0.970353, -8.73646)

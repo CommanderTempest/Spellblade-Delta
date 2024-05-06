@@ -1,11 +1,6 @@
 extends Area3D
 class_name HurtboxComponent
 
-"""
-next idea, put state machine in here, and check the state we're in
-and if we're doing/blocking or whatev
-"""
-
 signal hurt
 
 @export var health_component: HealthComponent
@@ -47,13 +42,14 @@ func take_damage(damage: int):
 			ParrySound.play()
 			var spark = sparks.instantiate()
 			add_child(spark)
-			spark.global_position = character.global_position
+			spark.global_position = self.global_position
 			if posture_component:
 				posture_component.take_posture_damage(damage)
 		elif status == "Dodge":
 			#Dodge
 			print("DODGED!")
 		else:
+			print("Taking Damage " + character.name)
 			var bleed = blood.instantiate()
 			add_child(bleed)
 			bleed.global_position = self.global_position

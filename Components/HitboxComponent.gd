@@ -30,7 +30,9 @@ func areaEntered(otherArea: Node3D):
 	if otherArea is HurtboxComponent and otherArea != my_hurtbox:
 		var random_damage = round(rng.randf_range(damage_to_deal-4, damage_to_deal+4))
 		contact_target = otherArea
-		otherArea.take_damage(random_damage)
+		if canTickDamage:
+			canTickDamage = false
+			otherArea.take_damage(random_damage)
 
 func areaExited(otherArea: Node3D) -> void:
 	if otherArea is HurtboxComponent and otherArea != my_hurtbox:
