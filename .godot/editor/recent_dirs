@@ -1,11 +1,14 @@
-res://Assets/Foliage
+res://States
 res://Shaders
+res://Assets/Weapons
+res://Player
+E:/SpellbladeExport
+res://Assets/Foliage
 res://Entity
 res://Assets/Characters
 res://Assets/BanditCamp
 res://Item/Items
 res://Inventory
-res://Player
 res://Item
 res://
 res://Assets
@@ -13,7 +16,5 @@ res://Textures
 res://Components
 res://Levels
 res://Enemy
-res://States
-E:/Godot Projects/Spellblade/Items
 res://Weapons
 res://Levels/Materials

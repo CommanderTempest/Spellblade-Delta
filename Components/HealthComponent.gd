@@ -2,6 +2,7 @@ extends Node3D
 class_name HealthComponent
 
 signal healthChanged
+signal defeated
 
 @export var max_health: int
 @export var state_machine: StateMachine
@@ -11,7 +12,7 @@ var current_health: int:
 		current_health = value
 		healthChanged.emit()
 		if current_health <= 0:
-			print(owner.name + " has been felled!")
+			defeated.emit()
 		elif current_health > max_health:
 			current_health = max_health
 
@@ -20,7 +21,7 @@ func _ready():
 
 func initializeHealth():
 	if max_health:
-		current_health = max_health / 2
+		current_health = max_health
 	else:
 		max_health = 100
 		current_health = max_health

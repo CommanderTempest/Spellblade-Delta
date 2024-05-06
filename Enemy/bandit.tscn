@@ -13,19 +13,21 @@ albedo_color = Color(0.196078, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ew5gl"]
 size = Vector3(6, 2, 10)
 
-[node name="Bandit" node_paths=PackedStringArray("state_machine", "sightLine", "navigation", "hurtbox", "hitbox") groups=["Enemy"] instance=ExtResource("1_5nw88")]
+[node name="Bandit" node_paths=PackedStringArray("state_machine", "sightLine", "navigation", "hurtbox", "hitbox", "healthComp", "climb_detection", "stun_state") groups=["Enemy"] instance=ExtResource("1_5nw88")]
 script = ExtResource("3_o12xa")
 state_machine = NodePath("State Machine")
 sightLine = NodePath("Sight")
 navigation = NodePath("PathfindComponent")
 hurtbox = NodePath("HurtboxComponent")
 hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
+healthComp = NodePath("HealthComponent")
+climb_detection = NodePath("ClimbDetection")
+stun_state = NodePath("State Machine/StunState")
 
 [node name="Torso" parent="." index="1"]
 material_override = ExtResource("3_bgtic")
 
 [node name="Head" parent="Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 material_override = ExtResource("3_bgtic")
 
 [node name="Left-Leg" parent="Torso" index="1"]
@@ -47,6 +49,12 @@ material_override = SubResource("StandardMaterial3D_hd5xh")
 [node name="Left-Arm" parent="Torso" index="4"]
 material_override = ExtResource("3_bgtic")
 
+[node name="DodgeState" parent="State Machine" index="0" node_paths=PackedStringArray("Character")]
+Character = NodePath("../..")
+
+[node name="ClimbState" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection")]
+climb_detection = NodePath("../../ClimbDetection")
+
 [node name="Sight" type="Area3D" parent="." index="6"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 collision_layer = 7
@@ -62,10 +70,15 @@ character = NodePath("..")
 blood = ExtResource("3_fne0v")
 sparks = ExtResource("4_m8rk0")
 
+[node name="HealthComponent" parent="." index="9"]
+max_health = 50
+
+[node name="PostureComponent" parent="." index="10" node_paths=PackedStringArray("character")]
+character = NodePath("..")
+
 [node name="PathfindComponent" type="Node3D" parent="." index="11" node_paths=PackedStringArray("navigation_agent_3d", "character")]
 script = ExtResource("2_uhxn6")
 navigation_agent_3d = NodePath("NavigationAgent3D")
 character = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="PathfindComponent" index="0"]
-debug_enabled = true

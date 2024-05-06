@@ -11,7 +11,7 @@ var canDodge := true:
 		dodgeStateChanged.emit()
 
 func _ready():
-	dodge_cd.wait_time = 3.0 # in seconds
+	dodge_cd.wait_time = 2.5 # in seconds
 	add_child(dodge_cd)
 	dodge_cd.timeout.connect(on_dodge_cd_timeout)
 	anim.animation_finished.connect(on_animation_finished)
@@ -25,6 +25,8 @@ func Enter():
 			anim.play("Dodge")
 		else:
 			print(self.name + " has no animation: Dodge")
+func Exit():
+	pass
 
 func getIsDodging():
 	return isDodging

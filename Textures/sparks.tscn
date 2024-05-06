@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://52qr57nv0oly" path="res://Textures/sparksProcess.tres" id="2_rehdp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_yhs85"]
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="Animation" id="Animation_6mn2a"]
 length = 0.5
@@ -66,7 +66,7 @@ process_material = ExtResource("2_rehdp")
 draw_pass_1 = SubResource("BoxMesh_yhs85")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "Spark"
 libraries = {
 "": SubResource("AnimationLibrary_f7j6j")
 }
+autoplay = "Spark"

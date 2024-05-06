@@ -3,6 +3,7 @@ class_name PostureComponent
 
 signal postureChanged
 
+@export var character: CharacterBody3D
 @export var max_posture: int
 
 var current_posture: int:
@@ -10,7 +11,10 @@ var current_posture: int:
 		current_posture = value
 		postureChanged.emit()
 		if current_posture <= 0:
-			print("You have been stunned!")
+			if character is Player or character is EnemyController:
+				character.state_machine.on_child_transition(character.state_machine.current_state, "StunState")
+				current_posture = max_posture
+				postureChanged.emit()
 		elif current_posture > max_posture:
 			current_posture = max_posture
 
