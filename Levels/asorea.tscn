@@ -2162,15 +2162,6 @@ transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, 
 [node name="Bandit2" parent="NavigationRegion3D/Camp" instance=ExtResource("10_6rjhq")]
 transform = Transform3D(0.29051, 0, 0.52498, 0, 0.6, 0, -0.52498, 0, 0.29051, 28.1041, 0, 27.4897)
 
-[node name="Head" parent="NavigationRegion3D/Camp/Bandit2/Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
-
-[node name="HurtboxComponent" parent="NavigationRegion3D/Camp/Bandit2" index="8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="HealthComponent" parent="NavigationRegion3D/Camp/Bandit2" index="9"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
 [node name="SwordSwingSound" parent="NavigationRegion3D/Camp/Bandit2" index="13"]
 max_db = 3.0
 max_distance = 0.0

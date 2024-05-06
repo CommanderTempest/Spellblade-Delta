@@ -29,3 +29,4 @@ res://States/StunState.gd
 res://Player/Controller.gd
 res://Components/PostureComponent.gd
 res://Enemy/EnemyController.gd
+res://States/ClimbState.gd

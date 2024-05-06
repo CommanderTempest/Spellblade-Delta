@@ -2146,8 +2146,9 @@ script = ExtResource("8_srd7y")
 anim = NodePath("../../AnimationPlayer")
 Character = NodePath("../..")
 
-[node name="ClimbState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
+[node name="ClimbState" type="Node" parent="State Machine" node_paths=PackedStringArray("head", "anim", "Character")]
 script = ExtResource("9_weneu")
+head = NodePath("../../Torso/Head")
 anim = NodePath("../../AnimationPlayer")
 Character = NodePath("../..")
 

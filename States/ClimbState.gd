@@ -2,6 +2,7 @@ extends State
 class_name ClimbState
 
 @export var climb_detection: RayCast3D
+@export var head: MeshInstance3D
 
 var climb_timer: Timer = Timer.new() # how long you can climb for
 var climb_cd: Timer = Timer.new()
@@ -45,7 +46,13 @@ func Physics_Update(_delta: float) -> void:
 			Character.gravity = 0
 			await get_tree().create_timer(0.1).timeout
 		climb_timer.stop()
-		#Vault here
+		
+		#Vaulting
+		var u_move_time := 0.2
+		var upward_movement = Character.global_transform.origin + (head.basis.y * 0.3)
+		var um_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
+		um_tween.tween_property(Character, "global_transform:origin", upward_movement, u_move_time)
+		
 		transitioned.emit(self, "IdleState")
 
 func on_climb_timer_timeout():
