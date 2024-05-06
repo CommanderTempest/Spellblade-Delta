@@ -48,7 +48,7 @@ func _ready() -> void:
 	hurtbox.hurt.connect(on_hurtbox_hurt)
 	health_component.defeated.connect(on_defeat)
 	
-	PlayerManager.player = self
+	PlayerManager.cur_player = self
 	
 	# registers lootable nodes
 	for node in get_tree().get_nodes_in_group("external_inventory"):
