@@ -1,3 +1,4 @@
+res://States
 res://Shaders
 res://Assets/Weapons
 res://Player
@@ -15,6 +16,5 @@ res://Textures
 res://Components
 res://Levels
 res://Enemy
-res://States
 res://Weapons
 res://Levels/Materials

@@ -11,6 +11,7 @@ signal AttackingEntity # signals to the mob group component that a target's been
 @export var hitbox: HitboxComponent
 @export var healthComp: HealthComponent
 @export var climb_detection: RayCast3D
+@export var stun_state: StunState
 
 @onready var animation_player = $AnimationPlayer
 
@@ -40,35 +41,36 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	if navigation.tracking_target:
-		# sets speed of enemy depending on how far they are
-		navigation.check_range(attack_range) 
+	if not stun_state.is_stunned:
+		if navigation.tracking_target:
+			# sets speed of enemy depending on how far they are
+			navigation.check_range(attack_range) 
 
-		if navigation.get_distance_to_target() > attack_range * 50:
-			navigation.return_to_spawn()
-			state_machine.on_child_transition(state_machine.current_state, "IdleState")
-
-		if provoked:
-			if navigation.get_distance_to_target() <= attack_range:
-				if primary_target.getIsSwinging():
-					var randomizedState: String = randomize_move()
-					if randomize_move() != "None":
-						state_machine.on_child_transition(state_machine.current_state, randomizedState)
-				else:
-					if state_machine.current_state is AttackState:
-						if !state_machine.current_state.isSwinging:
-							state_machine.on_child_transition(state_machine.current_state, "AttackState")
-					else:
-						state_machine.on_child_transition(state_machine.current_state, "AttackState")
-			elif primary_target:
-				# 1.0 is jump height here
-				if primary_target.global_position.y - 1.0 >= self.global_position.y:
-					if climb_detection.is_colliding() and not state_machine.current_state is ClimbState:
-						state_machine.on_child_transition(state_machine.current_state, "ClimbState")
-				elif primary_target.global_position.y >= self.global_position.y:
-					state_machine.on_child_transition(state_machine.current_state, "JumpState")
-			else:
+			if navigation.get_distance_to_target() > attack_range * 50:
+				navigation.return_to_spawn()
 				state_machine.on_child_transition(state_machine.current_state, "IdleState")
+
+			if provoked:
+				if navigation.get_distance_to_target() <= attack_range:
+					if primary_target.getIsSwinging():
+						var randomizedState: String = randomize_move()
+						if randomize_move() != "None":
+							state_machine.on_child_transition(state_machine.current_state, randomizedState)
+					else:
+						if state_machine.current_state is AttackState:
+							if !state_machine.current_state.isSwinging:
+								state_machine.on_child_transition(state_machine.current_state, "AttackState")
+						else:
+							state_machine.on_child_transition(state_machine.current_state, "AttackState")
+				elif primary_target:
+					# 1.0 is jump height here
+					if primary_target.global_position.y - 1.0 >= self.global_position.y:
+						if climb_detection.is_colliding() and not state_machine.current_state is ClimbState:
+							state_machine.on_child_transition(state_machine.current_state, "ClimbState")
+					elif primary_target.global_position.y >= self.global_position.y:
+						state_machine.on_child_transition(state_machine.current_state, "JumpState")
+				else:
+					state_machine.on_child_transition(state_machine.current_state, "IdleState")
 
 func getStatus() -> String:
 	if state_machine.current_state is BlockState:

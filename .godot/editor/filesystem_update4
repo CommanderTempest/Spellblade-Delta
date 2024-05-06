@@ -25,3 +25,7 @@ res://Textures/blood.tscn
 res://Components/HitboxComponent.gd
 res://Assets/Characters/Nanao.tscn
 res://Levels/LightCycle.gd
+res://States/StunState.gd
+res://Player/Controller.gd
+res://Components/PostureComponent.gd
+res://Enemy/EnemyController.gd

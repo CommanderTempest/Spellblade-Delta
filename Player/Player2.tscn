@@ -267,12 +267,13 @@ text = "Keybinds:
 "
 editable = false
 
-[node name="Controller" type="Node" parent="." index="9" node_paths=PackedStringArray("state_machine", "dodge_state", "block_state", "attack_state", "player", "walk_player", "climb_detection")]
+[node name="Controller" type="Node" parent="." index="9" node_paths=PackedStringArray("state_machine", "dodge_state", "block_state", "attack_state", "stun_state", "player", "walk_player", "climb_detection")]
 script = ExtResource("17_r1a5t")
 state_machine = NodePath("../State Machine")
 dodge_state = NodePath("../State Machine/DodgeState")
 block_state = NodePath("../State Machine/BlockState")
 attack_state = NodePath("../State Machine/AttackState")
+stun_state = NodePath("../State Machine/StunState")
 player = NodePath("..")
 walk_player = NodePath("../WalkPlayer")
 climb_detection = NodePath("../ClimbDetection")
@@ -282,6 +283,9 @@ posture_component = NodePath("../PostureComponent")
 character = NodePath("..")
 blood = ExtResource("16_vyamq")
 sparks = ExtResource("17_2pfob")
+
+[node name="PostureComponent" parent="." index="12" node_paths=PackedStringArray("character")]
+character = NodePath("..")
 
 [node name="CheckForUpdates" parent="." index="13" instance=ExtResource("25_xu347")]
 
