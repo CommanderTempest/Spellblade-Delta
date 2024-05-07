@@ -3,31 +3,39 @@ class_name HurtboxComponent
 
 signal hurt
 
+const COMBAT_TIMEOUT := 10 # number of seconds until out of combat after being damaged
+
 @export var health_component: HealthComponent
 @export var posture_component: PostureComponent
 @export var character: CharacterBody3D
 @export var blood: PackedScene # don't know if I should use particles here
 @export var sparks: PackedScene
 @export var ParrySound: AudioStreamPlayer3D
+
 var canTakeDamage := false
 
+var combat_timer: Timer = Timer.new()
+var in_combat := false
+
 func _ready():
+	combat_timer.wait_time = COMBAT_TIMEOUT
+	add_child(combat_timer)
+	combat_timer.timeout.connect(on_combat_timeout)
 	area_entered.connect(areaEntered)
+
+func _process(delta):
+	if not in_combat:
+		health_component.heal(1)
+		posture_component.heal_posture(1)
 
 func areaEntered(otherArea: Area3D):
 	if otherArea is HitboxComponent:
 		#hurt.emit(otherArea as HitboxComponent)
 		pass
 
-#	if otherArea is HitboxComponent:
-#		if otherArea.getOwner() != self.owner:
-#			# instead of taking damage, consider signaling to play or something
-#			# to check for parry/block/dodge
-#			if otherArea.attack_state.isSwinging:
-#				#health_component.take_damage(otherArea.damage_to_deal)
-#				print("Hurtbox component has been hit by a hitbox component")
-
 func take_damage(damage: int):
+	combat_timer.start()
+	in_combat = true
 	var status: String
 	if character is Player or character is EnemyController:
 		status = character.getStatus()
@@ -49,8 +57,11 @@ func take_damage(damage: int):
 			#Dodge
 			print("DODGED!")
 		else:
-			print("Taking Damage " + character.name)
 			var bleed = blood.instantiate()
 			add_child(bleed)
 			bleed.global_position = self.global_position
 			health_component.take_damage(damage)
+
+func on_combat_timeout():
+	combat_timer.stop()
+	in_combat = false

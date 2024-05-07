@@ -22,3 +22,4 @@ res://Player/Player.gd
 res://Components/HealthComponent.gd
 res://Components/HitboxComponent.gd
 res://Enemy/EnemyController.gd
+res://Components/HurtboxComponent.gd
