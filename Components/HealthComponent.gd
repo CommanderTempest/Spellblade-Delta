@@ -4,6 +4,8 @@ class_name HealthComponent
 signal healthChanged
 signal defeated
 
+const HP_REGEN_TIME := 2.0
+
 @export var max_health: int
 @export var state_machine: StateMachine
 
@@ -18,6 +20,13 @@ var current_health: int:
 
 func _ready():
 	initializeHealth()
+	
+func _process(delta):
+	pass
+	
+	# attempt at HP Regen
+	#await get_tree().create_timer(HP_REGEN_TIME).timeout
+	#heal(5)
 
 func initializeHealth():
 	if max_health:

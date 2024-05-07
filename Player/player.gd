@@ -5,6 +5,7 @@ signal toggle_inventory()
 
 const PICK_UP = preload("res://Item/PickUp/pick_up.tscn")
 const CAMERA_SPEED := 3.0
+const hp_regen := 1.0
 
 @export var posture_damage := 20
 @export var speed := 2.0
@@ -61,10 +62,6 @@ func _ready() -> void:
 
 func _process(delta) -> void:
 	pass
-#	if isWeaponInContact and canTickDamage:
-#		if contactEnemy:
-#			canTickDamage = false
-#			contactEnemy.enemy_take_damage(player_damage)
 
 func _physics_process(delta):
 	#handle_camera_location()
@@ -120,24 +117,6 @@ func _input(event: InputEvent) -> void:
 		toggle_inventory_interface()
 	if Input.is_action_just_pressed("interact"):
 		interact()
-
-#func _unhandled_input(event) -> void:
-	#if Input.is_action_just_pressed("inventory"):
-		#toggle_inventory.emit()
-		#toggle_inventory_interface()
-	#if Input.is_action_just_pressed("interact"):
-		#interact()
-
-#func handle_camera_location() -> void:
-	#rotate_y(mouse_motion.x * CAMERA_SPEED)
-	#camera_pivot.rotate_x(mouse_motion.y * CAMERA_SPEED)
-	#camera_pivot.rotation_degrees.x = clampf(
-		#camera_pivot.rotation_degrees.x,
-		#-90.0,
-		#90.0
-	#)
-	#
-	#mouse_motion = Vector2.ZERO
 
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout

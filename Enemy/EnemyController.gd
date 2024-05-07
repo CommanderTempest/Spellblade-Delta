@@ -22,6 +22,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var rng = RandomNumberGenerator.new()
 var spawn_pos: Vector3 
 var provoked := false
+var is_dying := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,7 +42,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	if not stun_state.is_stunned:
+	if not stun_state.is_stunned and not is_dying:
 		if navigation.tracking_target:
 			# sets speed of enemy depending on how far they are
 			navigation.check_range(attack_range) 
@@ -104,6 +105,7 @@ func on_defeat() -> void:
 	if animation_player.has_animation("Defeat"):
 		print("Playing Defeat")
 		animation_player.play("Defeat")
+		is_dying = true
 
 func on_hurtbox_hurt(hurtBy: HitboxComponent):
 	# hit by itself
