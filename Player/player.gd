@@ -170,8 +170,8 @@ func interact() -> void:
 			interact_ray.get_collider().player_interact(self)
 
 func get_drop_position() -> Vector3:
-	var direction = -global_transform.basis.z
-	return global_position + direction
+	var direction = -global_transform.basis.z * 3
+	return self.global_position + direction
 
 func heal(heal_value: int) -> void:
 	health_component.heal(heal_value)
@@ -188,7 +188,7 @@ func _on_inventory_interface_drop_slot_data(slot_data):
 	var pick_up = PICK_UP.instantiate()
 	pick_up.slot_data = slot_data
 	pick_up.position = get_drop_position()
-	add_child(pick_up)
+	get_tree().root.add_child(pick_up)
 
 func _on_button_pressed():
 	self.position = Spawn_Pos

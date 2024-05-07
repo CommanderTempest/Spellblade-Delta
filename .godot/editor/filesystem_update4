@@ -23,3 +23,7 @@ res://Components/HealthComponent.gd
 res://Components/HitboxComponent.gd
 res://Enemy/EnemyController.gd
 res://Components/HurtboxComponent.gd
+res://Inventory/inventory_interface.gd
+res://Inventory/inventory_data.gd
+res://Item/PickUp/pick_up.gd
+res://Item/PickUp/pick_up.tscn
