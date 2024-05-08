@@ -28,6 +28,7 @@ stun_state = NodePath("State Machine/StunState")
 material_override = ExtResource("3_bgtic")
 
 [node name="Head" parent="Torso" index="0"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 material_override = ExtResource("3_bgtic")
 
 [node name="Left-Leg" parent="Torso" index="1"]

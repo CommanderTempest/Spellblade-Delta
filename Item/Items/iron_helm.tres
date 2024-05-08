@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_101kv")
-defence = 1
+defence = 5
 name = "Iron Helmet"
 description = "Smells like fresh iron"
 stackable = false

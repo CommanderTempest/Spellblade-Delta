@@ -33,6 +33,17 @@ func areaEntered(otherArea: Area3D):
 		#hurt.emit(otherArea as HitboxComponent)
 		pass
 
+# returns DEF value
+func get_defense() -> int:
+	
+	# overall this is a bad way to do it, due to checking all armors
+	# everytime we get hit, but it's currently easier to do it this way
+	# until reworks happen
+	
+	if character is Player:
+		return character.get_armor()
+	return 0
+
 func take_damage(damage: int):
 	combat_timer.start()
 	in_combat = true
@@ -60,7 +71,12 @@ func take_damage(damage: int):
 			var bleed = blood.instantiate()
 			add_child(bleed)
 			bleed.global_position = self.global_position
-			health_component.take_damage(damage)
+			
+			var damage_to_take = damage - get_defense()
+			if damage_to_take <= 0:
+				damage_to_take = 1
+			print("Will take " + str(damage_to_take))
+			health_component.take_damage(damage_to_take)
 
 func on_combat_timeout():
 	combat_timer.stop()

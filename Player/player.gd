@@ -173,6 +173,14 @@ func get_drop_position() -> Vector3:
 	var direction = -global_transform.basis.z * 3
 	return self.global_position + direction
 
+func get_armor() -> int:
+	var total_armor = 0
+	for item in equip_inventory_data.slot_datas:
+		if item:
+			if item.item_data is ItemDataEquip:
+				total_armor += item.item_data.get_defence()
+	return total_armor
+
 func heal(heal_value: int) -> void:
 	health_component.heal(heal_value)
 
