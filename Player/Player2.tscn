@@ -178,6 +178,13 @@ offset_top = 10.0
 offset_right = 490.0
 offset_bottom = 50.0
 
+[node name="Label" type="Label" parent="CanvasLayer/InventoryInterface/EquipInventory" index="1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "EQUIPMENT"
+horizontal_alignment = 1
+clip_text = true
+
 [node name="ExternalInventory" parent="CanvasLayer/InventoryInterface" index="2" instance=ExtResource("15_u8jiv")]
 visible = false
 layout_mode = 0

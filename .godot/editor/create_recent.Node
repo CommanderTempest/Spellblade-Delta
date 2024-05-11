@@ -1,3 +1,9 @@
+Label
+RichTextLabel
+CanvasLayer
+Button
+MarginContainer
+Control
 StunState
 AnimationPlayer
 AudioStreamPlayer3D
@@ -6,10 +12,4 @@ SpringArm3D
 Camera3D
 CollisionShape3D
 CharacterBody3D
-MarginContainer
 TextEdit
-Button
-Timer
-StaticBody3D
-MeshInstance3D
-MultiMeshInstance3D
