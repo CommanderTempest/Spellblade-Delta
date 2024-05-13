@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=3 format=3 uid="uid://hrvpqc5a8lj3"]
+
+[ext_resource type="Script" path="res://Item/item_data_equip.gd" id="1_16js0"]
+[ext_resource type="Texture2D" uid="uid://c7jpm6jo680bt" path="res://Textures/shield.png" id="2_01lh4"]
+
+[resource]
+script = ExtResource("1_16js0")
+defence = 8
+name = "Iron Shield"
+description = "Provides a little more protection than other sources"
+stackable = false
+texture = ExtResource("2_01lh4")

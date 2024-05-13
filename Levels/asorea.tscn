@@ -45,7 +45,7 @@
 [ext_resource type="PackedScene" uid="uid://dh216tlmmcqco" path="res://Assets/Foliage/campfire.tscn" id="24_0k2b7"]
 [ext_resource type="PackedScene" uid="uid://22t81b0h1eu8" path="res://Assets/Foliage/bush.tscn" id="25_notso"]
 [ext_resource type="Resource" uid="uid://bfqc47261k46x" path="res://Item/Items/health_potion.tres" id="40_l8ym6"]
-[ext_resource type="Resource" uid="uid://vbivujldpm2e" path="res://Item/Items/iron_helm.tres" id="42_06rhh"]
+[ext_resource type="Resource" uid="uid://hrvpqc5a8lj3" path="res://Item/Items/iron_shield.tres" id="43_25ua8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7dey"]
 sky_top_color = Color(0.47451, 0.45098, 0.337255, 1)
@@ -405,14 +405,14 @@ script = ExtResource("20_7x2bb")
 item_data = ExtResource("40_l8ym6")
 quantity = 3
 
-[sub_resource type="Resource" id="Resource_np6we"]
+[sub_resource type="Resource" id="Resource_a4gu1"]
 script = ExtResource("20_7x2bb")
-item_data = ExtResource("42_06rhh")
+item_data = ExtResource("43_25ua8")
 quantity = 1
 
 [sub_resource type="Resource" id="Resource_rh3f6"]
 script = ExtResource("18_aph2l")
-slot_datas = Array[ExtResource("20_7x2bb")]([SubResource("Resource_8ojmc"), SubResource("Resource_np6we"), null, null, null])
+slot_datas = Array[ExtResource("20_7x2bb")]([SubResource("Resource_8ojmc"), SubResource("Resource_a4gu1"), null, null, null])
 
 [sub_resource type="Resource" id="Resource_balat"]
 script = ExtResource("20_7x2bb")
@@ -533,6 +533,9 @@ operation = 2
 use_collision = true
 size = Vector3(14, 16, 12)
 material = SubResource("ShaderMaterial_akqwk")
+
+[node name="WaterPlane" parent="NavigationRegion3D/LowerIsle/LargeCave" instance=ExtResource("5_8suvy")]
+transform = Transform3D(14.4514, 0, 0, 0, 1, 0, 0, 0, 13.1025, -19.1505, 0.18203, 33.0581)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/LowerIsle"]
 
