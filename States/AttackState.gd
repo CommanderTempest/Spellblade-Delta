@@ -2,7 +2,9 @@ extends State
 class_name AttackState
 
 var combo_timer: Timer = Timer.new()
-var isSwinging := false
+var isSwinging := false:
+	get:
+		return isSwinging
 var canSwing := true
 var combo := 1
 

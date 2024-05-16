@@ -39,6 +39,8 @@ const hp_regen := 1.0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion := Vector2.ZERO
 
+var can_tick_damage := true
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -61,7 +63,7 @@ func _ready() -> void:
 	
 
 func _process(delta) -> void:
-	pass
+	player_deal_damage()
 
 func _physics_process(delta):
 	#handle_camera_location()
@@ -203,3 +205,16 @@ func _on_button_pressed():
 
 func _on_close_dialogue_pressed():
 	dialogue_box.visible = false
+	
+func player_deal_damage():
+	if state_machine.current_state is AttackState:
+		if state_machine.current_state.isSwinging:
+			if hitbox.contact_target:
+				if can_tick_damage:
+					# deal damage
+					can_tick_damage = false
+					var random_damage = hitbox.get_random_damage_to_deal()
+					health_component.take_damage(random_damage)
+
+func get_hurtbox() -> HurtboxComponent:
+	return self.hurtbox

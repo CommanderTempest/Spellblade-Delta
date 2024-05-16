@@ -40,10 +40,6 @@ material_override = ExtResource("3_bgtic")
 [node name="Right-Arm" parent="Torso" index="3"]
 material_override = ExtResource("3_bgtic")
 
-[node name="HitboxComponent" parent="Torso/Right-Arm" index="0" node_paths=PackedStringArray("attack_state", "my_hurtbox")]
-attack_state = NodePath("../../../State Machine/AttackState")
-my_hurtbox = NodePath("../../../HurtboxComponent")
-
 [node name="MeshInstance3D" parent="Torso/Right-Arm/HitboxComponent" index="0"]
 material_override = SubResource("StandardMaterial3D_hd5xh")
 

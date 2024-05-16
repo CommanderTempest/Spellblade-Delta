@@ -21,3 +21,12 @@ res://Enemy/bandit.tscn
 res://Assets/Foliage/grass2.tscn
 res://Item/PickUp/pick_up.tscn
 res://Levels/main_menu.tscn
+res://Components/HealthComponent.gd
+res://water_plane.tscn
+res://Components/PostureComponent.gd
+res://Components/HitboxComponent.gd
+res://States/AttackState.gd
+res://Entity/BaseCharacterEntity.gd
+res://Entity/base_character_entity.tscn
+res://Entity/CharacterEntity.gd
+res://Entity/HumanoidCharacterEntity.gd

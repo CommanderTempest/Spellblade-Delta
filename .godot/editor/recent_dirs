@@ -1,3 +1,4 @@
+res://Entity
 res://Item/Items
 F:/SpellbladeExport
 res://Levels
@@ -6,7 +7,6 @@ res://Shaders
 res://Assets/Weapons
 res://Player
 res://Assets/Foliage
-res://Entity
 res://Assets/Characters
 res://Assets/BanditCamp
 res://Inventory

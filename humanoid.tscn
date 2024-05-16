@@ -2090,7 +2090,6 @@ skeleton = NodePath("../..")
 [node name="HitboxComponent" type="Area3D" parent="Torso/Right-Arm"]
 transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, -0.65, -0.9)
 script = ExtResource("1_q7epg")
-damage_to_deal = 20
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Torso/Right-Arm/HitboxComponent"]
 mesh = SubResource("BoxMesh_hb0ox")
@@ -2170,10 +2169,9 @@ ParrySound = NodePath("../ParrySound")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18021, 0)
 shape = SubResource("BoxShape3D_ppowl")
 
-[node name="HealthComponent" type="Node3D" parent="." node_paths=PackedStringArray("state_machine")]
+[node name="HealthComponent" type="Node3D" parent="."]
 script = ExtResource("11_7313k")
 max_health = 100
-state_machine = NodePath("../State Machine")
 
 [node name="PostureComponent" type="Node3D" parent="."]
 script = ExtResource("7_xt674")

@@ -17,6 +17,8 @@ var current_posture: int:
 				postureChanged.emit()
 		elif current_posture > max_posture:
 			current_posture = max_posture
+	get:
+		return current_posture
 
 func _ready():
 	initializePosture()

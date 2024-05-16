@@ -1,3 +1,5 @@
+StateMachine
+BaseCharacterEntity
 Label
 RichTextLabel
 CanvasLayer
@@ -11,5 +13,3 @@ Node3D
 SpringArm3D
 Camera3D
 CollisionShape3D
-CharacterBody3D
-TextEdit

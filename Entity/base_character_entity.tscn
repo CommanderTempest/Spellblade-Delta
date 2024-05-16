@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://chafqoged07xd"]
+
+[ext_resource type="Script" path="res://Entity/BaseCharacterEntity.gd" id="1_b536v"]
+[ext_resource type="Script" path="res://States/StateMachine.gd" id="2_513bj"]
+
+[node name="BaseCharacterEntity" type="CharacterBody3D"]
+script = ExtResource("1_b536v")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_513bj")
