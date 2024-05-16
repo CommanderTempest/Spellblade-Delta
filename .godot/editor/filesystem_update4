@@ -1,4 +1,4 @@
-res://Levels/main_menu.tscn
+res://Player/Player2.tscn
 res://Inventory/slot.gd
 res://Levels/DeathHitbox.gd
 res://Levels/Materials/grey.tres
@@ -13,11 +13,11 @@ res://Shaders/water.gdshader
 res://Shaders/water_material.tres
 res://Shaders/grass2.tres
 res://Shaders/grass.gdshader
-res://Item/Items/iron_shield.tres
-res://Levels/asorea.tscn
+res://Player/Player.gd
 res://Levels/sandbox.tscn
 res://humanoid.tscn
+res://Levels/asorea.tscn
 res://Enemy/bandit.tscn
 res://Assets/Foliage/grass2.tscn
 res://Item/PickUp/pick_up.tscn
-res://Player/Player2.tscn
+res://Levels/main_menu.tscn

@@ -300,7 +300,7 @@ character = NodePath("..")
 [node name="CheckForUpdates" parent="." index="13" instance=ExtResource("25_xu347")]
 
 [node name="CameraMount" type="Node3D" parent="." index="14"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.25469e-08, 1.858, 1.05861)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.571771, 1.858, 1.05861)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraMount" index="0"]
 transform = Transform3D(1, 1.55848e-08, 1.40037e-09, -1.55848e-08, 0.983982, 0.17827, 1.40037e-09, -0.17827, 0.983982, 7.58528e-08, 0.26927, -0.867655)

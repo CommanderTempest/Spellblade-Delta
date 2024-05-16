@@ -1,4 +1,4 @@
-[gd_scene load_steps=156 format=3 uid="uid://dca7h08hficrt"]
+[gd_scene load_steps=164 format=3 uid="uid://dca7h08hficrt"]
 
 [ext_resource type="PackedScene" uid="uid://dml0ymhe6ymnl" path="res://Player/Player2.tscn" id="1_20n71"]
 [ext_resource type="Script" path="res://Levels/LightCycle.gd" id="1_acoql"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://df4ofbf03b6bd" path="res://Shaders/grass.tres" id="4_ji74i"]
 [ext_resource type="PackedScene" uid="uid://mxs6iuq0yqtt" path="res://water_plane.tscn" id="5_8suvy"]
 [ext_resource type="PackedScene" uid="uid://cdgqjs1khcm2x" path="res://Assets/Characters/Nanao.tscn" id="5_ilglk"]
+[ext_resource type="Shader" path="res://Shaders/water.gdshader" id="5_yu8kl"]
 [ext_resource type="PackedScene" uid="uid://cykokfgal8ktm" path="res://Assets/Characters/diana.tscn" id="6_2wiln"]
 [ext_resource type="PackedScene" uid="uid://c3pb3gcq0xjcv" path="res://Assets/chest.tscn" id="6_3ajef"]
 [ext_resource type="PackedScene" uid="uid://bccftnih4ur50" path="res://Assets/Foliage/rock.tscn" id="7_0ek7h"]
@@ -68,6 +69,57 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Arr
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_akqwk"]
 render_priority = 0
 shader = ExtResource("2_20kj6")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gqjsx"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3qujq"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_gqjsx")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8krbf"]
+noise_type = 3
+seed = 10
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i3pw6"]
+seamless = true
+as_normal_map = true
+bump_strength = 1.5
+noise = SubResource("FastNoiseLite_8krbf")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pqifr"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kq6mg"]
+seamless = true
+noise = SubResource("FastNoiseLite_pqifr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wlb20"]
+render_priority = 0
+shader = ExtResource("5_yu8kl")
+shader_parameter/albedo = Color(0.186327, 0.334733, 0.164707, 1)
+shader_parameter/albedo2 = Color(0.32254, 0.516292, 0.215497, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_direction2 = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 0.0
+shader_parameter/color_deep = null
+shader_parameter/color_shallow = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/beers_law = 2.0
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.1
+shader_parameter/near = 1.0
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(1, 1, 1, 1)
+shader_parameter/wave = SubResource("NoiseTexture2D_kq6mg")
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_3qujq")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_i3pw6")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i1f11"]
 render_priority = 0
@@ -536,6 +588,7 @@ material = SubResource("ShaderMaterial_akqwk")
 
 [node name="WaterPlane" parent="NavigationRegion3D/LowerIsle/LargeCave" instance=ExtResource("5_8suvy")]
 transform = Transform3D(14.4514, 0, 0, 0, 1, 0, 0, 0, 13.1025, -19.1505, 0.18203, 33.0581)
+surface_material_override/0 = SubResource("ShaderMaterial_wlb20")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/LowerIsle"]
 
@@ -2164,9 +2217,6 @@ transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, 
 
 [node name="Bandit2" parent="NavigationRegion3D/Camp" instance=ExtResource("10_6rjhq")]
 transform = Transform3D(0.29051, 0, 0.52498, 0, 0.6, 0, -0.52498, 0, 0.29051, 28.1041, 0, 27.4897)
-
-[node name="Head" parent="NavigationRegion3D/Camp/Bandit2/Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 
 [node name="SwordSwingSound" parent="NavigationRegion3D/Camp/Bandit2" index="13"]
 max_db = 3.0

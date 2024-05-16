@@ -32,8 +32,8 @@ noise = SubResource("FastNoiseLite_pqifr")
 [resource]
 render_priority = 0
 shader = ExtResource("1_cberb")
-shader_parameter/albedo = Color(0.116857, 0.337542, 0.265662, 1)
-shader_parameter/albedo2 = Color(0.198772, 0.534585, 0.265601, 1)
+shader_parameter/albedo = Color(0.161562, 0.100647, 0.804716, 1)
+shader_parameter/albedo2 = Color(0, 0.482079, 0.73487, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.02
 shader_parameter/wave_direction = Vector2(2, 0)
