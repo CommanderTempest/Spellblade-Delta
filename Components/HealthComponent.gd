@@ -20,6 +20,9 @@ var current_health: int:
 		elif current_health > max_health:
 			current_health = max_health
 
+func _init(max_health):
+	self.max_health = max_health
+
 func _ready():
 	initializeHealth()
 	

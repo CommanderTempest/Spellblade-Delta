@@ -1,11 +1,12 @@
 extends CharacterBody3D
-class_name BaseCharacterEntity
+class_name BaseEntity
 
 @export var entity_name: String
-@onready var state_machine = $StateMachine
 
-func get_current_state() -> State:
-	return state_machine.current_state
+var spawn_position: Vector3
+
+func _ready():
+	self.spawn_position = global_position
 
 func get_entity_name() -> String:
 	return self.entity_name

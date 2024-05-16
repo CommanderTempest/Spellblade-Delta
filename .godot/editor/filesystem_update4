@@ -30,3 +30,7 @@ res://Entity/BaseCharacterEntity.gd
 res://Entity/base_character_entity.tscn
 res://Entity/CharacterEntity.gd
 res://Entity/HumanoidCharacterEntity.gd
+res://Item/Items/EquipContainer.gd
+res://Entity/BaseEntity.gd
+res://Item/Items/HitboxContainer.gd
+res://Entity/NPCEntity.gd
