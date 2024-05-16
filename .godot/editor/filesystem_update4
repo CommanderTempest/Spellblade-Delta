@@ -37,3 +37,5 @@ res://Entity/NPCEntity.gd
 res://Entity/character_entity.tscn
 res://Item/item_data_equip.gd
 res://Entity/PlayerEntity.gd
+res://Entity/InteractableEntities/BaseInteractableEntity.gd
+res://Entity/interactable_entity.gd
