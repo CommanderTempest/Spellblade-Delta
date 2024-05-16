@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://chafqoged07xd"]
-
-[ext_resource type="Script" path="res://Entity/BaseEntity.gd" id="1_b536v"]
-
-[node name="BaseCharacterEntity" type="Node3D"]
-script = ExtResource("1_b536v")

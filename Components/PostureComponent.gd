@@ -20,6 +20,9 @@ var current_posture: int:
 	get:
 		return current_posture
 
+func _init(posture: int):
+	self.max_posture = posture
+
 func _ready():
 	initializePosture()
 

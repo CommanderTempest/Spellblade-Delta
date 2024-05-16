@@ -34,3 +34,5 @@ res://Item/Items/EquipContainer.gd
 res://Entity/BaseEntity.gd
 res://Item/Items/HitboxContainer.gd
 res://Entity/NPCEntity.gd
+res://Entity/character_entity.tscn
+res://Item/item_data_equip.gd

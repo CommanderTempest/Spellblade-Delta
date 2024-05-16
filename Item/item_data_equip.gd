@@ -1,7 +1,11 @@
 extends ItemData
 class_name ItemDataEquip
 
-@export var defence: int
+enum EquipLocation {
+	Head = 1,
+	Chest = 2,
+	Legs = 3
+}
 
-func get_defence() -> int:
-	return self.defence
+@export var defence: int
+@export var equip_location: EquipLocation

@@ -1,6 +1,6 @@
+CharacterEntity
 Node3D
 StateMachine
-BaseCharacterEntity
 Label
 RichTextLabel
 CanvasLayer
