@@ -3,7 +3,7 @@ class_name HitboxComponent
 
 @export var min_damage_to_deal: int = 12
 @export var max_damage_to_deal: int = 20
-@export var hitbox_owner: BaseCharacterEntity
+var hitbox_owner: CharacterEntity = self.owner
 
 var contact_target: HurtboxComponent
 var rng = RandomNumberGenerator.new()

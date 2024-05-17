@@ -1,7 +1,7 @@
 extends Area3D
 class_name HurtboxComponent
 
-signal hurt
+signal trigger_hit(otherArea: HitboxComponent)
 
 const COMBAT_TIMEOUT := 10 # number of seconds until out of combat after being damaged
 

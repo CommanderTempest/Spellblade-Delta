@@ -59,11 +59,3 @@ func begin_regen():
 
 func stop_regen():
 	regenerating = false
-
-# this is just an idea for status effects, still thinking on how to apply multiple
-#func begin_ticking_damage(damage_to_tick: int, damage_tick_rate: float, duration: int):
-	#while duration > 0:
-		#await get_tree().create_timer(damage_tick_rate).timeout
-		#take_damage(damage_to_tick)
-		#duration -= 1
-	

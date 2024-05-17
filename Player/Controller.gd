@@ -1,4 +1,5 @@
 extends Node
+class_name PlayerController
 
 @export var state_machine: StateMachine
 @export var dodge_state: DodgeState

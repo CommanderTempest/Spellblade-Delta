@@ -1,20 +1,23 @@
 extends Node3D
 class_name PostureComponent
 
-signal postureChanged
+signal postureChanged(new_posture: int)
 
-@export var character: CharacterBody3D
+const POSTURE_REGEN_RATE := 2.0  # Posture to regen per tick
+const POSTURE_REGEN_TIMER := 1.0 # amount of time per tick
+
 @export var max_posture: int
+
+var regenerating := false
+
 
 var current_posture: int:
 	set(value):
 		current_posture = value
-		postureChanged.emit()
+		postureChanged.emit(current_posture)
 		if current_posture <= 0:
-			if character is Player or character is EnemyController:
-				character.state_machine.on_child_transition(character.state_machine.current_state, "StunState")
 				current_posture = max_posture
-				postureChanged.emit()
+				postureChanged.emit(current_posture)
 		elif current_posture > max_posture:
 			current_posture = max_posture
 	get:
@@ -47,3 +50,12 @@ func take_posture_damage(damage: int):
 
 func heal_posture(amount: int):
 	current_posture += amount
+
+func begin_regen():
+	regenerating = true
+	while regenerating:
+		await get_tree().create_timer(POSTURE_REGEN_TIMER).timeout
+		heal_posture(POSTURE_REGEN_RATE)
+
+func stop_regen():
+	regenerating = false

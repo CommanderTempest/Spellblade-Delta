@@ -52,11 +52,14 @@ height = 20
 [node name="Player" node_paths=PackedStringArray("state_machine", "hurtbox", "hitbox") groups=["Player"] instance=ExtResource("1_4y1s6")]
 collision_layer = 2
 script = ExtResource("2_23d2a")
+inventory_data = ExtResource("3_vvjvb")
+equip_inventory_data = SubResource("Resource_38tt1")
 state_machine = NodePath("State Machine")
 hurtbox = NodePath("HurtboxComponent")
 hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
-inventory_data = ExtResource("3_vvjvb")
-equip_inventory_data = SubResource("Resource_38tt1")
+
+[node name="Head" parent="Torso" index="0"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 
 [node name="MeshInstance3D" parent="Torso/Right-Arm/HitboxComponent" index="0"]
 visible = false
@@ -286,9 +289,6 @@ posture_component = NodePath("../PostureComponent")
 character = NodePath("..")
 blood = ExtResource("16_vyamq")
 sparks = ExtResource("17_2pfob")
-
-[node name="PostureComponent" parent="." index="12" node_paths=PackedStringArray("character")]
-character = NodePath("..")
 
 [node name="CheckForUpdates" parent="." index="13" instance=ExtResource("25_xu347")]
 

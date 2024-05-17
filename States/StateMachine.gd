@@ -1,6 +1,8 @@
 extends Node
 class_name StateMachine
 
+signal state_transition(new_state: State)
+
 @export var initial_state: State
 
 var current_state : State
@@ -34,6 +36,7 @@ func on_child_transition(state, new_state_name):
 	
 	if current_state:
 		current_state.Exit()
+	state_transition.emit(new_state)
 	new_state.Enter()
 	current_state = new_state
 
