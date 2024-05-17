@@ -28,3 +28,4 @@ res://Item/Items/HitboxContainer.gd
 res://Components/HurtboxComponent.gd
 res://Components/HealthComponent.gd
 res://States/StateMachine.gd
+res://Entity/Containers/SoundContainer.gd

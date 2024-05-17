@@ -28,6 +28,7 @@ const COMBAT_TIMER_DURATION := 10.0
 @export var equipped: EquipContainer = EquipContainer.new()
 ## hitboxes this entity can use to deal damage
 @export var hitbox_container: HitboxContainer = HitboxContainer.new()
+@export var sounds: SoundContainer = SoundContainer.new()
 
 @export_group("Character Variables")
 @export var speed: float = 2.0
