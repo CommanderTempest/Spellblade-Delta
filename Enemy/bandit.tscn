@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctci0o05h6k1p"]
+[gd_scene load_steps=7 format=3 uid="uid://ctci0o05h6k1p"]
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_5nw88"]
 [ext_resource type="Script" path="res://Components/PathfindComponent.gd" id="2_uhxn6"]
 [ext_resource type="Material" uid="uid://c11o41cyldcai" path="res://Textures/banditRed.tres" id="3_bgtic"]
-[ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="3_fne0v"]
 [ext_resource type="Script" path="res://Controllers/EnemyController.gd" id="3_o12xa"]
-[ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="4_m8rk0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hd5xh"]
 albedo_color = Color(0.196078, 0, 0, 1)
@@ -60,12 +58,6 @@ collision_mask = 7
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sight" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.934751, -5.29128)
 shape = SubResource("BoxShape3D_ew5gl")
-
-[node name="HurtboxComponent" parent="." index="8" node_paths=PackedStringArray("posture_component", "character")]
-posture_component = NodePath("../PostureComponent")
-character = NodePath("..")
-blood = ExtResource("3_fne0v")
-sparks = ExtResource("4_m8rk0")
 
 [node name="HealthComponent" parent="." index="9"]
 max_health = 50

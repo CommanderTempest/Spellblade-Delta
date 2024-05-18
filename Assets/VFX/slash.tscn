@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://lrsokrh7br8o"]
 
-[ext_resource type="PackedScene" uid="uid://5mi4suq3obj2" path="res://Assets/Weapons/slash2.glb" id="1_kkxen"]
-[ext_resource type="Script" path="res://Assets/Weapons/slash.gd" id="1_visai"]
+[ext_resource type="PackedScene" uid="uid://5mi4suq3obj2" path="res://Assets/VFX/slash2.glb" id="1_kkxen"]
+[ext_resource type="Script" path="res://Assets/VFX/slash.gd" id="1_visai"]
 [ext_resource type="Shader" uid="uid://dogelrkmlqw1" path="res://Shaders/slash.tres" id="2_1j60n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5pfap"]

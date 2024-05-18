@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://2ntw6iqjxwfh"]
+
+[ext_resource type="PackedScene" uid="uid://lrsokrh7br8o" path="res://Assets/VFX/slash.tscn" id="1_rkge3"]
+
+[node name="Slashes" type="Node3D"]
+
+[node name="Slash" parent="." instance=ExtResource("1_rkge3")]
+transform = Transform3D(5.09057, 2.91257, 0.633054, 2.97966, -5.20784, 4.3216e-07, 1.09895, 0.628761, -2.93245, -0.455815, 1.25589, -1.01128)
+
+[node name="Slash2" parent="." instance=ExtResource("1_rkge3")]
+transform = Transform3D(-4.49351, 3.95392, -0.209046, 3.82108, 4.46891, 0.597542, 1.09895, 0.628761, -2.93245, 0.337799, 1.25589, -1.01128)
+
+[node name="Slash3" parent="." instance=ExtResource("1_rkge3")]
+transform = Transform3D(-0.364892, 5.96163, 0.28538, 4.86387, -0.0386252, 1.75651, 3.49422, 0.676331, -2.41522, 0.337799, 1.25589, -1.27937)

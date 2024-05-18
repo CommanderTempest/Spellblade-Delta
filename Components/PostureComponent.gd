@@ -6,7 +6,7 @@ signal postureChanged(new_posture: int)
 const POSTURE_REGEN_RATE := 2.0  # Posture to regen per tick
 const POSTURE_REGEN_TIMER := 1.0 # amount of time per tick
 
-@export var max_posture: int
+@export var max_posture: int = 100
 
 var regenerating := false
 
@@ -22,9 +22,6 @@ var current_posture: int:
 			current_posture = max_posture
 	get:
 		return current_posture
-
-func _init(posture: int):
-	self.max_posture = posture
 
 func _ready():
 	initializePosture()

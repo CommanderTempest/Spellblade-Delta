@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://1fgicxooagjh"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_dr8vv"]
+
+[node name="CameraMount" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.571771, 1.858, 1.05861)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 1.55848e-08, 1.40037e-09, -1.55848e-08, 0.983982, 0.17827, 1.40037e-09, -0.17827, 0.983982, 7.58528e-08, 0.26927, -0.867655)
+shape = SubResource("SeparationRayShape3D_dr8vv")
+spring_length = 4.0
+
+[node name="SmoothCamera" type="Camera3D" parent="SpringArm3D"]
+transform = Transform3D(1, -1.55849e-08, 1.40039e-09, 1.55849e-08, 0.983981, -0.17827, 1.40035e-09, 0.17827, 0.983981, -3.57213e-07, -0.0139186, 4.08605)

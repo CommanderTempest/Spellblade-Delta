@@ -15,7 +15,7 @@ signal AttackingEntity # signals to the mob group component that a target's been
 
 @onready var animation_player = $AnimationPlayer
 
-var primary_target: Player
+var primary_target: PlayerEntity
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -96,7 +96,7 @@ func randomize_move() -> String:
 	return "None"
 
 func on_sight_entered(body: Node3D):
-	if body != self and body is Player:
+	if body != self and body is PlayerEntity:
 		navigation.register_target(body)
 		primary_target = body
 		provoked = true

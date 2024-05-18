@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://5mi4suq3obj2"
-path="res://.godot/imported/slash2.glb-b3dc748a9747418a859505e4adeb83dc.scn"
+path="res://.godot/imported/slash2.glb-004ccf755504a8a839caa987f44f7aab.scn"
 
 [deps]
 
-source_file="res://Assets/Weapons/slash2.glb"
-dest_files=["res://.godot/imported/slash2.glb-b3dc748a9747418a859505e4adeb83dc.scn"]
+source_file="res://Assets/VFX/slash2.glb"
+dest_files=["res://.godot/imported/slash2.glb-004ccf755504a8a839caa987f44f7aab.scn"]
 
 [params]
 

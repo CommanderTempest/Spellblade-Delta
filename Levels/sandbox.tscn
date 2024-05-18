@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dvrsja6ftr3d4"]
 
 [ext_resource type="Material" uid="uid://dfopbxglnfycn" path="res://Levels/Materials/grey.tres" id="1_x4fnc"]
-[ext_resource type="PackedScene" uid="uid://ctci0o05h6k1p" path="res://Enemy/bandit.tscn" id="4_cn31x"]
+[ext_resource type="PackedScene" uid="uid://dner4ijtjpd1e" path="res://Player/Player.tscn" id="2_e1ywe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hnlq2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -47,17 +47,10 @@ use_collision = true
 mesh = SubResource("BoxMesh_22qak")
 material = ExtResource("1_x4fnc")
 
-[node name="Bandit" parent="." instance=ExtResource("4_cn31x")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.926026)
+[node name="Player" parent="." instance=ExtResource("2_e1ywe")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
-[node name="Hitbox" parent="Bandit" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.154267, 1.29553, -0.321356)
+[node name="HitboxContainer" parent="Player" index="11" node_paths=PackedStringArray("hitboxes")]
+hitboxes = [null]
 
-[node name="Head" parent="Bandit/Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
-
-[node name="SwordSwingSound" parent="Bandit" index="13"]
-max_db = 3.0
-max_distance = 0.0
-
-[editable path="Bandit"]
+[editable path="Player"]

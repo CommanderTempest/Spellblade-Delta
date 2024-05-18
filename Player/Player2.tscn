@@ -1,9 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://dml0ymhe6ymnl"]
+[gd_scene load_steps=26 format=3 uid="uid://dml0ymhe6ymnl"]
 
 [ext_resource type="PackedScene" uid="uid://0l27d06sjlr" path="res://humanoid.tscn" id="1_4y1s6"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_23d2a"]
-[ext_resource type="Resource" uid="uid://ctdoondvvlpmd" path="res://Inventory/test_inv.tres" id="3_vvjvb"]
-[ext_resource type="Script" path="res://Inventory/inventory_data_equip.gd" id="4_erd53"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="4_j8u8f"]
 [ext_resource type="PackedScene" uid="uid://dl025r2sxaomt" path="res://Assets/Weapons/Katana.glb" id="5_xx4ti"]
 [ext_resource type="Texture2D" uid="uid://qegu7ub3dioi" path="res://Textures/healthbarUnder.png" id="6_iuslj"]
@@ -18,16 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://baulwrx2ttsup" path="res://Inventory/inventory.tscn" id="15_u8jiv"]
 [ext_resource type="Script" path="res://Inventory/inventory_interface.gd" id="16_5u3c6"]
 [ext_resource type="Script" path="res://Player/DodgeBar.gd" id="16_fg6yo"]
-[ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="16_vyamq"]
-[ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="17_2pfob"]
 [ext_resource type="Script" path="res://Controllers/PlayerController.gd" id="17_r1a5t"]
 [ext_resource type="PackedScene" uid="uid://de7e771j6dkuc" path="res://Inventory/slot.tscn" id="18_aqeb7"]
 [ext_resource type="PackedScene" uid="uid://cl1pckqtxil68" path="res://Inventory/hot_bar_inventory.tscn" id="19_k2p5u"]
 [ext_resource type="PackedScene" uid="uid://bjorjhgc0u43b" path="res://check_for_updates.tscn" id="25_xu347"]
-
-[sub_resource type="Resource" id="Resource_38tt1"]
-script = ExtResource("4_erd53")
-slot_datas = Array[Resource("res://Inventory/slot_data.gd")]([null])
 
 [sub_resource type="Gradient" id="Gradient_uqrya"]
 offsets = PackedFloat32Array(0)
@@ -49,17 +41,9 @@ height = 20
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_q383m"]
 
-[node name="Player" node_paths=PackedStringArray("state_machine", "hurtbox", "hitbox") groups=["Player"] instance=ExtResource("1_4y1s6")]
+[node name="Player" groups=["Player"] instance=ExtResource("1_4y1s6")]
 collision_layer = 2
 script = ExtResource("2_23d2a")
-inventory_data = ExtResource("3_vvjvb")
-equip_inventory_data = SubResource("Resource_38tt1")
-state_machine = NodePath("State Machine")
-hurtbox = NodePath("HurtboxComponent")
-hitbox = NodePath("Torso/Right-Arm/HitboxComponent")
-
-[node name="Head" parent="Torso" index="0"]
-transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 
 [node name="MeshInstance3D" parent="Torso/Right-Arm/HitboxComponent" index="0"]
 visible = false
@@ -275,12 +259,6 @@ editable = false
 
 [node name="Controller" type="Node" parent="." index="9"]
 script = ExtResource("17_r1a5t")
-
-[node name="HurtboxComponent" parent="." index="10" node_paths=PackedStringArray("posture_component", "character")]
-posture_component = NodePath("../PostureComponent")
-character = NodePath("..")
-blood = ExtResource("16_vyamq")
-sparks = ExtResource("17_2pfob")
 
 [node name="CheckForUpdates" parent="." index="13" instance=ExtResource("25_xu347")]
 

@@ -3,7 +3,6 @@ class_name HitboxComponent
 
 @export var min_damage_to_deal: int = 12
 @export var max_damage_to_deal: int = 20
-var hitbox_owner: CharacterEntity = self.owner
 
 var contact_target: HurtboxComponent
 var rng = RandomNumberGenerator.new()
@@ -16,11 +15,11 @@ func _process(delta):
 	pass
 
 func areaEntered(otherArea: Node3D):
-	if otherArea is HurtboxComponent and otherArea != hitbox_owner.get_hurtbox():
+	if otherArea is HurtboxComponent:# and otherArea != hitbox_owner.get_hurtbox():
 		contact_target = otherArea
 
 func areaExited(otherArea: Node3D) -> void:
-	if otherArea is HurtboxComponent and otherArea != hitbox_owner.get_hurtbox():
+	if otherArea is HurtboxComponent:# and otherArea != hitbox_owner.get_hurtbox():
 		contact_target = null
 
 func getOwner():

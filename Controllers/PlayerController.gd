@@ -3,33 +3,41 @@ class_name PlayerController
 
 @export var player_entity: PlayerEntity
 
-func _input(event) -> void:
+func _process(_delta) -> void:
 	if player_entity.can_make_action():
-		if event == Input.is_action_just_pressed("dodge"):
+		if Input.is_action_just_pressed("dodge"):
 			player_entity.transition_state("DodgeState")
-		elif event == Input.is_action_just_pressed("block"):
+		elif Input.is_action_just_pressed("block"):
 			player_entity.transition_state("BlockState")
-		elif event == Input.is_action_just_released("block"):
+		elif Input.is_action_just_released("block"):
 			player_entity.transition_state("IdleState")
-		elif event == Input.is_action_just_pressed("attack"):
+		elif Input.is_action_just_pressed("attack"):
 			if player_entity.can_make_attack():
 				player_entity.transition_state("AttackState")
 				
-		if event == Input.is_action_pressed("dash"):
+		if Input.is_action_pressed("dash"):
 			player_entity.speed = 3.0
-		elif event == Input.is_action_just_released("dash"):
+		elif Input.is_action_just_released("dash"):
 			player_entity.speed = 2.0
 		
-		if event == Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump"):
 			if player_entity.climb_detector.is_colliding():
 				player_entity.transition_state("ClimbState")
 			elif player_entity.is_on_floor():
 				player_entity.transition_state("JumpState")
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	if self.player_entity.can_make_action():
 		var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		var direction = (player_entity.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		
+		if not self.player_entity.is_on_floor():
+			# if jumping, apply gravity
+			if (self.player_entity.velocity.y >= 0):
+				self.player_entity.velocity.y -= self.player_entity.gravity * _delta
+			# when falling apply more gravity
+			else:
+				self.player_entity.velocity.y -= self.player_entity.gravity * _delta * player_entity.fall_multiplier
 		
 		if input_dir.is_zero_approx():
 			#walk_player.play("Idle")

@@ -20,8 +20,8 @@ const COMBAT_TIMER_DURATION := 10.0
 
 @export_group("Components")
 @export var hurtbox: HurtboxComponent
-@export var health_component: HealthComponent = HealthComponent.new(1)
-@export var posture_component: PostureComponent = PostureComponent.new(100)
+@export var health_component: HealthComponent# = HealthComponent.new(1)
+@export var posture_component: PostureComponent# = PostureComponent.new(100)
 
 @export_group("Containers")
 ## items currently equipped on this character
@@ -29,35 +29,30 @@ const COMBAT_TIMER_DURATION := 10.0
 ## hitboxes this entity can use to deal damage
 @export var hitbox_container: HitboxContainer = HitboxContainer.new()
 @export var sounds: SoundContainer = SoundContainer.new()
+@export var animation_player: AnimationPlayer
 
 @export_group("Character Variables")
-@export var speed: float = 2.0:
-	set(value):
-		self.speed = value
-@export var can_attack := false: ## whether this entity is able to attack
-	set(value):
-		self.can_attack = value
+@export var speed: float = 2.0
+#@export var can_attack := false ## whether this entity is able to attack
 
 @export_group("Detectors")
 @export var climb_detector: RayCast3D
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var state_machine: StateMachine = $State_Machine
-
-
+@export var state_machine: StateMachine
 
 var flags: Array[CharacterFlag] = []
 var can_tick_damage := true: # can deal damage to another entity
 	set(value):
-		self.can_tick_damage = value
+		can_tick_damage = value
 
 var in_combat_timer: Timer = Timer.new()
+var fall_multiplier := 2.0
 var attack_state: AttackState
 
 func _ready() -> void:
 	self.attack_state = self.state_machine.retrieve_state("attackstate")
-	
-	self.posture_component.postureChanged.connect(
+
+	posture_component.postureChanged.connect(
 		func(): 
 			if posture_component.current_posture <= 0:
 				flags.append(CharacterFlag.Stunned)
@@ -108,18 +103,24 @@ func clear_battle_flags() -> void:
 ## if not already in that state
 func transition_state(new_state: String) -> void:
 	if state_machine.get_current_state_as_string() != new_state:
+		if new_state == "IdleState":
+			self.clear_battle_flags()
 		state_machine.on_child_transition(state_machine.current_state, new_state)
 
 ## Checks flags to see if this entity can perform an action
 func can_make_action() -> bool:
 	if self.flags.has(CharacterFlag.Stunned) or \
-	   self.flags.has(CharacterFlag.Defeated):
+	   self.flags.has(CharacterFlag.Defeated) or \
+	   self.flags.has(CharacterFlag.Attacking) or \
+	   self.flags.has(CharacterFlag.Dodging) or \
+	   self.flags.has(CharacterFlag.Blocking) or \
+	   self.flags.has(CharacterFlag.Parrying):
 		return false
 	return true
 
 ## returns whether this entity can make an attack
 func can_make_attack() -> bool:
-	if attack_state.can_Swing:
+	if attack_state.canSwing:
 		return true
 	else:
 		return false
@@ -131,8 +132,10 @@ func on_hit(otherArea: HitboxComponent):
 		if self.flags.has(CharacterFlag.Dodging):
 			print("Dodged!!")
 		elif self.flags.has(CharacterFlag.Parrying):
+			self.sounds.play_sound("block")
 			print("PARRIED!?!")
 		elif self.flags.has(CharacterFlag.Blocking):
+			self.sounds.play_sound("block")
 			self.damage_entity_posture(otherArea.get_random_damage_to_deal())
 		else:
 			self.damage_entity_health(otherArea.get_random_damage_to_deal())
@@ -148,6 +151,7 @@ func on_state_transition(new_state: State) -> void:
 		self.clear_battle_flags()
 	elif new_state is AttackState:
 		self.flags.append(CharacterFlag.Attacking)
+		# could play sound here instead of animation player?
 	elif new_state is StunState:
 		self.flags.append(CharacterFlag.Stunned)
 	elif new_state is BlockState:

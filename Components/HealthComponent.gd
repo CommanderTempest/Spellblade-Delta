@@ -7,7 +7,7 @@ signal defeated
 const HP_REGEN_RATE := 2.0  # HP to regen per tick
 const HP_REGEN_TIMER := 1.0 # amount of time per tick
 
-@export var max_health: int
+@export var max_health: int = 100
 
 var regenerating := false
 
@@ -19,9 +19,6 @@ var current_health: int:
 			defeated.emit()
 		elif current_health > max_health:
 			current_health = max_health
-
-func _init(max_health):
-	self.max_health = max_health
 
 func _ready():
 	initializeHealth()
