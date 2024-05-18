@@ -42,3 +42,18 @@ func on_child_transition(state, new_state_name):
 
 func getCurrentState() -> State:
 	return current_state
+
+func get_current_state_as_string() -> String:
+	return self.current_state.name
+
+func has_state(state_name: String) -> bool:
+	if self.states.has(state_name):
+		return true
+	return false
+
+func retrieve_state(state_name: String) -> State:
+	if self.has_state(state_name):
+		return self.states[state_name]
+	else:
+		print_debug("Could not find state: " + state_name)
+		return null

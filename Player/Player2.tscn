@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://Player/DodgeBar.gd" id="16_fg6yo"]
 [ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="16_vyamq"]
 [ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="17_2pfob"]
-[ext_resource type="Script" path="res://Player/Controller.gd" id="17_r1a5t"]
+[ext_resource type="Script" path="res://Controllers/PlayerController.gd" id="17_r1a5t"]
 [ext_resource type="PackedScene" uid="uid://de7e771j6dkuc" path="res://Inventory/slot.tscn" id="18_aqeb7"]
 [ext_resource type="PackedScene" uid="uid://cl1pckqtxil68" path="res://Inventory/hot_bar_inventory.tscn" id="19_k2p5u"]
 [ext_resource type="PackedScene" uid="uid://bjorjhgc0u43b" path="res://check_for_updates.tscn" id="25_xu347"]
@@ -273,16 +273,8 @@ text = "Keybinds:
 "
 editable = false
 
-[node name="Controller" type="Node" parent="." index="9" node_paths=PackedStringArray("state_machine", "dodge_state", "block_state", "attack_state", "stun_state", "player", "walk_player", "climb_detection")]
+[node name="Controller" type="Node" parent="." index="9"]
 script = ExtResource("17_r1a5t")
-state_machine = NodePath("../State Machine")
-dodge_state = NodePath("../State Machine/DodgeState")
-block_state = NodePath("../State Machine/BlockState")
-attack_state = NodePath("../State Machine/AttackState")
-stun_state = NodePath("../State Machine/StunState")
-player = NodePath("..")
-walk_player = NodePath("../WalkPlayer")
-climb_detection = NodePath("../ClimbDetection")
 
 [node name="HurtboxComponent" parent="." index="10" node_paths=PackedStringArray("posture_component", "character")]
 posture_component = NodePath("../PostureComponent")

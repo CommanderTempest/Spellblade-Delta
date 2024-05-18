@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Components/PathfindComponent.gd" id="2_uhxn6"]
 [ext_resource type="Material" uid="uid://c11o41cyldcai" path="res://Textures/banditRed.tres" id="3_bgtic"]
 [ext_resource type="PackedScene" uid="uid://ct3j23l8jy0ej" path="res://Textures/blood.tscn" id="3_fne0v"]
-[ext_resource type="Script" path="res://Enemy/EnemyController.gd" id="3_o12xa"]
+[ext_resource type="Script" path="res://Controllers/EnemyController.gd" id="3_o12xa"]
 [ext_resource type="PackedScene" uid="uid://sb0xj7j8uggg" path="res://Textures/sparks.tscn" id="4_m8rk0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hd5xh"]
@@ -69,9 +69,6 @@ sparks = ExtResource("4_m8rk0")
 
 [node name="HealthComponent" parent="." index="9"]
 max_health = 50
-
-[node name="PostureComponent" parent="." index="10" node_paths=PackedStringArray("character")]
-character = NodePath("..")
 
 [node name="PathfindComponent" type="Node3D" parent="." index="11" node_paths=PackedStringArray("navigation_agent_3d", "character")]
 script = ExtResource("2_uhxn6")

@@ -31,12 +31,20 @@ const COMBAT_TIMER_DURATION := 10.0
 @export var sounds: SoundContainer = SoundContainer.new()
 
 @export_group("Character Variables")
-@export var speed: float = 2.0
+@export var speed: float = 2.0:
+	set(value):
+		self.speed = value
 @export var can_attack := false: ## whether this entity is able to attack
 	set(value):
 		self.can_attack = value
+
+@export_group("Detectors")
+@export var climb_detector: RayCast3D
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var state_machine: StateMachine = $State_Machine
+
+
 
 var flags: Array[CharacterFlag] = []
 var can_tick_damage := true: # can deal damage to another entity
@@ -44,8 +52,11 @@ var can_tick_damage := true: # can deal damage to another entity
 		self.can_tick_damage = value
 
 var in_combat_timer: Timer = Timer.new()
+var attack_state: AttackState
 
 func _ready() -> void:
+	self.attack_state = self.state_machine.retrieve_state("attackstate")
+	
 	self.posture_component.postureChanged.connect(
 		func(): 
 			if posture_component.current_posture <= 0:
@@ -73,9 +84,11 @@ func damage_entity_posture(damage: int) -> void:
 	self.posture_component.take_posture_damage(damage)
 
 func enter_combat() -> void:
-	self.flags.append(CharacterFlag.InCombat)
-	self.health_component.stop_regen()
-	self.posture_component.stop_regen()
+	if not self.flags.has(CharacterFlag.InCombat):
+		self.flags.append(CharacterFlag.InCombat)
+		self.health_component.stop_regen()
+		self.posture_component.stop_regen()
+	# start/restart timer
 	self.in_combat_timer.start()
 
 func exit_combat() -> void:
@@ -90,6 +103,26 @@ func clear_battle_flags() -> void:
 	self.flags.remove_at(flags.find(CharacterFlag.Parrying))
 	self.flags.remove_at(flags.find(CharacterFlag.Dodging))
 	self.flags.remove_at(flags.find(CharacterFlag.Stunned))
+
+## Transitions from current state machine state to new state
+## if not already in that state
+func transition_state(new_state: String) -> void:
+	if state_machine.get_current_state_as_string() != new_state:
+		state_machine.on_child_transition(state_machine.current_state, new_state)
+
+## Checks flags to see if this entity can perform an action
+func can_make_action() -> bool:
+	if self.flags.has(CharacterFlag.Stunned) or \
+	   self.flags.has(CharacterFlag.Defeated):
+		return false
+	return true
+
+## returns whether this entity can make an attack
+func can_make_attack() -> bool:
+	if attack_state.can_Swing:
+		return true
+	else:
+		return false
 
 #*******EVENTS********
 
