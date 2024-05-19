@@ -12,8 +12,7 @@ func _process(_delta) -> void:
 		elif Input.is_action_just_released("block"):
 			player_entity.transition_state("IdleState")
 		elif Input.is_action_just_pressed("attack"):
-			if player_entity.can_make_attack():
-				player_entity.transition_state("AttackState")
+			player_entity.transition_state("AttackState")
 
 	if Input.is_action_pressed("dash"):
 		player_entity.speed = 3.0

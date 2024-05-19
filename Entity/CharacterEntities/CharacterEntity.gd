@@ -47,11 +47,8 @@ var can_tick_damage := true: # can deal damage to another entity
 
 var in_combat_timer: Timer = Timer.new()
 var fall_multiplier := 2.0
-var attack_state: AttackState
 
 func _ready() -> void:
-	self.attack_state = self.state_machine.retrieve_state("attackstate")
-
 	posture_component.postureChanged.connect(
 		func(): 
 			if posture_component.current_posture <= 0:
@@ -67,7 +64,7 @@ func _ready() -> void:
 	self.in_combat_timer.timeout.connect(on_combat_timer_timeout)
 	self.add_child(in_combat_timer)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func damage_entity_health(damage: int) -> void:
@@ -93,11 +90,16 @@ func exit_combat() -> void:
 
 ## removes flags: Attacking,Blocking,Parrying,Dodging from entity
 func clear_battle_flags() -> void:
-	self.flags.remove_at(flags.find(CharacterFlag.Attacking))
-	self.flags.remove_at(flags.find(CharacterFlag.Blocking))
-	self.flags.remove_at(flags.find(CharacterFlag.Parrying))
-	self.flags.remove_at(flags.find(CharacterFlag.Dodging))
-	self.flags.remove_at(flags.find(CharacterFlag.Stunned))
+	if self.flags.has(CharacterFlag.Attacking):
+		self.flags.remove_at(flags.find(CharacterFlag.Attacking))
+	if self.flags.has(CharacterFlag.Blocking):
+		self.flags.remove_at(flags.find(CharacterFlag.Blocking))
+	if self.flags.has(CharacterFlag.Parrying):
+		self.flags.remove_at(flags.find(CharacterFlag.Parrying))
+	if self.flags.has(CharacterFlag.Dodging):
+		self.flags.remove_at(flags.find(CharacterFlag.Dodging))
+	if self.flags.has(CharacterFlag.Stunned):
+		self.flags.remove_at(flags.find(CharacterFlag.Stunned))
 
 ## Transitions from current state machine state to new state
 ## if not already in that state
@@ -113,13 +115,6 @@ func can_make_action() -> bool:
 	   self.flags.has(CharacterFlag.Defeated):
 		return false
 	return true
-
-## returns whether this entity can make an attack
-func can_make_attack() -> bool:
-	if attack_state.canSwing:
-		return true
-	else:
-		return false
 
 #*******EVENTS********
 
