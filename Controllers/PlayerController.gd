@@ -7,24 +7,24 @@ func _process(_delta) -> void:
 	if player_entity.can_make_action():
 		if Input.is_action_just_pressed("dodge"):
 			player_entity.transition_state("DodgeState")
-		elif Input.is_action_just_pressed("block"):
+		elif Input.is_action_pressed("block"):
 			player_entity.transition_state("BlockState")
 		elif Input.is_action_just_released("block"):
 			player_entity.transition_state("IdleState")
 		elif Input.is_action_just_pressed("attack"):
 			if player_entity.can_make_attack():
 				player_entity.transition_state("AttackState")
-				
-		if Input.is_action_pressed("dash"):
-			player_entity.speed = 3.0
-		elif Input.is_action_just_released("dash"):
-			player_entity.speed = 2.0
-		
-		if Input.is_action_just_pressed("jump"):
-			if player_entity.climb_detector.is_colliding():
-				player_entity.transition_state("ClimbState")
-			elif player_entity.is_on_floor():
-				player_entity.transition_state("JumpState")
+
+	if Input.is_action_pressed("dash"):
+		player_entity.speed = 3.0
+	elif Input.is_action_just_released("dash"):
+		player_entity.speed = 2.0
+	
+	if Input.is_action_just_pressed("jump"):
+		if player_entity.climb_detector.is_colliding():
+			player_entity.transition_state("ClimbState")
+		elif player_entity.is_on_floor():
+			player_entity.transition_state("JumpState")
 
 func _physics_process(_delta) -> void:
 	if self.player_entity.can_make_action():

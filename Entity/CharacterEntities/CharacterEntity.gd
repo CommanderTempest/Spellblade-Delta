@@ -110,11 +110,7 @@ func transition_state(new_state: String) -> void:
 ## Checks flags to see if this entity can perform an action
 func can_make_action() -> bool:
 	if self.flags.has(CharacterFlag.Stunned) or \
-	   self.flags.has(CharacterFlag.Defeated) or \
-	   self.flags.has(CharacterFlag.Attacking) or \
-	   self.flags.has(CharacterFlag.Dodging) or \
-	   self.flags.has(CharacterFlag.Blocking) or \
-	   self.flags.has(CharacterFlag.Parrying):
+	   self.flags.has(CharacterFlag.Defeated):
 		return false
 	return true
 

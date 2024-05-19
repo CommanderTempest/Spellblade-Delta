@@ -3,6 +3,9 @@ class_name BlockState
 
 signal blockStateChanged
 
+const BLOCK_COOLDOWN_TIME: float = 2.0 # in seconds
+const PARRY_DURATION: float = 0.5 # in seconds
+
 var block_cd: Timer = Timer.new()
 var parry_length: Timer = Timer.new() # the length of time (seconds) you are parrying for
 var isBlocking := false
@@ -13,8 +16,8 @@ var canBlock := true:
 		blockStateChanged.emit()
 
 func _ready():
-	block_cd.wait_time = 2.0 # in seconds
-	parry_length.wait_time = 0.5
+	block_cd.wait_time = BLOCK_COOLDOWN_TIME 
+	parry_length.wait_time = PARRY_DURATION
 	add_child(block_cd)
 	add_child(parry_length)
 	block_cd.timeout.connect(on_block_cd_timeout)

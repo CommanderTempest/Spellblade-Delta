@@ -31,3 +31,4 @@ res://Components/PostureComponent.gd
 res://Components/HitboxComponent.gd
 res://Controllers/PlayerController.gd
 res://States/StateMachine.gd
+res://States/BlockState.gd

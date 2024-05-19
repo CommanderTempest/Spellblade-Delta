@@ -21,21 +21,21 @@
 [ext_resource type="PackedScene" uid="uid://cl1pckqtxil68" path="res://Inventory/hot_bar_inventory.tscn" id="19_k2p5u"]
 [ext_resource type="PackedScene" uid="uid://bjorjhgc0u43b" path="res://check_for_updates.tscn" id="25_xu347"]
 
-[sub_resource type="Gradient" id="Gradient_uqrya"]
+[sub_resource type="Gradient" id="Gradient_ebmc4"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2af0d"]
-gradient = SubResource("Gradient_uqrya")
+gradient = SubResource("Gradient_ebmc4")
 width = 300
 height = 20
 
-[sub_resource type="Gradient" id="Gradient_t7sib"]
+[sub_resource type="Gradient" id="Gradient_2yjup"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.761506, 0.630395, 0.083204, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4pik8"]
-gradient = SubResource("Gradient_t7sib")
+gradient = SubResource("Gradient_2yjup")
 width = 300
 height = 20
 
