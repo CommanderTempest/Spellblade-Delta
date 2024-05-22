@@ -1,6 +1,7 @@
-[gd_scene load_steps=74 format=3 uid="uid://0l27d06sjlr"]
+[gd_scene load_steps=77 format=3 uid="uid://0l27d06sjlr"]
 
 [ext_resource type="Script" path="res://Components/HitboxComponent.gd" id="1_q7epg"]
+[ext_resource type="Script" path="res://Entity/CharacterEntities/CharacterEntity.gd" id="1_w1bxa"]
 [ext_resource type="Script" path="res://States/StateMachine.gd" id="2_dwhwr"]
 [ext_resource type="Script" path="res://States/DodgeState.gd" id="3_1v8m7"]
 [ext_resource type="Script" path="res://States/IdleState.gd" id="4_0pjhg"]
@@ -15,7 +16,9 @@
 [ext_resource type="Script" path="res://Components/HealthComponent.gd" id="11_7313k"]
 [ext_resource type="PackedScene" uid="uid://lrsokrh7br8o" path="res://Assets/VFX/slash.tscn" id="14_fiqqr"]
 [ext_resource type="AudioStream" uid="uid://dtbt2p2uq2ry3" path="res://Assets/SFX/swing.mp3" id="15_3rjek"]
+[ext_resource type="Script" path="res://Entity/Containers/SoundContainer.gd" id="15_ai61x"]
 [ext_resource type="AudioStream" uid="uid://c6x0hbovpaphe" path="res://Assets/SFX/Parry.mp3" id="15_b3nqp"]
+[ext_resource type="Script" path="res://Entity/Containers/HitboxContainer.gd" id="18_nqfyy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_24q1n"]
 size = Vector3(2.1, 2.6, 0.5)
@@ -2008,8 +2011,18 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_ppowl"]
 size = Vector3(2.1, 2.6, 1.5)
 
-[node name="Humanoid" type="CharacterBody3D"]
+[node name="Humanoid" type="CharacterBody3D" node_paths=PackedStringArray("hurtbox", "health_component", "posture_component", "hitbox_container", "sounds", "animation_player", "climb_detector", "state_machine")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_w1bxa")
+hurtbox = NodePath("HurtboxComponent")
+health_component = NodePath("HealthComponent")
+posture_component = NodePath("PostureComponent")
+hitbox_container = NodePath("HitboxContainer")
+sounds = NodePath("SoundContainer")
+animation_player = NodePath("AnimationPlayer")
+climb_detector = NodePath("ClimbDetection")
+state_machine = NodePath("State Machine")
+entity_name = "BaseHumanoid"
 
 [node name="Hitbox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0246365, 1.29553, -0.00361711)
@@ -2072,32 +2085,46 @@ libraries = {
 script = ExtResource("2_dwhwr")
 initial_state = NodePath("IdleState")
 
-[node name="DodgeState" type="Node" parent="State Machine"]
+[node name="DodgeState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
 script = ExtResource("3_1v8m7")
+anim = NodePath("../../AnimationPlayer")
+Character = NodePath("../..")
 
-[node name="IdleState" type="Node" parent="State Machine"]
+[node name="IdleState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
 script = ExtResource("4_0pjhg")
+anim = NodePath("../../AnimationPlayer")
+Character = NodePath("../..")
 
-[node name="BlockState" type="Node" parent="State Machine"]
+[node name="BlockState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
 script = ExtResource("5_gxngg")
+anim = NodePath("../../AnimationPlayer")
+Character = NodePath("../..")
 
-[node name="AttackState" type="Node" parent="State Machine"]
+[node name="AttackState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
 script = ExtResource("6_s40kg")
+anim = NodePath("../../AnimationPlayer")
+Character = NodePath("../..")
 
-[node name="HoldState" type="Node" parent="State Machine"]
+[node name="HoldState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
 script = ExtResource("7_3q226")
+anim = NodePath("../../AnimationPlayer")
+Character = NodePath("../..")
 
-[node name="JumpState" type="Node" parent="State Machine" node_paths=PackedStringArray("Character")]
+[node name="JumpState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
 script = ExtResource("8_srd7y")
+anim = NodePath("../../AnimationPlayer")
 Character = NodePath("../..")
 
-[node name="ClimbState" type="Node" parent="State Machine" node_paths=PackedStringArray("head", "Character")]
+[node name="ClimbState" type="Node" parent="State Machine" node_paths=PackedStringArray("climb_detection", "head", "anim", "Character")]
 script = ExtResource("9_weneu")
+climb_detection = NodePath("../../ClimbDetection")
 head = NodePath("../../Torso/Head")
+anim = NodePath("../../AnimationPlayer")
 Character = NodePath("../..")
 
-[node name="StunState" type="Node" parent="State Machine" node_paths=PackedStringArray("Character")]
+[node name="StunState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
 script = ExtResource("10_y1o8u")
+anim = NodePath("../../AnimationPlayer")
 Character = NodePath("../..")
 
 [node name="ClimbDetection" type="RayCast3D" parent="."]
@@ -2128,10 +2155,18 @@ transform = Transform3D(-4.49351, 3.95392, -0.209046, 3.82108, 4.46891, 0.597542
 [node name="Slash3" parent="Slashes" instance=ExtResource("14_fiqqr")]
 transform = Transform3D(-0.364892, 5.96163, 0.28538, 4.86387, -0.0386252, 1.75651, 3.49422, 0.676331, -2.41522, 0.337799, 1.25589, -1.27937)
 
-[node name="SwordSwingSound" type="AudioStreamPlayer3D" parent="."]
+[node name="SoundContainer" type="Node3D" parent="." node_paths=PackedStringArray("sounds")]
+script = ExtResource("15_ai61x")
+sounds = [NodePath("SwordSwingSound"), NodePath("ParrySound")]
+
+[node name="SwordSwingSound" type="AudioStreamPlayer3D" parent="SoundContainer"]
 stream = ExtResource("15_3rjek")
 max_db = 2.0
 max_distance = 3.0
 
-[node name="ParrySound" type="AudioStreamPlayer3D" parent="."]
+[node name="ParrySound" type="AudioStreamPlayer3D" parent="SoundContainer"]
 stream = ExtResource("15_b3nqp")
+
+[node name="HitboxContainer" type="Node3D" parent="." node_paths=PackedStringArray("hitboxes")]
+script = ExtResource("18_nqfyy")
+hitboxes = [NodePath("../Torso/Right-Arm/HitboxComponent")]

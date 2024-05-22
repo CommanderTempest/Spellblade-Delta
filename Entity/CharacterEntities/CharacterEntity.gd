@@ -48,6 +48,8 @@ var can_tick_damage := true: # can deal damage to another entity
 var in_combat_timer: Timer = Timer.new()
 var fall_multiplier := 2.0
 
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 func _ready() -> void:
 	posture_component.postureChanged.connect(
 		func(): 
@@ -66,6 +68,15 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	pass
+
+func _physics_process(_delta) -> void:
+	if not self.is_on_floor():
+			# if jumping, apply gravity
+			if (self.velocity.y >= 0):
+				self.velocity.y -= self.gravity * _delta
+			# when falling apply more gravity
+			else:
+				self.velocity.y -= self.gravity * _delta * fall_multiplier
 
 func damage_entity_health(damage: int) -> void:
 	self.enter_combat()

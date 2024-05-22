@@ -1,6 +1,8 @@
-AudioStreamPlayer3D
-SoundContainer
+NavigationAgent3D
 HitboxContainer
+SoundContainer
+RayCast3D
+AudioStreamPlayer3D
 PostureComponent
 HealthComponent
 HurtboxComponent
@@ -11,4 +13,3 @@ CharacterEntity
 AnimationPlayer
 StateMachine
 Label
-RichTextLabel

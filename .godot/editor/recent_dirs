@@ -1,3 +1,4 @@
+res://Entity/CharacterEntities
 res://Assets/VFX
 res://Player
 res://Assets/Animations
@@ -19,4 +20,3 @@ res://Textures
 res://Components
 res://Enemy
 res://Weapons
-res://Levels/Materials

@@ -30,14 +30,6 @@ func _physics_process(_delta) -> void:
 		var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		var direction = (player_entity.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		
-		if not self.player_entity.is_on_floor():
-			# if jumping, apply gravity
-			if (self.player_entity.velocity.y >= 0):
-				self.player_entity.velocity.y -= self.player_entity.gravity * _delta
-			# when falling apply more gravity
-			else:
-				self.player_entity.velocity.y -= self.player_entity.gravity * _delta * player_entity.fall_multiplier
-		
 		if input_dir.is_zero_approx():
 			#walk_player.play("Idle")
 			pass

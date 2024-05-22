@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvrsja6ftr3d4"]
+[gd_scene load_steps=9 format=3 uid="uid://dvrsja6ftr3d4"]
 
 [ext_resource type="Material" uid="uid://dfopbxglnfycn" path="res://Levels/Materials/grey.tres" id="1_x4fnc"]
 [ext_resource type="PackedScene" uid="uid://dner4ijtjpd1e" path="res://Player/Player.tscn" id="2_e1ywe"]
+[ext_resource type="PackedScene" uid="uid://ctci0o05h6k1p" path="res://Enemy/bandit.tscn" id="3_fj8tj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hnlq2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -50,7 +51,13 @@ material = ExtResource("1_x4fnc")
 [node name="Player" parent="." instance=ExtResource("2_e1ywe")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
+[node name="Head" parent="Player/Torso" index="0"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
+
 [node name="HitboxContainer" parent="Player" index="11" node_paths=PackedStringArray("hitboxes")]
 hitboxes = [null]
+
+[node name="Bandit" parent="." instance=ExtResource("3_fj8tj")]
+transform = Transform3D(-0.2, 0, -3.01992e-08, 0, 0.2, 0, 3.01992e-08, 0, -0.2, 0, 0, -4)
 
 [editable path="Player"]

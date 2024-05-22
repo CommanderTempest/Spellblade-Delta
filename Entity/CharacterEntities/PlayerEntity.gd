@@ -8,7 +8,6 @@ class_name PlayerEntity
 @onready var player_controller: PlayerController = $PlayerController
 @onready var camera_mount = $CameraMount
 
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion := Vector2.ZERO
 
 func _ready() -> void:
