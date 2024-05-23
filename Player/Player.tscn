@@ -1841,6 +1841,7 @@ mesh = SubResource("BoxMesh_dmy6r")
 skeleton = NodePath("../..")
 
 [node name="HitboxComponent" type="Area3D" parent="Torso/Right-Arm"]
+unique_name_in_owner = true
 transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, -0.65, -0.9)
 script = ExtResource("2_u7jwb")
 
@@ -1937,7 +1938,7 @@ script = ExtResource("17_egris")
 
 [node name="HitboxContainer" type="Node3D" parent="." node_paths=PackedStringArray("hitboxes")]
 script = ExtResource("18_bwgci")
-hitboxes = [NodePath("")]
+hitboxes = [NodePath("../Torso/Right-Arm/HitboxComponent")]
 
 [node name="SoundContainer" type="Node3D" parent="." node_paths=PackedStringArray("sounds")]
 script = ExtResource("19_5r0nb")

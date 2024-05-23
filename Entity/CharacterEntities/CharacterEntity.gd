@@ -51,6 +51,11 @@ var fall_multiplier := 2.0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
+	in_combat_timer.wait_time = COMBAT_TIMER_DURATION
+	add_child(in_combat_timer)
+	in_combat_timer.timeout.connect(on_combat_timer_timeout)
+	in_combat_timer.autostart = true
+	
 	posture_component.postureChanged.connect(
 		func(): 
 			if posture_component.current_posture <= 0:
@@ -61,10 +66,6 @@ func _ready() -> void:
 	self.health_component.defeated.connect(on_character_defeat)
 	self.hurtbox.trigger_hit.connect(on_hit)
 	self.state_machine.state_transition.connect(on_state_transition)
-	
-	self.in_combat_timer.wait_time = COMBAT_TIMER_DURATION
-	self.in_combat_timer.timeout.connect(on_combat_timer_timeout)
-	self.add_child(in_combat_timer)
 
 func _process(_delta: float) -> void:
 	pass
@@ -116,8 +117,14 @@ func clear_battle_flags() -> void:
 ## if not already in that state
 func transition_state(new_state: String) -> void:
 	if state_machine.get_current_state_as_string() != new_state:
-		if new_state == "IdleState":
-			self.clear_battle_flags()
+		#if new_state == "IdleState":
+			#self.clear_battle_flags()
+		#elif new_state == "AttackState":
+			#self.add_flag(CharacterFlag.Attacking)
+		#elif new_state == "BlockState":
+			#self.add_flag(CharacterFlag.Blocking)
+		#elif new_state == "DodgeState":
+			#self.add_flag(CharacterFlag.Dodging)
 		state_machine.on_child_transition(state_machine.current_state, new_state)
 
 ## Checks flags to see if this entity can perform an action
@@ -127,22 +134,26 @@ func can_make_action() -> bool:
 		return false
 	return true
 
+func add_flag(flag_to_add: CharacterFlag) -> void:
+	if not flags.has(flag_to_add):
+		flags.append(flag_to_add)
+
 #*******EVENTS********
 
-func on_hit(otherArea: HitboxComponent):
-	if not hitbox_container.is_in_container(otherArea):
-		if self.flags.has(CharacterFlag.Dodging):
-			print("Dodged!!")
-		elif self.flags.has(CharacterFlag.Parrying):
-			self.sounds.play_sound("block")
-			print("PARRIED!?!")
-		elif self.flags.has(CharacterFlag.Blocking):
-			self.sounds.play_sound("block")
-			self.damage_entity_posture(otherArea.get_random_damage_to_deal())
-		else:
-			self.damage_entity_health(otherArea.get_random_damage_to_deal())
+func on_hit(otherArea: HitboxComponent) -> void:
+	#if not hitbox_container.is_in_container(otherArea):
+	if self.flags.has(CharacterFlag.Dodging):
+		print("Dodged!!")
+	elif self.flags.has(CharacterFlag.Parrying):
+		self.sounds.play_sound("block")
+		print("PARRIED!?!")
+	elif self.flags.has(CharacterFlag.Blocking):
+		self.sounds.play_sound("block")
+		self.damage_entity_posture(otherArea.get_random_damage_to_deal())
 	else:
-		print_debug(self.name + " is hitting itself")
+		self.damage_entity_health(otherArea.get_random_damage_to_deal())
+	#else:
+	#	print_debug(self.name + " is hitting itself")
 
 func on_combat_timer_timeout() -> void:
 	self.in_combat_timer.stop()
@@ -152,17 +163,17 @@ func on_state_transition(new_state: State) -> void:
 	if new_state is IdleState:
 		self.clear_battle_flags()
 	elif new_state is AttackState:
-		self.flags.append(CharacterFlag.Attacking)
+		self.add_flag(CharacterFlag.Attacking)
 		# could play sound here instead of animation player?
 	elif new_state is StunState:
-		self.flags.append(CharacterFlag.Stunned)
+		self.add_flag(CharacterFlag.Stunned)
 	elif new_state is BlockState:
-		self.flags.append(CharacterFlag.Blocking)
+		self.add_flag(CharacterFlag.Blocking)
 	elif new_state is DodgeState:
-		self.flags.append(CharacterFlag.Dodging)
+		self.add_flag(CharacterFlag.Dodging)
 
 func on_character_defeat() -> void:
-	self.flags.append(CharacterFlag.Defeated)
+	self.add_flag(CharacterFlag.Defeated)
 	if self.animation_player.has_animation("Defeat"):
 		self.animation_player.play("Defeat")
 

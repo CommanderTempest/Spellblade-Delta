@@ -12,9 +12,10 @@ func _ready():
 	area_exited.connect(exited_hurtbox)
 
 func entered_hurtbox(otherArea: Area3D):
-	if otherArea is HitboxComponent:
-		is_in_area = true
-		trigger_hit.emit(otherArea)
+	if otherArea.owner != self.owner:
+		if otherArea is HitboxComponent:
+			is_in_area = true
+			trigger_hit.emit(otherArea)
 
 func exited_hurtbox(otherArea: Area3D) -> void:
 	is_in_area = false

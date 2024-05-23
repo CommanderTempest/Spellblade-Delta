@@ -17,7 +17,7 @@ dialogue = ""
 attack_range = 0.5
 follow_distance = 10.0
 max_distance = 10.0
-entity_name = ""
+entity_name = "Bandit"
 
 [node name="Torso" parent="." index="1"]
 material_override = ExtResource("3_bgtic")

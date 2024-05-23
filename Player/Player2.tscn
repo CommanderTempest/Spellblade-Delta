@@ -56,12 +56,6 @@ transform = Transform3D(1, 7.09593e-16, -4.9738e-14, -2.16972e-16, 1, -3.57628e-
 target_position = Vector3(0, 0, -2.5)
 collision_mask = 4
 
-[node name="DodgeState" parent="State Machine" index="0" node_paths=PackedStringArray("Character")]
-Character = NodePath("../..")
-
-[node name="ClimbState" parent="State Machine" index="6" node_paths=PackedStringArray("climb_detection")]
-climb_detection = NodePath("../../ClimbDetection")
-
 [node name="CenterContainer" type="CenterContainer" parent="." index="6"]
 anchors_preset = 15
 anchor_right = 1.0

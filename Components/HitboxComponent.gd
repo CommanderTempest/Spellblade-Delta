@@ -22,8 +22,11 @@ func areaExited(otherArea: Node3D) -> void:
 	if otherArea is HurtboxComponent:# and otherArea != hitbox_owner.get_hurtbox():
 		contact_target = null
 
-func getOwner():
-	return self.hitbox_owner
+func getOwner() -> CharacterEntity:
+	var hitbox_owner = get_tree().root
+	if hitbox_owner is CharacterEntity:
+		return self.hitbox_owner
+	return null
 
 func get_contact_target() -> HurtboxComponent:
 	return self.contact_target
