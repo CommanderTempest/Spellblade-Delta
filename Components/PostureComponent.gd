@@ -20,8 +20,6 @@ var current_posture: int:
 				postureChanged.emit(current_posture)
 		elif current_posture > max_posture:
 			current_posture = max_posture
-	get:
-		return current_posture
 
 func _ready():
 	initializePosture()
@@ -32,9 +30,6 @@ func initializePosture():
 	else:
 		max_posture = 100
 		current_posture = max_posture
-
-func setMaxPosture(amount: int):
-	max_posture = amount
 
 func hasPostureRemaining() -> bool:
 	if current_posture > 0:

@@ -1,3 +1,5 @@
+res://Managers
+res://States/PlayerState
 res://Entity/CharacterEntities
 res://Assets/VFX
 res://Player
@@ -18,5 +20,3 @@ res://
 res://Assets
 res://Textures
 res://Components
-res://Enemy
-res://Weapons

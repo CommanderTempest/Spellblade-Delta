@@ -28,7 +28,7 @@ func Enter() -> void:
 
 func Exit() -> void:
 	anim.stop()
-	if not climb_cd.time_left > 0:
+	if climb_cd.time_left <= 0:
 		canClimb = false
 		climb_cd.start()
 	Character.velocity.y = 0
@@ -41,9 +41,9 @@ func Physics_Update(_delta: float) -> void:
 		if not isClimbing:
 			climb_timer.start()
 			isClimbing = true
+		Character.velocity.y = climb_speed
+		Character.gravity = 0
 		while climb_detection.is_colliding() and isClimbing:
-			Character.velocity.y = climb_speed
-			Character.gravity = 0
 			await get_tree().create_timer(0.1).timeout
 		climb_timer.stop()
 		

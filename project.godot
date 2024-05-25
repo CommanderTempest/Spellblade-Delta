@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 PlayerManager="*res://Player/PlayerManager.gd"
 
+[dotnet]
+
+project/assembly_name="Spellblade"
+
 [filesystem]
 
 import/fbx/enabled=false

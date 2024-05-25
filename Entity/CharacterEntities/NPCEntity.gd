@@ -44,6 +44,11 @@ var interactable: bool = (dialogue != null)
 func _ready() -> void:
 	self.hurtbox.trigger_hit.connect(on_hit)
 
+func _process(_delta) -> void:
+	if primary_target:
+		if primary_target.flags.has(primary_target.CharacterFlag.Defeated):
+			return_to_spawn()
+
 func _physics_process(delta) -> void:
 	if self.can_make_action():
 		if primary_target:

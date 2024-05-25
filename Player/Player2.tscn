@@ -45,6 +45,9 @@ height = 20
 collision_layer = 2
 script = ExtResource("2_23d2a")
 
+[node name="Head" parent="Torso" index="0"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
+
 [node name="MeshInstance3D" parent="Torso/Right-Arm/HitboxComponent" index="0"]
 visible = false
 

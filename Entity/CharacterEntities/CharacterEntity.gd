@@ -80,6 +80,7 @@ func _physics_process(_delta) -> void:
 				self.velocity.y -= self.gravity * _delta * fall_multiplier
 
 func damage_entity_health(damage: int) -> void:
+	print("health being damaged!" + str(name))
 	self.enter_combat()
 	self.health_component.take_damage(damage)
 
