@@ -1,4 +1,4 @@
-res://Levels/sandbox.tscn
+res://humanoid.tscn
 res://Inventory/slot.gd
 res://Levels/DeathHitbox.gd
 res://Levels/Materials/grey.tres
@@ -10,5 +10,3 @@ res://Shaders/water.gdshader
 res://Shaders/water_material.tres
 res://Shaders/grass2.tres
 res://Shaders/grass.gdshader
-res://States/PlayerState/PlayerState.gd
-res://Managers/GameConstants.gd

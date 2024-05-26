@@ -9,11 +9,11 @@
 [ext_resource type="Script" path="res://States/BlockState.gd" id="5_gxngg"]
 [ext_resource type="Script" path="res://States/AttackState.gd" id="6_s40kg"]
 [ext_resource type="Script" path="res://States/HoldState.gd" id="7_3q226"]
-[ext_resource type="Script" path="res://Components/PostureComponent.gd" id="7_xt674"]
 [ext_resource type="Script" path="res://States/JumpState.gd" id="8_srd7y"]
 [ext_resource type="Script" path="res://States/ClimbState.gd" id="9_weneu"]
 [ext_resource type="Script" path="res://States/StunState.gd" id="10_y1o8u"]
-[ext_resource type="Script" path="res://Components/HealthComponent.gd" id="11_7313k"]
+[ext_resource type="Script" path="res://Components/HealthComponent.cs" id="13_4i3gl"]
+[ext_resource type="Script" path="res://Components/PostureComponent.cs" id="14_acclt"]
 [ext_resource type="PackedScene" uid="uid://lrsokrh7br8o" path="res://Assets/VFX/slash.tscn" id="14_fiqqr"]
 [ext_resource type="AudioStream" uid="uid://dtbt2p2uq2ry3" path="res://Assets/SFX/swing.mp3" id="15_3rjek"]
 [ext_resource type="Script" path="res://Entity/Containers/SoundContainer.gd" id="15_ai61x"]
@@ -2139,10 +2139,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18021, 0)
 shape = SubResource("BoxShape3D_ppowl")
 
 [node name="HealthComponent" type="Node3D" parent="."]
-script = ExtResource("11_7313k")
+script = ExtResource("13_4i3gl")
 
 [node name="PostureComponent" type="Node3D" parent="."]
-script = ExtResource("7_xt674")
+script = ExtResource("14_acclt")
 
 [node name="Slashes" type="Node3D" parent="."]
 

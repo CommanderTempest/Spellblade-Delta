@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1wwbk4YIykU=",
+  "dgSpecHash": "lsqiQ2wOUF4=",
   "success": true,
-  "projectFilePath": "E:\\Godot Projects\\Spellblade\\Spellblade.csproj",
+  "projectFilePath": "C:\\Users\\kruko\\OneDrive\\Desktop\\Godot\\Projects\\Spellblade-Delta\\Spellblade.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kruko\\.nuget\\packages\\godot.sourcegenerators\\4.2.2\\godot.sourcegenerators.4.2.2.nupkg.sha512",
     "C:\\Users\\kruko\\.nuget\\packages\\godotsharp\\4.2.2\\godotsharp.4.2.2.nupkg.sha512",

@@ -31,4 +31,5 @@ public abstract partial class PlayerState : Node
     }
 
     protected abstract void EnterState();
+    protected abstract void ExitState();
 }
