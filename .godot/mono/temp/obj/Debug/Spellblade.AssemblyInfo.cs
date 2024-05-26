@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Spellblade")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f314fddd4455670c7dc4a2d80cb600f65eef638b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf262a0cfb2b22d88d47825ed44d5ea87113dc67")]
 [assembly: System.Reflection.AssemblyProductAttribute("Spellblade")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Spellblade")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

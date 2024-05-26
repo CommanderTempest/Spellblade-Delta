@@ -1,0 +1,34 @@
+using Godot;
+using System;
+
+public abstract partial class PlayerState : Node
+{
+    // CharacterBody Tempoary until I get everything in C#
+    protected CharacterBody3D PlayerEntity;
+
+    public override void _Ready()
+    {
+        PlayerEntity = GetOwner<CharacterBody3D>();
+        SetPhysicsProcess(false);
+        SetProcessInput(false);
+    }
+
+    public override void _Notification(int what)
+    {
+        base._Notification(what);
+
+        if (what == GameConstants.NOTIFICATION_ENTER_STATE)
+        {
+          EnterState();
+          SetPhysicsProcess(true);
+          SetProcessInput(true); 
+        }
+        else if (what == GameConstants.NOTIFICATION_EXIT_STATE)
+        {
+          SetPhysicsProcess(false);
+          SetProcessInput(false);
+        }
+    }
+
+    protected abstract void EnterState();
+}
