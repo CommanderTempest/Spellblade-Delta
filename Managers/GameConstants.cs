@@ -6,5 +6,9 @@
 
     // ANIMATIONS
     public const string ANIM_DEFEAT = "Defeat";
+    public const string ANIM_IDLE = "Idle";
+
+    // INPUTS
+    public const string INPUT_LMB = "Attack";
 }
 

@@ -3,12 +3,13 @@ using System;
 
 public abstract partial class PlayerState : Node
 {
-    // CharacterBody Tempoary until I get everything in C#
-    protected CharacterBody3D PlayerEntity;
+    protected PlayerEntity playerEntity;
+    protected AnimationPlayer animationPlayer;
 
     public override void _Ready()
     {
-        PlayerEntity = GetOwner<CharacterBody3D>();
+        playerEntity = GetOwner<PlayerEntity>();
+        animationPlayer = playerEntity.animationPlayer;
         SetPhysicsProcess(false);
         SetProcessInput(false);
     }

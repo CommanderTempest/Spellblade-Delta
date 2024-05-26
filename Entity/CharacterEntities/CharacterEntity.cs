@@ -35,16 +35,16 @@ public partial class CharacterEntity : BaseEntity
 	[Export] protected HitboxContainer hitboxContainer = new HitboxContainer();
 	[Export] protected SoundContainer soundContainer = new SoundContainer();
 
-	[Export] protected AnimationPlayer animationPlayer;
+	[Export] public AnimationPlayer animationPlayer;
 
 	[ExportGroup("Character Variables")]
 	[Export] float speed = 2.0f;
 	//[Export] bool canAttack = false; // Whether this entity is able to attack
 
 	[ExportGroup("Detectors")]
-	[Export] RayCast3D climbDetector;
+	[Export] public RayCast3D climbDetector;
 
-	[Export] StateMachine stateMachine;
+	[Export] public StateMachine stateMachine;
 
 	protected bool canTickDamage = true;
 	protected float fallMultiplier = 2f;
