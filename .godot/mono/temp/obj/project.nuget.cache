@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "lsqiQ2wOUF4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kruko\\OneDrive\\Desktop\\Godot\\Projects\\Spellblade-Delta\\Spellblade.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kruko\\.nuget\\packages\\godot.sourcegenerators\\4.2.2\\godot.sourcegenerators.4.2.2.nupkg.sha512",
+    "C:\\Users\\kruko\\.nuget\\packages\\godotsharp\\4.2.2\\godotsharp.4.2.2.nupkg.sha512",
+    "C:\\Users\\kruko\\.nuget\\packages\\godotsharpeditor\\4.2.2\\godotsharpeditor.4.2.2.nupkg.sha512",
+    "C:\\Users\\kruko\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.30\\microsoft.netcore.app.ref.6.0.30.nupkg.sha512",
+    "C:\\Users\\kruko\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.30\\microsoft.windowsdesktop.app.ref.6.0.30.nupkg.sha512",
+    "C:\\Users\\kruko\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.30\\microsoft.aspnetcore.app.ref.6.0.30.nupkg.sha512"
+  ],
+  "logs": []
+}
