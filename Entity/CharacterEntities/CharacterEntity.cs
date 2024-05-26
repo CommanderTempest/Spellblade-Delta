@@ -38,7 +38,7 @@ public partial class CharacterEntity : BaseEntity
 	[Export] public AnimationPlayer animationPlayer;
 
 	[ExportGroup("Character Variables")]
-	[Export] float speed = 2.0f;
+	[Export(PropertyHint.Range, "0,20,0.1")] private float speed = 2.0f;
 	//[Export] bool canAttack = false; // Whether this entity is able to attack
 
 	[ExportGroup("Detectors")]
@@ -46,10 +46,14 @@ public partial class CharacterEntity : BaseEntity
 
 	[Export] public StateMachine stateMachine;
 
+	public Vector3 direction = new();
+	private float gravity = 9.8f;
+
 	protected bool canTickDamage = true;
 	protected float fallMultiplier = 2f;
 	protected List<CharacterFlag> flags = new List<CharacterFlag>();
 	protected Timer inCombatTimer = new Timer();
+	
 
 	// var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -63,16 +67,33 @@ public partial class CharacterEntity : BaseEntity
 		postureComponent.Stunned += () => {flags.Add(CharacterFlag.Stunned);};
 		healthComponent.Defeated += onCharacterDefeat;
 		characterHurtbox.TriggerHit += onHit;
-		stateMachine.StateTransition += onStateTransition;
+		//stateMachine.StateTransition += onStateTransition;
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        Vector2 inputDirection = Input.GetVector(
+			GameConstants.INPUT_MOVE_LEFT,
+			GameConstants.INPUT_MOVE_RIGHT,
+			GameConstants.INPUT_MOVE_FORWARD,
+			GameConstants.INPUT_MOVE_BACK
+		);
+		direction = this.Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y).Normalized();
     }
 
     public override void _PhysicsProcess(double delta)
     {
         if (!IsOnFloor())
 		{
-			if (Velocity.Y >= 0) {Velocity.Y -= gravity * delta;}
+			if (Velocity.Y >= 0) 
+			{
+				Velocity = new Vector3(direction.X, 0, direction.Z);
+				Velocity = new Vector3(Velocity.X, (float)(Velocity.Y - this.gravity * delta), Velocity.Z);
+			}
 		}
-		else {Velocity.Y -= gravity * delta * fallMultiplier;}
+		else {Velocity = new Vector3(Velocity.X, (float) (Velocity.Y - gravity * delta * fallMultiplier), Velocity.Z);}
+		
+		MoveAndSlide();
     }
 
 	public void damageEntityHealth(int damage)
