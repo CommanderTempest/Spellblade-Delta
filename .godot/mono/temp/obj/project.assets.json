@@ -93,11 +93,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kruko\\OneDrive\\Desktop\\Godot\\Projects\\Spellblade-Delta\\Spellblade.csproj",
+      "projectUniqueName": "E:\\Godot Projects\\Spellblade\\Spellblade.csproj",
       "projectName": "Spellblade",
-      "projectPath": "C:\\Users\\kruko\\OneDrive\\Desktop\\Godot\\Projects\\Spellblade-Delta\\Spellblade.csproj",
+      "projectPath": "E:\\Godot Projects\\Spellblade\\Spellblade.csproj",
       "packagesPath": "C:\\Users\\kruko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kruko\\OneDrive\\Desktop\\Godot\\Projects\\Spellblade-Delta\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "E:\\Godot Projects\\Spellblade\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kruko\\AppData\\Roaming\\NuGet\\NuGet.Config"

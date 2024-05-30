@@ -1,36 +1,13 @@
 using Godot;
 using System;
 
-public abstract partial class PlayerState : Node
+public abstract partial class PlayerState : CharacterState
 {
-    protected PlayerEntity playerEntity;
-    protected AnimationPlayer animationPlayer;
-
-    public override void _Ready()
+  protected void CheckForAttackInput()
     {
-        playerEntity = GetOwner<PlayerEntity>();
-        animationPlayer = playerEntity.animationPlayer;
-        SetPhysicsProcess(false);
-        SetProcessInput(false);
+      if (Input.IsActionJustPressed(GameConstants.INPUT_ATTACK))
+      {
+        //characterNode.StateMachineNode.SwitchState<PlayerAttackState>();
+      }
     }
-
-    public override void _Notification(int what)
-    {
-        base._Notification(what);
-
-        if (what == GameConstants.NOTIFICATION_ENTER_STATE)
-        {
-          EnterState();
-          SetPhysicsProcess(true);
-          SetProcessInput(true); 
-        }
-        else if (what == GameConstants.NOTIFICATION_EXIT_STATE)
-        {
-          SetPhysicsProcess(false);
-          SetProcessInput(false);
-        }
-    }
-
-    protected abstract void EnterState();
-    protected abstract void ExitState();
 }

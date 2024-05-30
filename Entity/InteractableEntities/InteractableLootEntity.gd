@@ -1,2 +1,0 @@
-extends BaseInteractableEntity
-class_name InteractableLootEntity

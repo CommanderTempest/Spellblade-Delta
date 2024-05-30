@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using Godot;
+using System.Linq;
 
 public partial class CharacterEntity : BaseEntity
 {
@@ -25,6 +26,12 @@ public partial class CharacterEntity : BaseEntity
 
 	const float COMBAT_TIMER_DURATION = 10f;
 
+	[Export] private StatResource[] stats;
+
+	[ExportGroup("Required Nodes")]
+	[Export] public StateMachine StateMachineNode {get; private set;}
+	[Export] public AnimationPlayer AnimPlayerNode {get; private set;}
+
 	[ExportGroup("Components")]
 	[Export] public HurtboxComponent characterHurtbox;
 	[Export] protected HealthComponent healthComponent = new HealthComponent();
@@ -35,7 +42,7 @@ public partial class CharacterEntity : BaseEntity
 	[Export] protected HitboxContainer hitboxContainer = new HitboxContainer();
 	[Export] protected SoundContainer soundContainer = new SoundContainer();
 
-	[Export] public AnimationPlayer animationPlayer;
+	
 
 	[ExportGroup("Character Variables")]
 	[Export(PropertyHint.Range, "0,20,0.1")] private float speed = 2.0f;
@@ -43,8 +50,6 @@ public partial class CharacterEntity : BaseEntity
 
 	[ExportGroup("Detectors")]
 	[Export] public RayCast3D climbDetector;
-
-	[Export] public StateMachine stateMachine;
 
 	public Vector3 direction = new();
 	private float gravity = 9.8f;
@@ -83,18 +88,23 @@ public partial class CharacterEntity : BaseEntity
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!IsOnFloor())
-		{
-			if (Velocity.Y >= 0) 
+			if (!IsOnFloor())
 			{
-				Velocity = new Vector3(direction.X, 0, direction.Z);
-				Velocity = new Vector3(Velocity.X, (float)(Velocity.Y - this.gravity * delta), Velocity.Z);
+				if (Velocity.Y >= 0) 
+				{
+					Velocity = new Vector3(direction.X, 0, direction.Z);
+					Velocity = new Vector3(Velocity.X, (float)(Velocity.Y - this.gravity * delta), Velocity.Z);
+				}
 			}
-		}
-		else {Velocity = new Vector3(Velocity.X, (float) (Velocity.Y - gravity * delta * fallMultiplier), Velocity.Z);}
+			else {Velocity = new Vector3(Velocity.X, (float) (Velocity.Y - gravity * delta * fallMultiplier), Velocity.Z);}
 		
-		MoveAndSlide();
+			MoveAndSlide();
     }
+
+	public StatResource GetStatResource(Stat stat)
+	{
+		return stats.Where((element) => element.StatType == stat).FirstOrDefault();
+	}
 
 	public void damageEntityHealth(int damage)
 	{
@@ -164,7 +174,7 @@ public partial class CharacterEntity : BaseEntity
 	private void onCharacterDefeat()
 	{
 		addFlag(CharacterFlag.Defeated);
-		if (animationPlayer.HasAnimation("Defeat")) {animationPlayer.Play(GameConstants.ANIM_DEFEAT);}
+		if (AnimPlayerNode.HasAnimation("Defeat")) {AnimPlayerNode.Play(GameConstants.ANIM_DEFEAT);}
 	}
 
 	private void onHit(HitboxComponent otherArea)
