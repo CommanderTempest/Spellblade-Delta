@@ -1,12 +1,1 @@
-res://humanoid.tscn
-res://Inventory/slot.gd
-res://Levels/DeathHitbox.gd
-res://Levels/Materials/grey.tres
-res://Shaders/slash.tres
-res://Shaders/rockshader.tres
-res://Shaders/sandShader.tres
-res://Shaders/grass.tres
-res://Shaders/water.gdshader
-res://Shaders/water_material.tres
-res://Shaders/grass2.tres
-res://Shaders/grass.gdshader
+res://Player/Player.tscn

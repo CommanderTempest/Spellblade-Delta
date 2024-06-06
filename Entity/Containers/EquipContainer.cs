@@ -3,7 +3,7 @@ using Godot.Collections;
 
 public partial class EquipContainer : Node3D
 {
-	[Export] Array<ItemDataEquip> itemsEquipped = new Array<ItemDataEquip>();
+	//[Export] Array<ItemDataEquip> itemsEquipped = new Array<ItemDataEquip>();
 
     public override void _Ready()
     {

@@ -1,14 +1,15 @@
+res://Entity/Containers
 res://Components
+res://States
+res://Entity/CharacterEntities
 res://Managers
 res://States/PlayerState
-res://Entity/CharacterEntities
 res://Assets/VFX
 res://Player
 res://Assets/Animations
 res://Entity
 res://Item/Items
 res://Levels
-res://States
 res://Shaders
 res://Assets/Weapons
 res://Assets/Foliage

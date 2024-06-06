@@ -1,8 +1,10 @@
 using Godot;
+using System;
 
 public abstract partial class CharacterState : Node 
 {
   protected CharacterEntity characterNode;
+  public Func<bool> CanTransition = () => true;
 
   public override void _Ready()
   {

@@ -34,8 +34,6 @@ public partial class CharacterEntity : BaseEntity
 
 	[ExportGroup("Components")]
 	[Export] public HurtboxComponent characterHurtbox;
-	[Export] protected HealthComponent healthComponent = new HealthComponent();
-	[Export] protected PostureComponent postureComponent = new PostureComponent();
 	
 	[ExportGroup("Containers")]
 	[Export] protected EquipContainer equipContainer = new EquipContainer();
@@ -64,15 +62,15 @@ public partial class CharacterEntity : BaseEntity
 
     public override void _Ready()
     {
-        inCombatTimer.WaitTime = COMBAT_TIMER_DURATION;
-		inCombatTimer.OneShot = true;
-		inCombatTimer.Timeout += onCombatTimerTimeOut;
-		AddChild(inCombatTimer);
+			inCombatTimer.WaitTime = COMBAT_TIMER_DURATION;
+			inCombatTimer.OneShot = true;
+			inCombatTimer.Timeout += onCombatTimerTimeOut;
+			AddChild(inCombatTimer);
 
-		postureComponent.Stunned += () => {flags.Add(CharacterFlag.Stunned);};
-		healthComponent.Defeated += onCharacterDefeat;
-		characterHurtbox.TriggerHit += onHit;
-		//stateMachine.StateTransition += onStateTransition;
+			//postureComponent.Stunned += () => {flags.Add(CharacterFlag.Stunned);};
+			//healthComponent.Defeated += onCharacterDefeat;
+			characterHurtbox.TriggerHit += onHit;
+			//stateMachine.StateTransition += onStateTransition;
     }
 
     public override void _Input(InputEvent @event)
@@ -109,13 +107,13 @@ public partial class CharacterEntity : BaseEntity
 	public void damageEntityHealth(int damage)
 	{
 		enterCombat();
-		healthComponent.takeDamage(damage);
+		//healthComponent.takeDamage(damage);
 	}
 
 	public void damageEntityPosture(int damage)
 	{
 		enterCombat();
-		postureComponent.takePostureDamage(damage);
+		//postureComponent.takePostureDamage(damage);
 	}
 
 	public void enterCombat()
@@ -123,8 +121,8 @@ public partial class CharacterEntity : BaseEntity
 		if (!flags.Contains(CharacterFlag.InCombat))
 		{
 			flags.Add(CharacterFlag.InCombat);
-			healthComponent.stopRegen();
-			postureComponent.stopRegen();
+			//healthComponent.stopRegen();
+			//postureComponent.stopRegen();
 		}
 		inCombatTimer.Start();
 	}
@@ -134,8 +132,8 @@ public partial class CharacterEntity : BaseEntity
 		if (flags.Contains(CharacterFlag.InCombat))
 		{
 			flags.Remove(CharacterFlag.InCombat);
-			healthComponent.beginRegen();
-			postureComponent.beginRegen();
+			//healthComponent.beginRegen();
+			//postureComponent.beginRegen();
 		}
 	}
 

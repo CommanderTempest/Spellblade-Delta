@@ -1,0 +1,6 @@
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.csproj.AssemblyReference.cache
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.GeneratedMSBuildEditorConfig.editorconfig
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.AssemblyInfoInputs.cache
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.AssemblyInfo.cs
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.csproj.CoreCompileInputs.cache
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.sourcelink.json
