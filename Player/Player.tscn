@@ -1,42 +1,18 @@
-[gd_scene load_steps=62 format=3 uid="uid://dner4ijtjpd1e"]
+[gd_scene load_steps=34 format=3 uid="uid://dner4ijtjpd1e"]
 
 [ext_resource type="Script" path="res://Entity/CharacterEntities/PlayerEntity.cs" id="1_s80pp"]
-[ext_resource type="Script" path="res://Components/HitboxComponent.cs" id="2_u7jwb"]
+[ext_resource type="Script" path="res://Entity/AttackHitbox.cs" id="2_djhsg"]
 [ext_resource type="PackedScene" uid="uid://dl025r2sxaomt" path="res://Assets/Weapons/Katana.glb" id="3_fskbw"]
-[ext_resource type="Script" path="res://Controllers/PlayerController.gd" id="3_qkq7d"]
 [ext_resource type="PackedScene" uid="uid://1fgicxooagjh" path="res://Player/camera_mount.tscn" id="4_anf6k"]
 [ext_resource type="Script" path="res://States/StateMachine.cs" id="6_bflxe"]
 [ext_resource type="PackedScene" uid="uid://2ntw6iqjxwfh" path="res://Assets/VFX/slashes.tscn" id="6_psjdq"]
-[ext_resource type="Script" path="res://States/DodgeState.gd" id="7_oi14q"]
-[ext_resource type="Script" path="res://States/IdleState.cs" id="8_wkeg7"]
-[ext_resource type="Script" path="res://States/BlockState.gd" id="9_fb2cq"]
-[ext_resource type="Script" path="res://States/AttackState.cs" id="10_tpoii"]
-[ext_resource type="Script" path="res://States/HoldState.gd" id="11_cm85l"]
-[ext_resource type="Script" path="res://States/JumpState.gd" id="12_rjkqi"]
-[ext_resource type="Script" path="res://States/ClimbState.gd" id="13_vhfrw"]
-[ext_resource type="Script" path="res://States/StunState.gd" id="14_jw52n"]
+[ext_resource type="Script" path="res://States/PlayerState/PlayerIdleState.cs" id="7_k7ypy"]
 [ext_resource type="Script" path="res://Components/HurtboxComponent.cs" id="15_t3wg0"]
-[ext_resource type="Script" path="res://Components/HealthComponent.cs" id="16_r1t6y"]
-[ext_resource type="Script" path="res://Components/PostureComponent.cs" id="17_egris"]
 [ext_resource type="Script" path="res://Entity/Containers/HitboxContainer.cs" id="18_bwgci"]
 [ext_resource type="Script" path="res://Entity/Containers/SoundContainer.cs" id="19_5r0nb"]
 [ext_resource type="AudioStream" uid="uid://c6x0hbovpaphe" path="res://Assets/SFX/Parry.mp3" id="20_1vnhc"]
 [ext_resource type="AudioStream" uid="uid://dtbt2p2uq2ry3" path="res://Assets/SFX/swing.mp3" id="21_sglu0"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="22_y3cmr"]
-[ext_resource type="Texture2D" uid="uid://qegu7ub3dioi" path="res://Textures/healthbarUnder.png" id="24_q1fff"]
-[ext_resource type="Texture2D" uid="uid://bpfmsuf6ovw33" path="res://Textures/healthbarProgress.png" id="25_183e0"]
-[ext_resource type="Script" path="res://Textures/HealthBar.gd" id="26_fmm7p"]
-[ext_resource type="Script" path="res://Textures/PostureBar.gd" id="27_putmg"]
-[ext_resource type="Texture2D" uid="uid://dam64o7sxb8t5" path="res://Textures/ShieldUnder.png" id="28_bxtcj"]
-[ext_resource type="Texture2D" uid="uid://pbmnupbsipx0" path="res://Textures/ShieldProgress.png" id="29_fd5pk"]
-[ext_resource type="Script" path="res://Player/BlockBar.gd" id="30_ihwyu"]
-[ext_resource type="Texture2D" uid="uid://duljje6b5tsug" path="res://Textures/DodgeUnder.png" id="31_ufb4e"]
-[ext_resource type="Texture2D" uid="uid://dyi7dawpi3yuf" path="res://Textures/DodgeProgress.png" id="32_fgh63"]
-[ext_resource type="Script" path="res://Player/DodgeBar.gd" id="33_34otx"]
-[ext_resource type="Script" path="res://Inventory/inventory_interface.gd" id="34_ne8yd"]
-[ext_resource type="PackedScene" uid="uid://baulwrx2ttsup" path="res://Inventory/inventory.tscn" id="35_ikcv8"]
-[ext_resource type="PackedScene" uid="uid://de7e771j6dkuc" path="res://Inventory/slot.tscn" id="36_owj6k"]
-[ext_resource type="PackedScene" uid="uid://cl1pckqtxil68" path="res://Inventory/hot_bar_inventory.tscn" id="37_i334a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rhw0l"]
 size = Vector3(2.1, 2.6, 0.5)
@@ -229,49 +205,6 @@ tracks/13/keys = {
 "transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, -0.785398, 0), Vector3(0, -0.785398, 0), Vector3(0, 0, 0), Vector3(0, 0.785398, 0), Vector3(0, 0.785398, 0)]
-}
-tracks/14/type = "method"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("Torso/Right-Arm/HitboxComponent")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
-"times": PackedFloat32Array(0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [true],
-"method": &"setTickDamage"
-}, {
-"args": [false],
-"method": &"setTickDamage"
-}]
-}
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("Slashes/Slash:play")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/16/type = "method"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("SoundContainer/Swing")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
-"times": PackedFloat32Array(0.4),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_bt05f"]
@@ -1666,7 +1599,7 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("Slashes/Slash:play")
+tracks/18/path = NodePath("Slashes/Slash2:play")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
@@ -1678,22 +1611,10 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("Slashes/Slash2:play")
+tracks/19/path = NodePath("Slashes/Slash3:play")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/20/type = "value"
-tracks/20/imported = false
-tracks/20/enabled = true
-tracks/20/path = NodePath("Slashes/Slash3:play")
-tracks/20/interp = 1
-tracks/20/loop_wrap = true
-tracks/20/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -1782,35 +1703,8 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_utsgt"]
 size = Vector3(2.1, 2.6, 1.5)
 
-[sub_resource type="Gradient" id="Gradient_uqrya"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_usibg"]
-gradient = SubResource("Gradient_uqrya")
-width = 300
-height = 20
-
-[sub_resource type="Gradient" id="Gradient_t7sib"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.761506, 0.630395, 0.083204, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lttwh"]
-gradient = SubResource("Gradient_t7sib")
-width = 300
-height = 20
-
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hurtbox", "health_component", "posture_component", "hitbox_container", "sounds", "animation_player", "climb_detector", "state_machine")]
+[node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_s80pp")
-hurtbox = NodePath("HurtboxComponent")
-health_component = NodePath("HealthComponent")
-posture_component = NodePath("PostureComponent")
-hitbox_container = NodePath("HitboxContainer")
-sounds = NodePath("SoundContainer")
-animation_player = NodePath("AnimationPlayer")
-climb_detector = NodePath("ClimbDetection")
-state_machine = NodePath("State Machine")
-entity_name = "Player"
 
 [node name="Hitbox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0246365, 1.29553, -0.00361711)
@@ -1841,9 +1735,8 @@ mesh = SubResource("BoxMesh_dmy6r")
 skeleton = NodePath("../..")
 
 [node name="HitboxComponent" type="Area3D" parent="Torso/Right-Arm"]
-unique_name_in_owner = true
 transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, -0.65, -0.9)
-script = ExtResource("2_u7jwb")
+script = ExtResource("2_djhsg")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Torso/Right-Arm/HitboxComponent"]
 visible = false
@@ -1860,10 +1753,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78, 0, 0)
 mesh = SubResource("BoxMesh_dmy6r")
 skeleton = NodePath("../..")
 
-[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("player_entity")]
-script = ExtResource("3_qkq7d")
-player_entity = NodePath("..")
-
 [node name="CameraMount" parent="." instance=ExtResource("4_anf6k")]
 
 [node name="Slashes" parent="." instance=ExtResource("6_psjdq")]
@@ -1877,51 +1766,13 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32708, 0)
 target_position = Vector3(0, 0, -2)
 
-[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("currentState", "states")]
 script = ExtResource("6_bflxe")
-initial_state = NodePath("IdleState")
+currentState = NodePath("PlayerIdleState")
+states = [NodePath("PlayerIdleState")]
 
-[node name="DodgeState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
-script = ExtResource("7_oi14q")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
-
-[node name="IdleState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
-script = ExtResource("8_wkeg7")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
-
-[node name="BlockState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
-script = ExtResource("9_fb2cq")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
-
-[node name="AttackState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
-script = ExtResource("10_tpoii")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
-
-[node name="HoldState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
-script = ExtResource("11_cm85l")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
-
-[node name="JumpState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
-script = ExtResource("12_rjkqi")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
-
-[node name="ClimbState" type="Node" parent="State Machine" node_paths=PackedStringArray("climb_detection", "head", "anim", "Character")]
-script = ExtResource("13_vhfrw")
-climb_detection = NodePath("../../ClimbDetection")
-head = NodePath("../../Torso/Head")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
-
-[node name="StunState" type="Node" parent="State Machine" node_paths=PackedStringArray("anim", "Character")]
-script = ExtResource("14_jw52n")
-anim = NodePath("../../AnimationPlayer")
-Character = NodePath("../..")
+[node name="PlayerIdleState" type="Node" parent="State Machine"]
+script = ExtResource("7_k7ypy")
 
 [node name="HurtboxComponent" type="Area3D" parent="."]
 script = ExtResource("15_t3wg0")
@@ -1930,19 +1781,11 @@ script = ExtResource("15_t3wg0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18021, 0)
 shape = SubResource("BoxShape3D_utsgt")
 
-[node name="HealthComponent" type="Node3D" parent="."]
-script = ExtResource("16_r1t6y")
-
-[node name="PostureComponent" type="Node3D" parent="."]
-script = ExtResource("17_egris")
-
-[node name="HitboxContainer" type="Node3D" parent="." node_paths=PackedStringArray("hitboxes")]
+[node name="HitboxContainer" type="Node3D" parent="."]
 script = ExtResource("18_bwgci")
-hitboxes = [NodePath("../Torso/Right-Arm/HitboxComponent")]
 
-[node name="SoundContainer" type="Node3D" parent="." node_paths=PackedStringArray("sounds")]
+[node name="SoundContainer" type="Node3D" parent="."]
 script = ExtResource("19_5r0nb")
-sounds = [NodePath("Block"), NodePath("Swing")]
 
 [node name="Block" type="AudioStreamPlayer3D" parent="SoundContainer"]
 stream = ExtResource("20_1vnhc")
@@ -1960,190 +1803,3 @@ grow_vertical = 2
 [node name="Crosshair" type="Control" parent="CenterContainer"]
 layout_mode = 2
 script = ExtResource("22_y3cmr")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("health_component")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -148.0
-offset_right = 150.0
-offset_bottom = -108.0
-grow_horizontal = 2
-grow_vertical = 0
-tooltip_text = "Health"
-value = 50.0
-texture_under = ExtResource("24_q1fff")
-texture_progress = ExtResource("25_183e0")
-script = ExtResource("26_fmm7p")
-health_component = NodePath("../../HealthComponent")
-
-[node name="PostureBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("posture_component")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -198.0
-offset_right = 150.0
-offset_bottom = -178.0
-grow_horizontal = 2
-grow_vertical = 0
-value = 50.0
-texture_under = SubResource("GradientTexture2D_usibg")
-texture_progress = SubResource("GradientTexture2D_lttwh")
-script = ExtResource("27_putmg")
-posture_component = NodePath("../../PostureComponent")
-
-[node name="BlockBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("blockState")]
-offset_left = 427.0
-offset_top = 558.0
-offset_right = 467.0
-offset_bottom = 598.0
-max_value = 1.0
-texture_under = ExtResource("28_bxtcj")
-texture_progress = ExtResource("29_fd5pk")
-script = ExtResource("30_ihwyu")
-blockState = NodePath("../../State Machine/BlockState")
-
-[node name="DodgeBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("dodge_state")]
-offset_left = 688.0
-offset_top = 558.0
-offset_right = 728.0
-offset_bottom = 598.0
-max_value = 1.0
-texture_under = ExtResource("31_ufb4e")
-texture_progress = ExtResource("32_fgh63")
-script = ExtResource("33_34otx")
-dodge_state = NodePath("../../State Machine/DodgeState")
-
-[node name="InventoryInterface" type="Control" parent="CanvasLayer"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("34_ne8yd")
-
-[node name="PlayerInventory" parent="CanvasLayer/InventoryInterface" instance=ExtResource("35_ikcv8")]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 50.0
-offset_bottom = 50.0
-
-[node name="EquipInventory" parent="CanvasLayer/InventoryInterface" instance=ExtResource("35_ikcv8")]
-layout_mode = 0
-offset_left = 450.0
-offset_top = 10.0
-offset_right = 490.0
-offset_bottom = 50.0
-
-[node name="Label" type="Label" parent="CanvasLayer/InventoryInterface/EquipInventory"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 7
-text = "EQUIPMENT"
-horizontal_alignment = 1
-clip_text = true
-
-[node name="ExternalInventory" parent="CanvasLayer/InventoryInterface" instance=ExtResource("35_ikcv8")]
-visible = false
-layout_mode = 0
-offset_left = 784.0
-offset_top = 89.0
-offset_right = 824.0
-offset_bottom = 129.0
-
-[node name="GrabbedSlot" parent="CanvasLayer/InventoryInterface" instance=ExtResource("36_owj6k")]
-visible = false
-modulate = Color(1, 1, 1, 0.513726)
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
-
-[node name="HotBarInventory" parent="CanvasLayer" instance=ExtResource("37_i334a")]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 430.0
-offset_bottom = 90.0
-
-[node name="NotificationContainer" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = 68.0
-offset_right = 150.0
-offset_bottom = 110.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="InteractLabel" type="Label" parent="CanvasLayer/NotificationContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "[E] を押して対話します"
-horizontal_alignment = 1
-
-[node name="Debugs" type="MarginContainer" parent="CanvasLayer"]
-offset_top = 600.0
-offset_right = 211.0
-offset_bottom = 640.0
-
-[node name="Button" type="Button" parent="CanvasLayer/Debugs"]
-layout_mode = 2
-text = "テレポートしてスポーンする"
-
-[node name="DialogueBox" type="MarginContainer" parent="CanvasLayer"]
-visible = false
-offset_left = 420.0
-offset_top = 300.0
-offset_right = 720.0
-offset_bottom = 400.0
-
-[node name="Dialogue" type="TextEdit" parent="CanvasLayer/DialogueBox"]
-layout_mode = 2
-text = "こにちは"
-placeholder_text = "Ho there"
-editable = false
-wrap_mode = 1
-
-[node name="CloseDialogue" type="Button" parent="CanvasLayer/DialogueBox/Dialogue"]
-layout_mode = 0
-offset_left = 185.0
-offset_top = 68.0
-offset_right = 301.0
-offset_bottom = 99.0
-text = "閉める"
-
-[node name="Controls" type="MarginContainer" parent="CanvasLayer"]
-offset_left = 933.0
-offset_top = 253.0
-offset_right = 1153.0
-offset_bottom = 548.0
-
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Controls"]
-layout_mode = 2
-text = "Keybinds:
-[Tab] 在庫を開く/閉じる
-[LMB] - 襲撃
-[Q] - 逃げる
-[F] パリー
-[Fを押し続ける] 防ぐ
-[Shift] 疾走
-[Space] ジャンプ/登る
-[Esc] マウスのロックを解除する
-"
-editable = false
-
-[connection signal="gui_input" from="CanvasLayer/InventoryInterface" to="CanvasLayer/InventoryInterface" method="_on_gui_input"]
-[connection signal="visibility_changed" from="CanvasLayer/InventoryInterface" to="CanvasLayer/InventoryInterface" method="_on_visibility_changed"]

@@ -1,15 +1,9 @@
+Area3D
+PlayerIdleState
 NavigationAgent3D
-HitboxContainer
-SoundContainer
 RayCast3D
 AudioStreamPlayer3D
-PostureComponent
-HealthComponent
-HurtboxComponent
 Node3D
 PlayerController
-PlayerEntity
-CharacterEntity
 AnimationPlayer
-StateMachine
 Label

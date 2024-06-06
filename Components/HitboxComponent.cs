@@ -12,9 +12,9 @@ public partial class HitboxComponent : Area3D
 
     public override void _Ready()
     {
-        AreaEntered += areaEntered;
-		AreaExited += areaExited;
-		myHurtbox = GetOwner<CharacterEntity>().characterHurtbox;
+      AreaEntered += areaEntered;
+			AreaExited += areaExited;
+			myHurtbox = GetOwner<CharacterEntity>().characterHurtbox;
     }
 
 	private void areaEntered(Node3D otherArea)

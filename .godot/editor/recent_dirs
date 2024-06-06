@@ -1,5 +1,7 @@
-res://Entity/Containers
+res://Entity
 res://Components
+res://Levels
+res://Entity/Containers
 res://States
 res://Entity/CharacterEntities
 res://Managers
@@ -7,9 +9,6 @@ res://States/PlayerState
 res://Assets/VFX
 res://Player
 res://Assets/Animations
-res://Entity
-res://Item/Items
-res://Levels
 res://Shaders
 res://Assets/Weapons
 res://Assets/Foliage

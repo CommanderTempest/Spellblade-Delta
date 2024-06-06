@@ -7,6 +7,8 @@
     // ANIMATIONS
     public const string ANIM_DEFEAT = "Defeat";
     public const string ANIM_IDLE = "Idle";
+    public const string ANIM_DASH = "Dash";
+    public const string ANIM_MOVE = "Walk";
 
     // INPUTS
     public const string INPUT_LMB = "Attack";
@@ -15,5 +17,6 @@
     public const string INPUT_MOVE_LEFT = "move_left";
     public const string INPUT_MOVE_RIGHT = "move_right";
     public const string INPUT_ATTACK = "Attack";
+    public const string INPUT_DASH = "dash";
 }
 

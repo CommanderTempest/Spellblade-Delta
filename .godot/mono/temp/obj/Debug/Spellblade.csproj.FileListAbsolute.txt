@@ -4,3 +4,15 @@ E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.AssemblyInfoI
 E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.AssemblyInfo.cs
 E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.csproj.CoreCompileInputs.cache
 E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.sourcelink.json
+E:\Godot Projects\Spellblade\.godot\mono\temp\bin\Debug\Spellblade.deps.json
+E:\Godot Projects\Spellblade\.godot\mono\temp\bin\Debug\Spellblade.runtimeconfig.json
+E:\Godot Projects\Spellblade\.godot\mono\temp\bin\Debug\Spellblade.dll
+E:\Godot Projects\Spellblade\.godot\mono\temp\bin\Debug\Spellblade.pdb
+E:\Godot Projects\Spellblade\.godot\mono\temp\bin\Debug\GodotSharp.dll
+E:\Godot Projects\Spellblade\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.csproj.Up2Date
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.dll
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\refint\Spellblade.dll
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.pdb
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\Spellblade.genruntimeconfig.cache
+E:\Godot Projects\Spellblade\.godot\mono\temp\obj\Debug\ref\Spellblade.dll
