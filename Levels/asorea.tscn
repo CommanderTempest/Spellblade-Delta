@@ -35,18 +35,18 @@
 [ext_resource type="Script" path="res://Inventory/inventory_data.gd" id="18_aph2l"]
 [ext_resource type="PackedScene" uid="uid://b6imfbq2ly2sy" path="res://Assets/Foliage/flower_purple.tscn" id="18_on7c5"]
 [ext_resource type="PackedScene" uid="uid://bxat7twckyt3k" path="res://Assets/Foliage/flower_red.tscn" id="19_wa5oj"]
-[ext_resource type="Resource" uid="uid://bed1i4bonrlq3" path="res://Item/Items/wood.tres" id="19_yoemt"]
+[ext_resource type="Resource" path="res://Item/Items/wood.tres" id="19_yoemt"]
 [ext_resource type="PackedScene" uid="uid://b05dtgfv83kn1" path="res://Assets/Foliage/flower_white.tscn" id="20_5f555"]
 [ext_resource type="Script" path="res://Inventory/slot_data.gd" id="20_7x2bb"]
-[ext_resource type="PackedScene" uid="uid://p1bvtvyb1g55" path="res://Item/PickUp/pick_up.tscn" id="21_rl6h6"]
+[ext_resource type="PackedScene" path="res://Item/PickUp/pick_up.tscn" id="21_rl6h6"]
 [ext_resource type="PackedScene" uid="uid://crdty6xf3u0q6" path="res://Assets/Foliage/pink_flower.tscn" id="21_smgaq"]
 [ext_resource type="PackedScene" uid="uid://bl0wr3f8cc011" path="res://Assets/Foliage/yellow_flower.tscn" id="22_4sibr"]
 [ext_resource type="Script" path="res://Levels/DeathHitbox.gd" id="22_ggqxf"]
 [ext_resource type="PackedScene" uid="uid://c3nnklu8rjlka" path="res://Assets/Foliage/berry_bush.tscn" id="23_eywit"]
 [ext_resource type="PackedScene" uid="uid://dh216tlmmcqco" path="res://Assets/Foliage/campfire.tscn" id="24_0k2b7"]
 [ext_resource type="PackedScene" uid="uid://22t81b0h1eu8" path="res://Assets/Foliage/bush.tscn" id="25_notso"]
-[ext_resource type="Resource" uid="uid://bfqc47261k46x" path="res://Item/Items/health_potion.tres" id="40_l8ym6"]
-[ext_resource type="Resource" uid="uid://hrvpqc5a8lj3" path="res://Item/Items/iron_shield.tres" id="43_25ua8"]
+[ext_resource type="Resource" path="res://Item/Items/health_potion.tres" id="40_l8ym6"]
+[ext_resource type="Resource" path="res://Item/Items/iron_shield.tres" id="43_25ua8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7dey"]
 sky_top_color = Color(0.47451, 0.45098, 0.337255, 1)
@@ -2217,6 +2217,9 @@ transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, 
 
 [node name="Bandit2" parent="NavigationRegion3D/Camp" instance=ExtResource("10_6rjhq")]
 transform = Transform3D(0.29051, 0, 0.52498, 0, 0.6, 0, -0.52498, 0, 0.29051, 28.1041, 0, 27.4897)
+
+[node name="Head" parent="NavigationRegion3D/Camp/Bandit2/Torso" index="0"]
+transform = Transform3D(-1, 0, -0.000502737, 0, 1, 0, 0.000502737, 0, -1, 0, 0.75, 0)
 
 [node name="GreenTent" parent="NavigationRegion3D/Camp" instance=ExtResource("11_on8w4")]
 transform = Transform3D(0.354041, 0, -0.186159, 0, 0.4, 0, 0.186159, 0, 0.354041, 31.4695, 0.970353, -8.73646)

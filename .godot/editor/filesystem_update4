@@ -28,3 +28,9 @@ res://States/PlayerState/PlayerIdleState.cs
 res://States/PlayerState/PlayerMoveState.cs
 res://States/PlayerState/PlayerState.cs
 res://States/StateMachine.cs
+res://Entity/AttackHitbox.cs
+res://Levels/sandbox.tscn
+res://humanoid.tscn
+res://Levels/asorea.tscn
+res://Assets/Foliage/grass2.tscn
+res://Player/Player2.tscn

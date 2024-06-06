@@ -15,10 +15,6 @@ run/main_scene="res://Levels/sandbox.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-PlayerManager="*res://Player/PlayerManager.gd"
-
 [dotnet]
 
 project/assembly_name="Spellblade"

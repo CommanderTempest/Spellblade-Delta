@@ -27,38 +27,31 @@ public partial class CharacterEntity : BaseEntity
 	// [Export] protected SoundContainer soundContainer = new SoundContainer();
 
 	[ExportGroup("Character Variables")]
-	[Export(PropertyHint.Range, "0,20,0.1")] public float speed = 2.0f;
+	[Export(PropertyHint.Range, "0,20,0.1")] public float speed = 10f;
 	
 
 	[ExportGroup("Detectors")]
 	[Export] public RayCast3D climbDetector;
 
 	public Vector3 direction = new();
-	protected float fallMultiplier = 2f;
-	private float gravity = 9.8f;
+	public float fallMultiplier = 2f;
+	public float gravity = 9.8f;
 	
+	public override void _Ready()
+	{
+		HurtboxNode.AreaEntered += HandleHurtboxEntered;
+	}
 
-    public override void _Ready()
-    {
-			HurtboxNode.AreaEntered += HandleHurtboxEntered;
-    }
+	public override void _PhysicsProcess(double delta)
+	{
+		// start playing the walk animation
+		Velocity = new(direction.X,Velocity.Y,direction.Z);
+		Velocity *= speed;
 
-    public override void _PhysicsProcess(double delta)
-    {
-			if (!IsOnFloor())
-			{
-				if (Velocity.Y >= 0) 
-				{
-					Velocity = new Vector3(direction.X, 0, direction.Z);
-					Velocity = new Vector3(Velocity.X, (float)(Velocity.Y - this.gravity * delta), Velocity.Z);
-				}
-			}
-			else {Velocity = new Vector3(Velocity.X, (float) (Velocity.Y - gravity * delta * fallMultiplier), Velocity.Z);}
-		
-			MoveAndSlide();
-    }
+		MoveAndSlide();
+	}
 
-	public StatResource GetStatResource(Stat stat)
+    public StatResource GetStatResource(Stat stat)
 	{
 		return stats.Where((element) => element.StatType == stat).FirstOrDefault();
 	}

@@ -1,5 +1,7 @@
-Area3D
 PlayerIdleState
+PlayerMoveState
+PlayerDashState
+Area3D
 NavigationAgent3D
 RayCast3D
 AudioStreamPlayer3D

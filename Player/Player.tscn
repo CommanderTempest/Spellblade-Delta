@@ -1,7 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://dner4ijtjpd1e"]
+[gd_scene load_steps=38 format=3 uid="uid://dner4ijtjpd1e"]
 
 [ext_resource type="Script" path="res://Entity/CharacterEntities/PlayerEntity.cs" id="1_s80pp"]
 [ext_resource type="Script" path="res://Entity/AttackHitbox.cs" id="2_djhsg"]
+[ext_resource type="Script" path="res://Resources/StatResource.cs" id="2_otw23"]
 [ext_resource type="PackedScene" uid="uid://dl025r2sxaomt" path="res://Assets/Weapons/Katana.glb" id="3_fskbw"]
 [ext_resource type="PackedScene" uid="uid://1fgicxooagjh" path="res://Player/camera_mount.tscn" id="4_anf6k"]
 [ext_resource type="Script" path="res://States/StateMachine.cs" id="6_bflxe"]
@@ -13,6 +14,11 @@
 [ext_resource type="AudioStream" uid="uid://c6x0hbovpaphe" path="res://Assets/SFX/Parry.mp3" id="20_1vnhc"]
 [ext_resource type="AudioStream" uid="uid://dtbt2p2uq2ry3" path="res://Assets/SFX/swing.mp3" id="21_sglu0"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="22_y3cmr"]
+
+[sub_resource type="Resource" id="Resource_vnt33"]
+script = ExtResource("2_otw23")
+StatType = 0
+StatValue = 100.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rhw0l"]
 size = Vector3(2.1, 2.6, 0.5)
@@ -1685,26 +1691,44 @@ tracks/4/keys = {
 "values": [Vector3(1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_bsajh"]
+resource_name = "Dash"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_fbwwp"]
+resource_name = "Walk"
+loop_mode = 1
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o6628"]
 _data = {
 "Attack1": SubResource("Animation_ieplv"),
 "Attack2": SubResource("Animation_bt05f"),
 "Attack3": SubResource("Animation_2ohxq"),
 "Climb": SubResource("Animation_yjsn5"),
+"Dash": SubResource("Animation_bsajh"),
 "Defeat": SubResource("Animation_ali8j"),
 "Dodge": SubResource("Animation_a03rr"),
 "HoldBlock": SubResource("Animation_yhjnr"),
 "Idling": SubResource("Animation_qvdfs"),
 "Parry": SubResource("Animation_bnepy"),
 "RESET": SubResource("Animation_faaa1"),
-"Stunned": SubResource("Animation_srijr")
+"Stunned": SubResource("Animation_srijr"),
+"Walk": SubResource("Animation_fbwwp")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_utsgt"]
 size = Vector3(2.1, 2.6, 1.5)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("StateMachineNode", "AnimPlayerNode", "HitboxNode", "HurtboxNode", "HitboxShapeNode", "characterHurtbox", "climbDetector")]
 script = ExtResource("1_s80pp")
+stats = Array[Object]([SubResource("Resource_vnt33")])
+StateMachineNode = NodePath("State Machine")
+AnimPlayerNode = NodePath("AnimationPlayer")
+HitboxNode = NodePath("Torso/Right-Arm/HitboxComponent")
+HurtboxNode = NodePath("HurtboxComponent")
+HitboxShapeNode = NodePath("Torso/Right-Arm/HitboxComponent/CollisionShape3D")
+characterHurtbox = NodePath("HurtboxComponent")
+climbDetector = NodePath("ClimbDetection")
 
 [node name="Hitbox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0246365, 1.29553, -0.00361711)
