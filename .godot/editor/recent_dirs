@@ -1,3 +1,4 @@
+res://
 res://Entity
 res://Components
 res://Levels
@@ -16,6 +17,5 @@ res://Assets/Characters
 res://Assets/BanditCamp
 res://Inventory
 res://Item
-res://
 res://Assets
 res://Textures
