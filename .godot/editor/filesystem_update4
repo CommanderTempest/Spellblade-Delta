@@ -29,3 +29,4 @@ res://Entity/CharacterEntities/PlayerEntity.cs
 res://Components/HurtboxComponent.cs
 res://Weapons/SWeapon.cs
 res://Player/camera_mount.tscn
+res://States/PlayerState/PlayerAttackState.cs

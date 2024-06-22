@@ -11,7 +11,10 @@ public partial class PlayerIdleState : PlayerState
 
     public override void _Input(InputEvent @event)
     {
-      CheckForAttackInput();
+      if (Input.IsActionJustPressed(GameConstants.INPUT_ATTACK))
+      {
+        characterNode.StateMachineNode.SwitchState<PlayerAttackState>();
+      }
     }
 
     protected override void EnterState()
@@ -19,10 +22,5 @@ public partial class PlayerIdleState : PlayerState
       characterNode.AnimPlayerNode.Play(GameConstants.ANIM_IDLE);
       //GD.Print("Spam entering Idle State");
       //characterNode.Velocity = Vector3.Zero;
-    }
-
-    private void CheckForAttackInput()
-    {
-      
     }
 }

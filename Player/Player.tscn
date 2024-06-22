@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dner4ijtjpd1e"]
+[gd_scene load_steps=39 format=3 uid="uid://dner4ijtjpd1e"]
 
 [ext_resource type="Script" path="res://Entity/CharacterEntities/PlayerEntity.cs" id="1_s80pp"]
 [ext_resource type="Script" path="res://Entity/AttackHitbox.cs" id="2_djhsg"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://States/StateMachine.cs" id="6_bflxe"]
 [ext_resource type="PackedScene" uid="uid://2ntw6iqjxwfh" path="res://Assets/VFX/slashes.tscn" id="6_psjdq"]
 [ext_resource type="Script" path="res://States/PlayerState/PlayerIdleState.cs" id="7_k7ypy"]
+[ext_resource type="Script" path="res://States/PlayerState/PlayerAttackState.cs" id="9_pssrh"]
 [ext_resource type="Script" path="res://Components/HurtboxComponent.cs" id="15_t3wg0"]
 [ext_resource type="Script" path="res://Entity/Containers/HitboxContainer.cs" id="18_bwgci"]
 [ext_resource type="Script" path="res://Entity/Containers/SoundContainer.cs" id="19_5r0nb"]
@@ -1794,10 +1795,19 @@ target_position = Vector3(0, 0, -2)
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("currentState", "states")]
 script = ExtResource("6_bflxe")
 currentState = NodePath("PlayerIdleState")
-states = [NodePath("PlayerIdleState")]
+states = [NodePath("PlayerIdleState"), NodePath("PlayerAttackState")]
 
 [node name="PlayerIdleState" type="Node" parent="State Machine"]
 script = ExtResource("7_k7ypy")
+
+[node name="PlayerAttackState" type="Node" parent="State Machine" node_paths=PackedStringArray("comboTimerNode")]
+script = ExtResource("9_pssrh")
+comboTimerNode = NodePath("ComboTimer")
+
+[node name="ComboTimer" type="Timer" parent="State Machine/PlayerAttackState"]
+process_mode = 3
+wait_time = 1.5
+one_shot = true
 
 [node name="HurtboxComponent" type="Area3D" parent="."]
 script = ExtResource("15_t3wg0")

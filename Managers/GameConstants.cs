@@ -1,4 +1,6 @@
-﻿public class GameConstants
+﻿using System;
+
+public class GameConstants
 {
     // Notifications
     public const int NOTIFICATION_ENTER_STATE = 5001;
@@ -9,6 +11,7 @@
     public const string ANIM_IDLE = "Idling";
     public const string ANIM_DASH = "Dash";
     public const string ANIM_MOVE = "Walk";
+    public const string ANIM_ATTACK = "Attack";
 
     // INPUTS
     public const string INPUT_LMB = "attack";

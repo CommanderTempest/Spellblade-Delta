@@ -29,16 +29,7 @@ public partial class PlayerEntity : CharacterEntity
 			if (Input.MouseMode == Input.MouseModeEnum.Visible) {Input.MouseMode = Input.MouseModeEnum.Captured;}
 			else {Input.MouseMode = Input.MouseModeEnum.Visible;}
 		}
-		
-		Vector2 inputDirection = Input.GetVector(
-			GameConstants.INPUT_MOVE_LEFT,
-			GameConstants.INPUT_MOVE_RIGHT,
-			GameConstants.INPUT_MOVE_FORWARD,
-			GameConstants.INPUT_MOVE_BACK
-		);
-		direction = this.Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y).Normalized();
-
-		if (Input.IsActionJustPressed(GameConstants.INPUT_DASH)) 
+		else if (Input.IsActionJustPressed(GameConstants.INPUT_DASH)) 
     {
       this.speed *= 2;
 			// play the sprint/dash animation
@@ -48,6 +39,17 @@ public partial class PlayerEntity : CharacterEntity
 			this.speed /= 2;
 			// stop playing sprint/dash, start playing idle
 		}
+
+		
+		Vector2 inputDirection = Input.GetVector(
+			GameConstants.INPUT_MOVE_LEFT,
+			GameConstants.INPUT_MOVE_RIGHT,
+			GameConstants.INPUT_MOVE_FORWARD,
+			GameConstants.INPUT_MOVE_BACK
+		);
+		direction = this.Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y).Normalized();
+
+		
 	}
 
 	private void ProcessCameraMovement(InputEventMouseMotion inputEvent)
