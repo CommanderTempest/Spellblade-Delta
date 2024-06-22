@@ -744,6 +744,10 @@ tracks/10/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0.344336, 5.45175e-09, 3.13518e-08), Vector3(0.715358, 2.83907e-08, 7.59607e-08)]
 }
 
+[sub_resource type="Animation" id="Animation_bsajh"]
+resource_name = "Dash"
+loop_mode = 1
+
 [sub_resource type="Animation" id="Animation_ali8j"]
 resource_name = "Defeat"
 tracks/0/type = "value"
@@ -1691,10 +1695,6 @@ tracks/4/keys = {
 "values": [Vector3(1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_bsajh"]
-resource_name = "Dash"
-loop_mode = 1
-
 [sub_resource type="Animation" id="Animation_fbwwp"]
 resource_name = "Walk"
 loop_mode = 1
@@ -1719,8 +1719,9 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_utsgt"]
 size = Vector3(2.1, 2.6, 1.5)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("StateMachineNode", "AnimPlayerNode", "HitboxNode", "HurtboxNode", "HitboxShapeNode", "characterHurtbox", "climbDetector")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraMount", "StateMachineNode", "AnimPlayerNode", "HitboxNode", "HurtboxNode", "HitboxShapeNode", "characterHurtbox", "climbDetector")]
 script = ExtResource("1_s80pp")
+cameraMount = NodePath("CameraMount")
 stats = Array[Object]([SubResource("Resource_vnt33")])
 StateMachineNode = NodePath("State Machine")
 AnimPlayerNode = NodePath("AnimationPlayer")
