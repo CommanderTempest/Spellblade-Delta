@@ -13,6 +13,8 @@ public partial class PlayerAttackState : PlayerState
   {
     base._Ready();
     comboTimerNode.Timeout += () => {combo = 1;};
+
+    // perhaps get a max combo off of the currently equipped weapon in the equipped container in the future?
   }
 
   protected override void EnterState()
